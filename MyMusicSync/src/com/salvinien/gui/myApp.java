@@ -4,32 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import javax.swing.border.Border;
 
 
 
-public class myApp implements ActionListener, ItemListener
+public class myApp implements ActionListener
 {
 	 //technical members
 	protected JFrame mainFrame; 
-	 //temp
-	 JTextArea output;
-	 JScrollPane scrollPane;
-	 String newline = "\n";
 
 		//	 Actions Event
 	private final static int AE_NEW_DEVICE = 1;
@@ -92,21 +82,20 @@ public class myApp implements ActionListener, ItemListener
 	        //Create the content-pane-to-be.
 	        JPanel contentPane = new JPanel(new BorderLayout());
 	        //contentPane.setOpaque(true);
-	        BoxLayout l1= new BoxLayout(contentPane, BoxLayout.PAGE_AXIS);
+	        BoxLayout l1= new BoxLayout(contentPane, BoxLayout.LINE_AXIS);
 	        contentPane.setLayout(l1);
 
-	        
+
+	        //SONGS ZONE
 	        jtreeRootPanel jt = new jtreeRootPanel();
-	        contentPane.add(jt.createPanel(), BorderLayout.NORTH);
+	        contentPane.add(jt, BorderLayout.WEST);
 		        
 	        
-	        //Create a scrolled text area.
-	        output = new JTextArea(5, 30);
-	        output.setEditable(false);
-	        scrollPane = new JScrollPane(output);
-
-	        //Add the text area to the content pane.
-	        contentPane.add(scrollPane, BorderLayout.CENTER);
+	        //INFO ZONE
+	        infoPanel infoP = new infoPanel (); 
+	        contentPane.add(infoP, BorderLayout.CENTER);
+	        
+	        //DEVICES ZONES
 	        
 	        
 	        
@@ -132,7 +121,7 @@ public class myApp implements ActionListener, ItemListener
 	        		System.out.print(actionNumber);
 	        }
 
-	        JMenuItem source = (JMenuItem)(e.getSource());
+/*	        JMenuItem source = (JMenuItem)(e.getSource());
 	        String s = "Action event detected."
 	        		   + s1
 	                   + newline
@@ -140,32 +129,9 @@ public class myApp implements ActionListener, ItemListener
 	                   + " (an instance of " + getClassName(source) + ")";
 	        output.append(s + newline);
 	        output.setCaretPosition(output.getDocument().getLength());
-	        
-	    }
-
-	    public void itemStateChanged(ItemEvent e) 
-	    {
-	    		    	
-	        JMenuItem source = (JMenuItem)(e.getSource());
-	        String s = "Item event detected."
-	                   + newline
-	                   + "    Event source: " + source.getText()
-	                   + " (an instance of " + getClassName(source) + ")"
-	                   + newline
-	                   + "    New state: "
-	                   + ((e.getStateChange() == ItemEvent.SELECTED) ?
-	                     "selected":"unselected");
-	        output.append(s + newline);
-	        output.setCaretPosition(output.getDocument().getLength());
-	 
-	    
-/*	        if( source.getText().equals(useMetronome))
-	        {
-	        	boolean flag =(e.getStateChange() == ItemEvent.SELECTED) ? true:false;
-	        	theBand.getMetronome().setOnOff( flag);
-	        }
 */	        
 	    }
+
 
 	    // Returns just the class name -- no package info.
 	    protected String getClassName(Object o) 

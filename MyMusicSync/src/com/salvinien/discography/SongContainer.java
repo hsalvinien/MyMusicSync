@@ -78,6 +78,86 @@ public class SongContainer
 	
 	
 	//Methods
+	
+	public int getNbOfAlbums( int artistID) 
+	{
+		int nb=0;
+		
+	
+		try
+		{
+			nb = getNbOfAlbumsFromDB( artistID);
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return nb;
+	}
+	public int getNbOfSongs( int artistID) 
+	{
+		int nb=0;
+		
+	
+		try
+		{
+			nb = getNbOfSongsFromDB( artistID);
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return nb;
+	}
+	
+	protected int getNbOfAlbumsFromDB( int artistID) throws SQLException
+	{
+		int nb=0;
+		
+		String Query= " SELECT count(distinct AlbumID) FROM "+containerTableName +" where AlbumID <> 1 and ArtistID = "+ String.valueOf(artistID);
+		ResultSet rs = MyDatabase.getSingleton().executeQuery(Query);
+		
+		
+	    //Extract data from result set
+		while(rs.next())
+		{
+		    //Retrieve by column name
+		    nb= rs.getInt(1);
+		}
+	    //Clean-up environment
+	    rs.close();	     
+		
+	    return nb;
+	}
+
+	protected int getNbOfSongsFromDB( int artistID) throws SQLException
+	{
+		int nb=0;
+		
+		String Query= " SELECT count(*) FROM "+containerTableName +" where ArtistID = "+ String.valueOf(artistID);
+		ResultSet rs = MyDatabase.getSingleton().executeQuery(Query);
+		
+		
+	    //Extract data from result set
+		while(rs.next())
+		{
+		    //Retrieve by column name
+		    nb= rs.getInt(1);
+		}
+	    //Clean-up environment
+	    rs.close();	     
+		
+	    return nb;
+	}
+
+	
+	
 	protected void loadFromDB() throws ParseException, SQLException
 	{
 		String Query= " SELECT * FROM "+containerTableName;

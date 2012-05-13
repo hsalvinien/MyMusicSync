@@ -124,7 +124,7 @@ public class startPoint
 		aTask.sync();
 				
 		//11) close databases
-		aDatabase.close();
+		//aDatabase.close();
 
 		
 

@@ -67,7 +67,7 @@ public class dataModel
 					"Name VARCHAR(90))";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
-		aQuery 	= 	"CREATE TABLE Albums (" +
+		aQuery 	= 	"CREATE TABLE Albums (" +						//@TODO =>my mistake, this is not possible because two artits may have both an album with the same name !
 					"ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					"Name VARCHAR(90))";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);

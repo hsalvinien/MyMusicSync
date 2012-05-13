@@ -21,8 +21,14 @@ import com.salvinien.discography.SongContainer;
 
 
 
-public class jtreeRootPanel
+public class jtreeRootPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= -241649931338575086L;
+
+
 	class nodeAlbum
 	{
 		DefaultMutableTreeNode node;
@@ -70,6 +76,8 @@ public class jtreeRootPanel
 	{
 
 	    containerArtist = new HashMap< Integer, nodeArtist>();
+	    
+	    createPanel();
 	}
 	
 	  
@@ -116,14 +124,13 @@ public class jtreeRootPanel
 	}
 
 	  	
-      public JPanel createPanel()
+      private void createPanel()
       {
-          JPanel panelForm = new JPanel();
           
           Border boxForm =BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("My music"), BorderFactory.createEmptyBorder(5,5,5,5)); 
-          panelForm.setBorder( boxForm);
-          BoxLayout l1= new BoxLayout(panelForm, BoxLayout.PAGE_AXIS);
-          panelForm.setLayout(l1);
+          this.setBorder( boxForm);
+          BoxLayout l1= new BoxLayout(this, BoxLayout.PAGE_AXIS);
+          this.setLayout(l1);
            
        	  
 	      JTree tree2 = new JTree(root);
@@ -159,11 +166,8 @@ public class jtreeRootPanel
 	      renderer2.setLeafIcon(null);
 	      tree2.setCellRenderer(renderer2);
 	      JScrollPane pane2 = new JScrollPane(tree2);
-	      panelForm.add(pane2);
+	      this.add(pane2);
        	  
-       	  
-       	  
-          return panelForm;
       }
 
 }
