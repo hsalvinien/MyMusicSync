@@ -1,0 +1,1 @@
+..\..\SqlLite\sqlite3.exe myMusic.db
