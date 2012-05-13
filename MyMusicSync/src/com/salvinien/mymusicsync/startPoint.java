@@ -58,7 +58,7 @@ public class startPoint
 		
 		//1) connection to database
 		//1.1) open database. If database doesn't exists, create it
-		MyDatabase aDatabase = MyDatabase.getSingleton();
+		MyDatabase.getSingleton();
 		
 		//1.2) if database has just been created then init the database with the needed tables
 		dataModel.getSingleton().checkDatabase();
@@ -123,8 +123,6 @@ public class startPoint
 		
 		aTask.sync();
 				
-		//11) close databases
-		//aDatabase.close();
 
 		
 

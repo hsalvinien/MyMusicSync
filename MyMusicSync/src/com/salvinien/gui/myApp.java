@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -14,22 +16,63 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import com.salvinien.database.MyDatabase;
 
 
-public class myApp implements ActionListener
+
+public class myApp extends JFrame implements ActionListener
 {
-	 //technical members
-	protected JFrame mainFrame; 
+	private static final long	serialVersionUID	= -1008495897396933252L;
+
 
 		//	 Actions Event
 	private final static int AE_NEW_DEVICE = 1;
 
 	public myApp()
 	{		
+		
+		addWindowCallbacks();
 	}
 
 	
+
 	
+	private void addWindowCallbacks()
+	{
+		addWindowListener(new WindowListener() 
+		{
+            public void windowClosed(WindowEvent arg0) 
+            {
+                System.out.println("Window close event occur");
+            }
+            public void windowActivated(WindowEvent arg0) 
+            {
+                //call each time the window is activated
+            }
+            public void windowClosing(WindowEvent arg0) 
+            {
+            	//call each time the window is Closing"
+            	CLEANEXIT();
+            }
+            public void windowDeactivated(WindowEvent arg0) 
+            {
+            	//call each time the window is Deactivated
+            }
+            public void windowDeiconified(WindowEvent arg0) 
+            {
+            	//call each time the window is Deiconified
+            }
+            public void windowIconified(WindowEvent arg0) 
+            {
+            	//call each time the window is Iconified
+            }
+            public void windowOpened(WindowEvent arg0) 
+            {
+            	//call each time the window is Opened
+            }
+        });
+	}
+
 	
 	private JMenu createMenuFile()
 	{
@@ -70,7 +113,8 @@ public class myApp implements ActionListener
 		menuBar.add(menu);
 		
 				
-		mainFrame.setJMenuBar(menuBar);
+		//mainFrame.setJMenuBar(menuBar);
+		this.setJMenuBar(menuBar);
 	}
 		
 
@@ -153,20 +197,28 @@ public class myApp implements ActionListener
     public void createAndShowGUI() 
     {
         //Create and set up the window.
-    	mainFrame = new JFrame("My MuZic Synchronizer");
-    	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	//mainFrame = new JFrame("My MuZic Synchronizer");
+    	this.setTitle("My MuZic Synchronizer");
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //create menus
         createMenus();
         
   
-        mainFrame.setContentPane(createContentPane());
+        this.setContentPane(createContentPane());
 
         //Display the window.
-        mainFrame.setSize(450, 260);
-        mainFrame.setVisible(true);
-
+        this.setSize(450, 260);
+        this.setVisible(true);
     }
 
+    
+    private void CLEANEXIT()
+    {
+    	MyDatabase.getSingleton().close();
+    	
+    	dispose();
+        System.exit(0); 
+    }
 	 
 }
