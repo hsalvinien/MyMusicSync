@@ -1,6 +1,7 @@
 package com.salvinien.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -9,11 +10,14 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
+import javax.swing.table.TableColumn;
 
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceContainer;
+import com.salvinien.mymusicsync.Libelle;
 import com.salvinien.playlists.PlaylistNamesContainer;
 
 
@@ -50,46 +54,15 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	
 	protected void refreshInfoDevice()
 	{
-		Vector<Vector<String>>rowData = null;//new Vector<Vector<String>>(); 
-
 		
-		if( theDeviceTable==null)//first time call
-		{
-			Vector<String>Titles = new Vector<String>();
-			Titles.add("Sync List Name"); Titles.add("Target"); Titles.add("# of Songs");			
-			
-			if( selectedDevice == null)
-			{
-				rowData = new Vector<Vector<String>>(); 
-
-				Vector< String> aRow= new Vector< String>();
-				aRow.add("");
-				aRow.add("");
-				aRow.add("");
-				
-				rowData.add(aRow);
-			}
-			
-			theDeviceTable = new JTable( rowData, Titles);
-			theDeviceListPanel.add(theDeviceTable, BorderLayout.CENTER);
-			
-		}
-		else
-		{
-			if( selectedDevice != null)
-			{
-				theDeviceTable.setValueAt(selectedDevice.getDeviceName(), 0, 0);
-				theDeviceTable.setValueAt(selectedDevice.getDefaultPath(), 0, 1);
-				int id = selectedDevice.getPlaylistId();
-				theDeviceTable.setValueAt(PlaylistNamesContainer.getSingleton().getLibelle(id), 0, 2);
-			}
-		}
+		if( selectedDevice == null) return;
 		
-		
-		//"DefaultPath   VARCHAR(256), " +
-		//"DeviceType   INTEGER, " +
-		//"PlaylistId INTEGER)";
-		
+		theDeviceTable.setValueAt(selectedDevice.getDeviceName(), 0, 0);
+		theDeviceTable.setValueAt(selectedDevice.getDefaultPath(), 0, 1);
+		int id = selectedDevice.getPlaylistId();
+		Libelle s = PlaylistNamesContainer.getSingleton().getLibelle(id);
+		theDeviceTable.setValueAt(s.getName(), 0, 2);	
+	
 	}
 	
 	protected JPanel createDeviceListPanel()
@@ -97,13 +70,31 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		theDeviceListPanel = new JPanel();
         BoxLayout l1= new BoxLayout(theDeviceListPanel, BoxLayout.PAGE_AXIS);
         theDeviceListPanel.setLayout(l1);
-		
+	
+        //the comboBox
 		JComboBox<String> jC = new JComboBox<String>( DeviceContainer.getSingleton().getDevices());
 		jC.setActionCommand(String.valueOf(JC_DEVICE));
 		jC.addActionListener(this);
+		jC.setMaximumSize(new Dimension(800, 20));
 		theDeviceListPanel.add(jC, BorderLayout.NORTH);
 		
-		refreshInfoDevice();
+		//the table
+		Vector<String>Titles = new Vector<String>();
+		Titles.add("Sync List Name"); Titles.add("Target"); Titles.add("# of Songs");			
+
+		Vector<Vector<String>>rowData = new Vector<Vector<String>>(); 
+
+		Vector< String> aRow= new Vector< String>();
+		aRow.add("");
+		aRow.add("");
+		aRow.add("");
+			
+		rowData.add(aRow);
+		
+		theDeviceTable = new JTable( rowData, Titles);
+		JScrollPane aPanel = new JScrollPane( theDeviceTable);
+		theDeviceListPanel.add(aPanel, BorderLayout.CENTER);
+		
 		
 		return theDeviceListPanel;
 	}

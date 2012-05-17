@@ -10,7 +10,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.SongContainer;
@@ -73,7 +76,25 @@ public class infoPanel extends JPanel
 		}
 		
 		JTable table = new JTable( rowData, Titles);
+		//fixes the size of some columns and center the display in the column
+		 DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();    
+	     dtcr.setHorizontalAlignment(SwingConstants.CENTER);  
+
+		TableColumn column = table.getColumnModel().getColumn(2);
+		int width = 70;
+		column.setPreferredWidth(width);	//fixes the column size
+		column.setMaxWidth(width);
+		column.setWidth(width);
+		column.setCellRenderer(dtcr);  //centering the text  
+		
+		column = table.getColumnModel().getColumn(1);
+		width = 75;
+		column.setPreferredWidth(width); //fixes the column size
+		column.setMaxWidth(width);
+		column.setWidth(width);
+		column.setCellRenderer(dtcr);  //centering the text  
 	    
+		//creates a panel and add the table
 	    aPanel = new JScrollPane( table);
         
 	    Border boxForm =BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Artists"), BorderFactory.createEmptyBorder(5,5,5,5)); 
