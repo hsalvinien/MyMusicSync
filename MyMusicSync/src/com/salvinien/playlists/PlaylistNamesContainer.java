@@ -10,7 +10,7 @@ public class PlaylistNamesContainer extends LibelleContainer
 	//CTOR
 	protected PlaylistNamesContainer() 
 	{
-		super( "PlaylistNames");
+		super( "SynclistNames");
 	}
 
 	

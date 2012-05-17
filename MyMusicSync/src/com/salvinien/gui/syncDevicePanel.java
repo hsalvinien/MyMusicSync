@@ -13,11 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
-import javax.swing.table.TableColumn;
+import javax.swing.table.DefaultTableModel;
 
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceContainer;
+import com.salvinien.mymusicsync.DeviceSyncList;
 import com.salvinien.mymusicsync.Libelle;
+import com.salvinien.playlists.Playlist;
+import com.salvinien.playlists.PlaylistContainer;
 import com.salvinien.playlists.PlaylistNamesContainer;
 
 
@@ -57,12 +60,30 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		
 		if( selectedDevice == null) return;
 		
-		theDeviceTable.setValueAt(selectedDevice.getDeviceName(), 0, 0);
-		theDeviceTable.setValueAt(selectedDevice.getDefaultPath(), 0, 1);
-		int id = selectedDevice.getPlaylistId();
-		Libelle s = PlaylistNamesContainer.getSingleton().getLibelle(id);
-		theDeviceTable.setValueAt(s.getName(), 0, 2);	
-	
+		Vector<DeviceSyncList> v = selectedDevice.getDeviceSyncLis();
+		
+		//1) remove all previous data
+		DefaultTableModel dm = (DefaultTableModel)theDeviceTable.getModel();
+		dm.getDataVector().removeAllElements();
+		
+		for( int i = 0; i< v.size(); i++)
+		{
+			Vector<String> row = new Vector<String>();
+
+			int anId = v.get(i).getPlaylistId();
+			
+			Playlist aPlaylist = PlaylistContainer.getSingleton().getPlaylist(anId);
+			String name = aPlaylist.getName();
+			row.add( name);
+			
+			row.add( v.get(i).getDefaultPath());
+			int nb = aPlaylist.getSize();
+			String s= String.valueOf(nb);
+			row.add( s);
+			
+			dm.addRow(row);
+		}
+			
 	}
 	
 	protected JPanel createDeviceListPanel()

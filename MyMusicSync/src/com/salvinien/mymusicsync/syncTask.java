@@ -10,17 +10,19 @@ import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
 import com.salvinien.playlists.Playlist;
+import com.salvinien.playlists.PlaylistContainer;
 
 public class syncTask
 {
-	protected Device theDevice;
 	protected Playlist thePlaylist;
+	protected DeviceSyncList theDeviceSyncList;
 	
 	//Ctors
-	public syncTask( Device aDevice, Playlist aPlaylist)
+	public syncTask( Device aDevice, DeviceSyncList aDeviceSyncList)
 	{
-		theDevice = aDevice;
-		thePlaylist = aPlaylist; 
+		theDeviceSyncList = aDeviceSyncList;
+
+		thePlaylist =  PlaylistContainer.getSingleton().getPlaylist( aDeviceSyncList.getPlaylistId());
 	}
 	
 	
@@ -32,30 +34,21 @@ public class syncTask
 		//1) loads the song from the device file system
 		HashMap<String, Song> deviceSongs = loadSongFromDevice();
 
-		
-		
 		//2) are they Songs in the device which are not in the playslist?
 		songInDeviceNotInPlaylist(deviceSongs);
-	
-	
-	
-	
 	
 		//3) are they songs in the playlist which are not in the devices or songs which newer in the root than in the device 
 		songInPlaylistNotInDevice( deviceSongs); 
 
-		
-		
 		//4) are they songs which are newer in the device than in the root, if it is the case we should update the root 
 		songNewerInDeviceThanInPlaylist( deviceSongs) ;
-	
 	}
 
 
 
 	protected HashMap<String, Song> loadSongFromDevice() 
 	{
-		FsDir rDevice = new FsDir( theDevice.getDefaultPath(),"");
+		FsDir rDevice = new FsDir( theDeviceSyncList.getDefaultPath(),"");
 		rDevice.loadChild();
 			//hashmap of songs which are on the device
 		HashMap<String, Song> deviceSongs = new FileSongContainer( rDevice).getContainerFileName();
@@ -98,7 +91,7 @@ public class syncTask
 			//COPY THE SONG from root to device
 			try
 			{
-				aSong.copy(Parameters.getSingleton().getRoot(), theDevice.getDefaultPath());
+				aSong.copy(Parameters.getSingleton().getRoot(), theDeviceSyncList.getDefaultPath());
 			}
 			catch (IOException e) { e.printStackTrace();}
 		}

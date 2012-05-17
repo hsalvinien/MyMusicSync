@@ -89,11 +89,11 @@ public class DeviceContainer
 		    //Retrieve by column name
 			int id  = rs.getInt("DeviceID");
 		    String name = rs.getString("DeviceName");
-		    String defaultPath  = rs.getString("DefaultPath");
 		    int DeviceType  = rs.getInt("DeviceType");
-		    int PlaylistId  = rs.getInt("PlaylistId");
 			   
-		    Device aDevice = new Device( id, name, defaultPath, DeviceType, PlaylistId);
+		    Device aDevice = new Device( id, name, DeviceType);
+		    aDevice.loadMoreFromDB();
+
 		    containerId.put(id, aDevice);
 		    containerFileName.put( name, aDevice);
 		}
@@ -109,22 +109,25 @@ public class DeviceContainer
 		
 		//insert the album in the Database
 		String aString;
-		String Query = " INSERT INTO "+containerTableName+" (DeviceName, DefaultPath, DeviceType, PlaylistId) VALUES ('";
+		String Query = " INSERT INTO "+containerTableName+" (DeviceName, DeviceType) VALUES ('";
 
 		aString = aDevice.getDeviceName(); 
 		aString = aString.replace("'", "''");
 		Query = Query + aString				+ "','";
-		aString = aDevice.getDefaultPath(); 
-		aString = aString.replace("'", "''");
+//		aString = aDevice.getDefaultPath(); 
+//		aString = aString.replace("'", "''");
 		Query = Query + aString				+ "','";
-		Query = Query + aDevice.getDeviceType()+ "','";
-		Query = Query + aDevice.getPlaylistId()+ "')";
+		Query = Query + aDevice.getDeviceType()+ "')";
 				
 		MyDatabase.getSingleton().executeSimpleQuery(Query);
 
+		
+		System.out.println(" @TODO ajouter les inserts des listes de synchro en base "+
+		" necessitera de daire le commit plus loin pour recup de l'id du device pour pouvoir faire les inserts"+
+		" en gardant la notion du point de commit/rollback");
+		
 		MyDatabase.getSingleton().commit();
 
-//		Song aSong = new Song( aSongName, aFileName, anArtistId, anAlbumId, anHashkey, aSize, aLastModification);
 		//retreive the id
 		aString = aDevice.getDeviceName(); 
 		aString = aString.replace("'", "''");
@@ -167,14 +170,14 @@ public class DeviceContainer
 		aString = aString.replace("'", "''");
 		Query = Query + " DeviceName = '" 		+ aString+ "', " ;
 
-		aString = aDevice.getDefaultPath(); 
-		aString = aString.replace("'", "''");
 		Query = Query + " DefaultPath= '" 	+ aString+ "', " ;
 		Query = Query + " DeviceType= '" 	+ aDevice.getDeviceType()+ "', " ;
-		Query = Query + " PlaylistId= '" 	+ aDevice.getPlaylistId()+ "', " ;
 		Query = Query + " where DeviceID = '"	+ aDevice.getDeviceID()+"'";
 		MyDatabase.getSingleton().executeSimpleQuery(Query);		
+
 		
+		System.out.println("@TODO : ajouter l'update sur les listes de synchros du device!!!"); 
+
 		MyDatabase.getSingleton().commit();
 
 		//remove the old song

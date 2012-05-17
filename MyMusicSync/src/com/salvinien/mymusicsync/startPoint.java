@@ -3,6 +3,8 @@ package com.salvinien.mymusicsync;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Vector;
+
 
 import com.salvinien.database.MyDatabase;
 import com.salvinien.database.dataModel;
@@ -12,7 +14,6 @@ import com.salvinien.discography.FileSongContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.playlists.Playlist;
 import com.salvinien.playlists.PlaylistContainer;
 import com.salvinien.playlists.PlaylistNamesContainer;
 import com.salvinien.gui.*;
@@ -52,8 +53,8 @@ public class startPoint
 	        System.out.println("Readable: " + f[i].canRead());
 	        System.out.println("Writable: " + f[i].canWrite());
 	      }
-
-	*/	
+*/
+		
 		
 		
 		//1) connection to database
@@ -117,13 +118,15 @@ public class startPoint
 		
 		
 		//TESTS
-		Device myDevice = DeviceContainer.getSingleton().getDevice("TestDevice");
-		Playlist myPlaylist = PlaylistContainer.getSingleton().getPlaylist( myDevice.getPlaylistId());
-		syncTask aTask = new syncTask( myDevice,myPlaylist);
+	/*	Device myDevice = DeviceContainer.getSingleton().getDevice("TestDevice");
+		Vector<DeviceSyncList> vSyncList = myDevice.getDeviceSyncLis();
+		for( int i=0; i < vSyncList.size(); i++)
+		{
+			syncTask aTask = new syncTask( myDevice,  vSyncList.get(i));
 		
-		aTask.sync();
-				
-
+			aTask.sync();
+		}		
+*/
 		
 
 	}

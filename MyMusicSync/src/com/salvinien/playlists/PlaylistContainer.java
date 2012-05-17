@@ -21,7 +21,7 @@ public class PlaylistContainer
 	{
 		//creates the physical containers
 		containerId = new HashMap< Integer, Playlist>();
-		containerTableName = "PlaylistValues";
+		containerTableName = "SynclistValues";
 		loadFromDB();
 	}
 
@@ -53,7 +53,7 @@ public class PlaylistContainer
 			while(rs.next())
 			{
 			    //Retrieve by column name
-			    int PlaylistId  = rs.getInt("PlaylistId");
+			    int PlaylistId  = rs.getInt("SynclistId");
 			    int SongId  	= rs.getInt("SongID");
 			    
 			    Playlist p = containerId.get(PlaylistId);
