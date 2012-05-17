@@ -140,10 +140,9 @@ public class myApp extends JFrame implements ActionListener
 		        
 	        
 	        //DEVICES ZONES
+	        syncDevicePanel s= new syncDevicePanel();
+	        contentPane.add(s, BorderLayout.EAST);
 	        
-	        
-	        
-
 	        return contentPane;
 	    }
 
@@ -205,7 +204,9 @@ public class myApp extends JFrame implements ActionListener
         createMenus();
         
   
-        this.setContentPane(createContentPane());
+        //main display
+        Container aContainer = createContentPane(); 
+        this.setContentPane( aContainer);
 
         //Display the window.
         this.setSize(450, 260);

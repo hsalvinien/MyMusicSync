@@ -3,7 +3,9 @@ package com.salvinien.mymusicsync;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
@@ -56,7 +58,22 @@ public class DeviceContainer
 		return containerFileName.get(aName);
 	}
 
-
+	public String[] getDevices()
+	{
+		
+		Collection<Device> aCollection = containerFileName.values();
+		String[] devices = new String[ aCollection.size()];
+		
+		int i =0;
+		Iterator<Device> it = aCollection.iterator();
+		while( it.hasNext())
+		{
+			devices[i] = it.next().getDeviceName();
+			i++;
+		}
+		
+		return devices;
+	}
 	
 	
 	//Methods

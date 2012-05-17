@@ -145,9 +145,14 @@ public class dataModel
 			
 		aQuery 	= 	"INSERT INTO PlaylistNames (Name) VALUES ( 'TestList') ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
+		
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DefaultPath, DeviceType, PlaylistId) VALUES ( 'TestDevice', 'C:\\FileSystemeE\\development\\workspace-loc\\MyMusicSync\\myMusicTest\\', 1, 3) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
+		aQuery 	= 	"INSERT INTO Devices (DeviceName, DefaultPath, DeviceType, PlaylistId) VALUES ( 'TestDevice1', 'C:\\FileSystemeE\\development\\workspace-loc\\MyMusicSync\\myMusicTest\\', 1, 3) ";
+		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
+
+		
 		aQuery 	= 	"INSERT INTO PlaylistValues (PlaylistID,SongId) VALUES ( 3,1) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		aQuery 	= 	"INSERT INTO PlaylistValues (PlaylistID,SongId) VALUES ( 3,2) ";
