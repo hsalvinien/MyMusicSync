@@ -116,19 +116,6 @@ public class startPoint
             }
         });
 		
-		
-		//TESTS
-	/*	Device myDevice = DeviceContainer.getSingleton().getDevice("TestDevice");
-		Vector<DeviceSyncList> vSyncList = myDevice.getDeviceSyncLis();
-		for( int i=0; i < vSyncList.size(); i++)
-		{
-			syncTask aTask = new syncTask( myDevice,  vSyncList.get(i));
-		
-			aTask.sync();
-		}		
-*/
-		
-
 	}
 
 }
