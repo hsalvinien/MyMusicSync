@@ -41,7 +41,16 @@ public class Converter
 		return r;
 	}
 	
-	
+	public static String int2StringKB( long a)
+	{
+		String s=null;
+		
+		a/=10000;
+		float f = a/100.0f;
+		s= String.valueOf(f)+" Mb";
+		
+		return s;
+	}
 	
 	public static String byteToString( byte[] b)
 	{

@@ -179,12 +179,16 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		Vector< String> Titles = new Vector<String>();
 		Titles.add( "Artist"); Titles.add( "Album");Titles.add( "SongFrom");Titles.add( "ActionFrom");Titles.add( "DoNothing");Titles.add( "ActionTo");Titles.add( "SongTo");Titles.add( "ModifySyncList");
 
-		Vector< Vector<String>> rowData = new Vector< Vector<String>>();
-		Vector<String> row = new Vector<String>(); 
-		row.add(" ");row.add(" ");row.add(" ");row.add(" ");row.add(" ");row.add(" ");row.add(" ");row.add(" ");	
+/*		Vector< Vector<String>> rowData = new Vector< Vector<String>>();
+		Vector<String> row = new Vector<String>(); 			
 		rowData.add(row);
 		
 		theSyncTable = new JTable( rowData, Titles);
+*/		
+		SyncSongTableModel md = new SyncSongTableModel(null);  
+		theSyncTable = new JTable( md);
+
+		
 		JScrollPane aScPanel = new JScrollPane( theSyncTable);
 		
 		aPanel.add(aScPanel);
@@ -224,6 +228,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
         	break;
         		
         	case B_SYNCHRONIZE:
+        		
         	break;
         		
         	default: //do nothing
@@ -236,7 +241,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	
 	public void displayAnalyse( SongSynchroContainer aContainer )
 	{
-		Iterator< SongSynchro> it = aContainer.iterator();
+/*		Iterator< SongSynchro> it = aContainer.iterator();
 		
 		
 		//1) remove all previous data
@@ -250,7 +255,10 @@ public class syncDevicePanel extends JPanel implements ActionListener
 			
 			dm.addRow(row);
 		}
-
+*/
+		SyncSongTableModel dm = (SyncSongTableModel) theSyncTable.getModel();
+		dm.setData(aContainer);
+		dm.fireTableDataChanged();
 		
 	}
 	

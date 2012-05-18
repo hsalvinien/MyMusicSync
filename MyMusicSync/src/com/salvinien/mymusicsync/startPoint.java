@@ -3,7 +3,6 @@ package com.salvinien.mymusicsync;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Vector;
 
 
 import com.salvinien.database.MyDatabase;
@@ -18,6 +17,7 @@ import com.salvinien.playlists.PlaylistContainer;
 import com.salvinien.playlists.PlaylistNamesContainer;
 import com.salvinien.gui.*;
 
+
 public class startPoint 
 {
 
@@ -28,6 +28,7 @@ public class startPoint
 	 */
 	public static void main(String[] args) throws IOException, SQLException 
 	{
+	
 	
 		
 /*

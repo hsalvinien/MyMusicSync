@@ -134,10 +134,6 @@ public class myApp extends JFrame implements ActionListener
 	        infoPanel infoP = new infoPanel (); 
 	        contentPane.add(infoP, BorderLayout.WEST);
 	        
-	        //SONGS ZONE
-	        jtreeRootPanel jt = new jtreeRootPanel();
-	        contentPane.add(jt, BorderLayout.CENTER);
-		        
 	        
 	        //DEVICES ZONES
 	        syncDevicePanel s= new syncDevicePanel();
