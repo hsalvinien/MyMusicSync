@@ -31,7 +31,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 
 	}
 	
-		
+	public String getTypeName()	{ return "MusicNode";}
+
 	
 	protected AlbumNode getAlbum( Song aSong)
 	{
@@ -84,11 +85,8 @@ public class MusicNode extends ADefaultMutableTreeNode
       while( it.hasNext())
       {
     	  Song aSong = it.next();
-    	  SongNode aSongNode = new SongNode(aSong);
-
-    	  AlbumNode  anAlbumNode = getAlbum( aSong);
     	  
-    	  anAlbumNode.add( aSongNode);
+    	  getAlbum( aSong);
       }
   
 	}

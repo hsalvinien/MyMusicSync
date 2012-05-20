@@ -1,10 +1,20 @@
 package com.salvinien.gui.tableTree;
 
+import java.util.HashMap;
+
+import com.salvinien.discography.Song;
+
+
 public class AlbumNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 5139317989238918397L;
 
-	public AlbumNode(String anAlbum)	{super( anAlbum);}
+	protected HashMap<Integer, SongNode> container= new HashMap<Integer, SongNode>();
+	
+	public AlbumNode(String anAlbum)	
+	{
+		super( anAlbum);
+	}
 
 	public Object getValueAt(int column)
 	{
@@ -21,5 +31,21 @@ public class AlbumNode extends ADefaultMutableTreeNode
 	}
 
 
+	public SongNode getSong( Song aSong)
+	{
+		SongNode aSongNode =null;
 
+		aSongNode = container.get( aSong.getId());
+		if( aSongNode ==null)
+		{
+			aSongNode = new SongNode( aSong);
+			container.put( aSong.getId(), aSongNode);
+			this.add( aSongNode);
+		}
+		
+		return aSongNode;
+	}
+	public String getTypeName()	{ return "Album";}
+
+	
 }

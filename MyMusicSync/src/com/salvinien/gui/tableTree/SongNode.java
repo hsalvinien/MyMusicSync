@@ -1,6 +1,7 @@
 package com.salvinien.gui.tableTree;
 
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 import com.salvinien.discography.Song;
 import com.salvinien.utils.Converter;
@@ -18,6 +19,14 @@ public class SongNode extends ADefaultMutableTreeNode
 		theSong = aSong;
 	}
 
+	public String getTypeName()	{ return "Song";}
+	
+	public void getSongIds( Vector<Integer> v)
+	{
+		v.add( theSong.getId());
+	}
+
+	
 
 	public Object getValueAt(int column)
 	{

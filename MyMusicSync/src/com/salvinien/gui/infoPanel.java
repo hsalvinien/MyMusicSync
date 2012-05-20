@@ -31,6 +31,8 @@ public class infoPanel extends JPanel
 			  AbstractTableTreeModel TTm = new SongContainerModel( root);
 			  TableTree treeTable = new TableTree(TTm);	          
 	          JScrollPane JS = new JScrollPane(treeTable );
+	          
+	          
 	          this.add( JS, BorderLayout.NORTH);
 	          
 	      }

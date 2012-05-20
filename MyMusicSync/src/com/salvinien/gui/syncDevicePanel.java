@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -41,17 +42,18 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	private static final long	serialVersionUID	= 1533245427593818182L;
 	private final static int MAX_WIDTH 		= 600;
 	public final static int JC_DEVICE 		= 1;
-	public final static int B_ANALYSIS 		= 2;
-	public final static int B_SYNCHRONIZE 	= 3;
+	public final static int B_SYNCHRONIZE	= 2;
 	
 	protected Device selectedDevice;
 	protected JTable theDeviceTable;
-	protected JTable theSyncTable;
 	protected JPanel theDeviceListPanel ;
 	protected JButton bAnalysis;
 	protected JButton bSync;
+	protected SyncListPanel theSyncListPanel;
 
-	public syncDevicePanel()
+	myApp mom;
+	
+	public syncDevicePanel( myApp aMom)
     {
         
         Border boxForm =BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Device"), BorderFactory.createEmptyBorder(5,5,5,5)); 
@@ -60,10 +62,11 @@ public class syncDevicePanel extends JPanel implements ActionListener
         this.setLayout(l1);
          
         
-        this.add( createDeviceListPanel(), BorderLayout.NORTH);
-        this.add( createSyncListPanel(), BorderLayout.CENTER);
-        this.add( createSynchroInfoPanel(), BorderLayout.SOUTH);
         
+        this.add( createDeviceListPanel(), BorderLayout.NORTH);
+        this.add( createSyncListPanel(), BorderLayout.SOUTH);
+
+        mom = aMom;
     }
 
 	
@@ -155,12 +158,6 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		refreshInfoDevice(); //to set first info
 		
 		////////////////
-		bAnalysis = new JButton("Analyse");
-		bAnalysis.setActionCommand( String.valueOf(B_ANALYSIS));
-		bAnalysis.addActionListener(this);
-	
-		theDeviceListPanel.add(bAnalysis);
-		
 		bSync = new JButton("Synchronize");
 		bSync.setActionCommand( String.valueOf(B_SYNCHRONIZE));
 		bSync.addActionListener(this);
@@ -169,6 +166,10 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		
 		
 		
+		///
+		JTextField j= new JTextField();
+		theDeviceListPanel.add( j);
+		
 		return theDeviceListPanel;
 	}
 	
@@ -176,35 +177,13 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	{
 		JPanel aPanel = new JPanel();
 		
-		Vector< String> Titles = new Vector<String>();
-		Titles.add( "Artist"); Titles.add( "Album");Titles.add( "SongFrom");Titles.add( "ActionFrom");Titles.add( "DoNothing");Titles.add( "ActionTo");Titles.add( "SongTo");Titles.add( "ModifySyncList");
-
-/*		Vector< Vector<String>> rowData = new Vector< Vector<String>>();
-		Vector<String> row = new Vector<String>(); 			
-		rowData.add(row);
+		theSyncListPanel = new SyncListPanel(selectedDevice );
+		aPanel.add( theSyncListPanel);
 		
-		theSyncTable = new JTable( rowData, Titles);
-*/		
-		SyncSongTableModel md = new SyncSongTableModel(null);  
-		theSyncTable = new JTable( md);
-
-		
-		JScrollPane aScPanel = new JScrollPane( theSyncTable);
-		
-		aPanel.add(aScPanel);
 		
 		return aPanel;
 	}
 	
-	protected JPanel createSynchroInfoPanel()
-	{
-		JPanel aPanel = new JPanel();
-		
-		
-		
-		return aPanel;
-	}
-
 	
 	
 	public void actionPerformed(ActionEvent e)
@@ -220,16 +199,14 @@ public class syncDevicePanel extends JPanel implements ActionListener
                 String aSelection = (String)cb.getSelectedItem();
                 selectedDevice = DeviceContainer.getSingleton().getDevice(aSelection); 
                 refreshInfoDevice();
+                theSyncListPanel.setNewDevice(selectedDevice);
         	break;
 
-        	case B_ANALYSIS:
-        		SongSynchroContainer C = analyse();
+        	case B_SYNCHRONIZE:
+        		SongSynchroContainer C = analyseAndSync();
         		displayAnalyse( C);
         	break;
         		
-        	case B_SYNCHRONIZE:
-        		
-        	break;
         		
         	default: //do nothing
         		System.out.print("default=>");
@@ -241,28 +218,12 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	
 	public void displayAnalyse( SongSynchroContainer aContainer )
 	{
-/*		Iterator< SongSynchro> it = aContainer.iterator();
-		
-		
-		//1) remove all previous data
-		DefaultTableModel dm = (DefaultTableModel)theSyncTable.getModel();
-		dm.getDataVector().removeAllElements();
-		
-		while( it.hasNext())
-		{
-			SongSynchro aSongSynchro= it.next();
-			Vector<String> row =  aSongSynchro.toVstring();
-			
-			dm.addRow(row);
-		}
-*/
-		SyncSongTableModel dm = (SyncSongTableModel) theSyncTable.getModel();
-		dm.setData(aContainer);
-		dm.fireTableDataChanged();
-		
+
+		SyncResultPanel p = new SyncResultPanel( mom, aContainer);
+		p.createAndShowGUI();
 	}
 	
-	public SongSynchroContainer analyse()
+	public SongSynchroContainer analyseAndSync()
 	{
 		SongSynchroContainer aContainer = new SongSynchroContainer();
 

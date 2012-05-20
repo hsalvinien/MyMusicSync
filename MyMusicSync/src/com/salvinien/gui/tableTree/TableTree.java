@@ -17,6 +17,7 @@ import javax.swing.tree.TreeModel;
 
 
 
+
 public class TableTree extends JTable
 {
 	/**
@@ -43,6 +44,9 @@ public class TableTree extends JTable
 		 // don't display root
 	     tree.expandRow(0); 
 	     tree.setRootVisible(TableTreeModel.isRootVisible());
+
+	     tree.setDragEnabled(true);
+	     tree.setTransferHandler(new TableTreeTransferHandler());
 
 	     //column size
 	     for(int i=0; i< TableTreeModel.getColumnCount(); i++ )

@@ -1,9 +1,28 @@
 package com.salvinien.utils;
 
 import java.nio.charset.Charset;
+import java.util.Vector;
 
 public class Converter
 {
+	
+	public static Vector<Integer> stringToVector( String aString)
+	{ //the string is supposed to be like   "[ xxx, xxx, xxx ...]"
+		String S = aString.substring(1, aString.length()-1);
+		
+		String ts[]= S.split(",");
+		
+		Vector<Integer> v= new Vector<Integer>( ts.length);
+		
+		for(int i=0; i< ts.length; i++)
+		{
+			String S2 = ts[i].trim();
+			int a= Integer.parseInt(S2);
+			v.add( a);
+		}
+		
+		return v;
+	}
 	public static int byteArrayToInt( byte[] b)
 	{
 		int r=0;

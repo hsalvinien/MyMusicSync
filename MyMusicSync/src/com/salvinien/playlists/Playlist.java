@@ -32,7 +32,10 @@ public class Playlist
 	{
 		theContainer.put( anId, anId);
 	}
-	
+	public Iterator<Integer> iterator()
+	{
+		return theContainer.values().iterator();
+	}
 	
 	public void removeSong( int anId)
 	{

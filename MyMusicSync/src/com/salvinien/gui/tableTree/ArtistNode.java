@@ -21,6 +21,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 	}
 	
 
+	public String getTypeName()	{ return "Artist";}
+
 	public AlbumNode getAlbum(Song aSong)
 	{
 		int albumId = aSong.getAlbumID();
@@ -30,7 +32,10 @@ public class ArtistNode extends ADefaultMutableTreeNode
 			anAlbumNode = new AlbumNode( AlbumContainer.getSingleton().getName(albumId));
 			containerAlbum.put( albumId, anAlbumNode);
 			this.add( anAlbumNode);
+			
 		}
+		
+		anAlbumNode.getSong(aSong);
 		
 		return anAlbumNode;
 	}

@@ -136,7 +136,7 @@ public class myApp extends JFrame implements ActionListener
 	        
 	        
 	        //DEVICES ZONES
-	        syncDevicePanel s= new syncDevicePanel();
+	        syncDevicePanel s= new syncDevicePanel( this);
 	        contentPane.add(s, BorderLayout.EAST);
 	        
 	        return contentPane;
