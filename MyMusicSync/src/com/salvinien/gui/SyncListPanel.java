@@ -16,8 +16,8 @@ import com.salvinien.gui.tableTree.TableTreeTransferHandler;
 import com.salvinien.gui.tableTree.TreeTransferHandler;
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceSyncList;
-import com.salvinien.playlists.Playlist;
-import com.salvinien.playlists.PlaylistContainer;
+import com.salvinien.synclists.Synclist;
+import com.salvinien.synclists.SynclistContainer;
 
 public class SyncListPanel extends JPanel
 {
@@ -42,8 +42,6 @@ public class SyncListPanel extends JPanel
 		JScrollPane jp = new JScrollPane( theTree);		
 		add(jp);
 
-		//root.add(new DefaultMutableTreeNode("test"));
-		
 		setNewDevice(aDevice);
 	}
 	
@@ -62,9 +60,9 @@ public class SyncListPanel extends JPanel
 			DeviceSyncList aDeviceSyncList=it.next();
 			int aPlaylisId = aDeviceSyncList.getPlaylistId();
 			
-			Playlist aPlayList = PlaylistContainer.getSingleton().getPlaylist(aPlaylisId);
-			
-			SyncListNode aSyncListNode = new SyncListNode( aPlayList.getName());
+			Synclist aPlayList = SynclistContainer.getSingleton().getPlaylist(aPlaylisId);
+
+			SyncListNode aSyncListNode = new SyncListNode( aPlayList);
 			
 			root.add( aSyncListNode);
 			
@@ -76,7 +74,7 @@ public class SyncListPanel extends JPanel
 	}
 	
 	
-	protected void addPlaylist( Playlist aPlaylist, SyncListNode aSyncListNode)
+	protected void addPlaylist( Synclist aPlaylist, SyncListNode aSyncListNode)
 	{
 		Iterator<Integer> it = aPlaylist.iterator();
 		while( it.hasNext())

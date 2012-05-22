@@ -13,8 +13,8 @@ import com.salvinien.discography.FileSongContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.playlists.PlaylistContainer;
-import com.salvinien.playlists.PlaylistNamesContainer;
+import com.salvinien.synclists.SynclistContainer;
+import com.salvinien.synclists.SynclistNamesContainer;
 import com.salvinien.gui.*;
 
 
@@ -72,8 +72,8 @@ public class startPoint
 		//2.2) Load all albums, artists, playlistnames
 		AlbumContainer.getSingleton();
 		ArtistContainer.getSingleton();
-		PlaylistNamesContainer.getSingleton();
-		PlaylistContainer.getSingleton();
+		SynclistNamesContainer.getSingleton();
+		SynclistContainer.getSingleton();
 		DeviceContainer.getSingleton();
 		
 		//3) load the file list from database => fld

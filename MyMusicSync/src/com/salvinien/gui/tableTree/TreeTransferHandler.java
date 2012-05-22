@@ -14,6 +14,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import com.salvinien.discography.SongContainer;
+import com.salvinien.synclists.Synclist;
+import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.utils.Converter;
 
 public class TreeTransferHandler extends TransferHandler
@@ -84,7 +86,7 @@ public class TreeTransferHandler extends TransferHandler
         //1) transfer the ids in a vector
         Vector<Integer> v =Converter.stringToVector(data);
         
-        //2) look for the tareted synclist
+        //2) look for the targeted synclist
         JTree aTree = (JTree)info.getComponent();
         DefaultMutableTreeNode aNode = (DefaultMutableTreeNode)( aTree.getSelectionPath().getLastPathComponent()  );
         SyncListNode theSyncListNode=null;
@@ -114,14 +116,15 @@ public class TreeTransferHandler extends TransferHandler
         
         
         Iterator<Integer> it = v.iterator();
+        Synclist aSyncList = theSyncListNode.getSynclist();
         while( it.hasNext())
         {
         	int songId = it.next();
         	
-        	theSyncListNode.getArtist( SongContainer.getSingleton().getSong(songId));
-        	//System.out.println( songId);
+        	aSyncList.addSong(songId); //add the song to the playlist
+        	theSyncListNode.getArtist( SongContainer.getSingleton().getSong(songId)); //create the node int the tree 
         }
-
+        SynclistContainer.getSingleton().save(aSyncList);
         ((DefaultTreeModel)aTree.getModel()).reload();
 
         
@@ -130,7 +133,7 @@ public class TreeTransferHandler extends TransferHandler
 
     protected void exportDone(JComponent c, Transferable data, int action) 
     {
-        
+    	//@todo: remove the node
     }
     
 }

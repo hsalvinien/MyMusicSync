@@ -1,4 +1,4 @@
-package com.salvinien.playlists;
+package com.salvinien.synclists;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,14 +7,14 @@ import java.util.Vector;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 
-public class Playlist
+public class Synclist
 {
 	//members
 	protected int id; //id of the list
 	protected HashMap<Integer, Integer> theContainer; //song ids 
 	
 	//CTOR
-	public Playlist( int anId)  
+	public Synclist( int anId)  
 	{ 
 		id = anId;
 		theContainer = new HashMap<Integer, Integer>();
@@ -25,7 +25,7 @@ public class Playlist
 	public int getId() { return id;}
 	public String getName() 
 	{
-		return PlaylistNamesContainer.getSingleton().getName(id);
+		return SynclistNamesContainer.getSingleton().getName(id);
 	}
 	
 	public void addSong( int anId)
@@ -103,7 +103,7 @@ public class Playlist
 
 
 
-	public void addArtis( int artistId)
+	public void addArtist( int artistId)
 	{
 		//let's do it "bourrin"
 		Vector<Integer> v = SongContainer.getSingleton().getSongByArtist(artistId);

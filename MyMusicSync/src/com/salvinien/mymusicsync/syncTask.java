@@ -10,12 +10,12 @@ import com.salvinien.discography.SongContainer;
 import com.salvinien.discography.SongSynchro;
 import com.salvinien.discography.SongSynchroContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.playlists.Playlist;
-import com.salvinien.playlists.PlaylistContainer;
+import com.salvinien.synclists.Synclist;
+import com.salvinien.synclists.SynclistContainer;
 
 public class syncTask
 {
-	protected Playlist thePlaylist;
+	protected Synclist thePlaylist;
 	protected DeviceSyncList theDeviceSyncList;
 	
 	//Ctors
@@ -23,7 +23,7 @@ public class syncTask
 	{
 		theDeviceSyncList = aDeviceSyncList;
 
-		thePlaylist =  PlaylistContainer.getSingleton().getPlaylist( aDeviceSyncList.getPlaylistId());
+		thePlaylist =  SynclistContainer.getSingleton().getPlaylist( aDeviceSyncList.getPlaylistId());
 	}
 	
 	

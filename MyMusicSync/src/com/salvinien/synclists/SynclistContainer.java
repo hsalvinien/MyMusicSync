@@ -1,4 +1,4 @@
-package com.salvinien.playlists;
+package com.salvinien.synclists;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,20 +7,20 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
-public class PlaylistContainer
+public class SynclistContainer
 {
 	//Members
-	protected HashMap< Integer, Playlist> containerId;
+	protected HashMap< Integer, Synclist> containerId;
 	protected String containerTableName;
 
 	//Members
-	protected static PlaylistContainer  mySingleton=null;
+	protected static SynclistContainer  mySingleton=null;
 
 	//CTOR
-	protected PlaylistContainer() 
+	protected SynclistContainer() 
 	{
 		//creates the physical containers
-		containerId = new HashMap< Integer, Playlist>();
+		containerId = new HashMap< Integer, Synclist>();
 		containerTableName = "SynclistValues";
 		loadFromDB();
 	}
@@ -28,13 +28,13 @@ public class PlaylistContainer
 	
 	
 	//ACCESSORS
-	public static PlaylistContainer  getSingleton()
+	public static SynclistContainer  getSingleton()
 	{	
-		if(mySingleton==null) mySingleton=new PlaylistContainer();
+		if(mySingleton==null) mySingleton=new SynclistContainer();
 		
 		return mySingleton;
 	}
-	public Playlist getPlaylist(int anId)
+	public Synclist getPlaylist(int anId)
 	{			
 		return containerId.get(anId);
 	}
@@ -56,10 +56,10 @@ public class PlaylistContainer
 			    int PlaylistId  = rs.getInt("SynclistId");
 			    int SongId  	= rs.getInt("SongID");
 			    
-			    Playlist p = containerId.get(PlaylistId);
+			    Synclist p = containerId.get(PlaylistId);
 			    if( p==null)
 			    	{
-			    		p= new Playlist( PlaylistId);
+			    		p= new Synclist( PlaylistId);
 			    		containerId.put(PlaylistId, p);
 			    	}
 			    
@@ -80,10 +80,10 @@ public class PlaylistContainer
 	public void removeSongFromAllPlaylist( int anId)
 	{
 		//we remove the song from the container
-		Iterator<Playlist> it = containerId.values().iterator();
+		Iterator<Synclist> it = containerId.values().iterator();
 		while( it.hasNext())
 		{
-			Playlist p = it.next();
+			Synclist p = it.next();
 			
 			p.removeSong( anId);
 			if(p.getSize()==0) //if the playlist has no more items we remove it from the container
@@ -97,6 +97,33 @@ public class PlaylistContainer
 		Query=  Query + " WHERE ID='"+String.valueOf(anId)+"'";
 		
 		MyDatabase.getSingleton().executeSimpleQuery(Query);
+		MyDatabase.getSingleton().commit();
+	}
+	
+	
+	public void save( Synclist aSyncList)
+	{
+		//let's be bourrin
+		
+		//1) we delete the songs from table
+		String Query= " DELETE FROM "+containerTableName;	
+		Query=  Query + " WHERE SynclistID='"+String.valueOf(aSyncList.getId())+"'";
+		
+		MyDatabase.getSingleton().executeSimpleQuery(Query);
+	    
+	    
+	    //2) we reinsert all
+		Iterator<Integer> it = aSyncList.iterator();
+		int ID = aSyncList.getId();
+		while( it.hasNext())
+		{
+			int i = it.next();
+			
+			Query = "INSERT INTO "+containerTableName+ " (SynclistID, SongId) VALUES "+"('"+  String.valueOf(ID) +"','"+  String.valueOf(i) +"')";
+			
+			MyDatabase.getSingleton().executeSimpleQuery(Query);
+		}
+			
 		MyDatabase.getSingleton().commit();
 	}
 }

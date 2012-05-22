@@ -28,8 +28,8 @@ import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceContainer;
 import com.salvinien.mymusicsync.DeviceSyncList;
 import com.salvinien.mymusicsync.syncTask;
-import com.salvinien.playlists.Playlist;
-import com.salvinien.playlists.PlaylistContainer;
+import com.salvinien.synclists.Synclist;
+import com.salvinien.synclists.SynclistContainer;
 
 
 
@@ -88,7 +88,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 
 			int anId = v.get(i).getPlaylistId();
 			
-			Playlist aPlaylist = PlaylistContainer.getSingleton().getPlaylist(anId);
+			Synclist aPlaylist = SynclistContainer.getSingleton().getPlaylist(anId);
 			String name = aPlaylist.getName();
 			row.add( name);
 			

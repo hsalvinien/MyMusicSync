@@ -12,7 +12,7 @@ import java.util.Vector;
 
 import com.salvinien.database.MyDatabase;
 import com.salvinien.mymusicsync.Parameters;
-import com.salvinien.playlists.PlaylistContainer;
+import com.salvinien.synclists.SynclistContainer;
 
 
 public class SongContainer
@@ -366,7 +366,7 @@ public class SongContainer
 				containerFileName.remove(aSong.getFileName()); //from the filename containers
 				
 				//2) we remove the song from the playlists
-				PlaylistContainer.getSingleton().removeSongFromAllPlaylist(aSong.getId());
+				SynclistContainer.getSingleton().removeSongFromAllPlaylist(aSong.getId());
 				
 				//3) from the database
 				String Query= " DELETE FROM "+containerTableName;	

@@ -86,6 +86,8 @@ public class MyDatabase
 		} 
 		catch(SQLException ex) 
 		{
+			this.rollBack();
+			
 			ex.printStackTrace();
 			System.out.print( aQuery);
 		}

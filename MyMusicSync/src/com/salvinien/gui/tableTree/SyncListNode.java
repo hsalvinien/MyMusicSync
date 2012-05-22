@@ -4,21 +4,26 @@ import java.util.HashMap;
 
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
+import com.salvinien.synclists.Synclist;
 
 public class SyncListNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 1329348084639690276L;
 	
 	protected HashMap<Integer, ArtistNode> containerArtist;
+	Synclist thePlayList;
 	
 	
-	
-	public SyncListNode(String anArtist)	
+	public SyncListNode(Synclist aPlayList)	
 	{
-		super( anArtist);
+		super( aPlayList.getName());
 		containerArtist = new HashMap<Integer, ArtistNode> ();
+		thePlayList = aPlayList;
 	}
 	
+
+	
+	public 	Synclist getSynclist() { return thePlayList;}
 
 	public ArtistNode getArtist(Song aSong)
 	{
