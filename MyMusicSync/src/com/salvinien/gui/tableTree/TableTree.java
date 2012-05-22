@@ -47,6 +47,8 @@ public class TableTree extends JTable
 
 	     tree.setDragEnabled(true);
 	     tree.setTransferHandler(new TableTreeTransferHandler());
+	     
+	     this.setTransferHandler(new TableTreeTransferHandlerCCP());
 
 	     //column size
 	     for(int i=0; i< TableTreeModel.getColumnCount(); i++ )

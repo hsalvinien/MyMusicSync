@@ -1,5 +1,7 @@
 package com.salvinien.gui.tableTree;
 
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -18,7 +20,6 @@ public class TableTreeTransferHandler extends TransferHandler
 {
 	private static final long	serialVersionUID	= -318289928111396520L;
 
-    private int[] indices = null;
     
     //Ctor
     public TableTreeTransferHandler()
@@ -46,6 +47,18 @@ public class TableTreeTransferHandler extends TransferHandler
     	
         return new StringSelection(S);
     }
+    
+    
+    public void exportToClipboard(JComponent c, Clipboard clip,int action)
+    {
+    	//@TODO =>NOT TESTED AND ....NOT WORKING
+    	Transferable t = createTransferable(c);
+    	clip.setContents(t, (ClipboardOwner) t);
+    }
+    
+    
+    
+    
     
     public int getSourceActions(JComponent c) 
     {

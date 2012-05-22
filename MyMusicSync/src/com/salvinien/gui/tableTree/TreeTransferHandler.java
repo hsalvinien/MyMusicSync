@@ -65,11 +65,12 @@ public class TreeTransferHandler extends TransferHandler
     
     public boolean importData(TransferHandler.TransferSupport info) 
     {
-        if (!info.isDrop()) 
+    
+      /*  if (!info.isDrop()) 
         {
             return false;
         }
-
+*/
 
         
 
