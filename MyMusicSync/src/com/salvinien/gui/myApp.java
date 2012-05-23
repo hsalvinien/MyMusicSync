@@ -16,6 +16,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.salvinien.database.MyDatabase;
 
@@ -31,7 +33,16 @@ public class myApp extends JFrame implements ActionListener
 
 	public myApp()
 	{		
-		
+		try
+		{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		addWindowCallbacks();
 	}
 
@@ -206,7 +217,7 @@ public class myApp extends JFrame implements ActionListener
         this.setContentPane( aContainer);
 
         //Display the window.
-        this.setSize(1200, 600);
+        this.setSize(1200, 900);
         this.setVisible(true);
     }
 

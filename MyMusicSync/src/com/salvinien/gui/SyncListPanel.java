@@ -42,7 +42,8 @@ public class SyncListPanel extends JPanel
 
 		setNewDevice(aDevice);
 		
-		theTree.setPreferredSize(new Dimension(600,600));
+		//theTree.setPreferredSize(new Dimension(600,600));
+		jp.setPreferredSize(new Dimension(600,600));
 		
 	}
 	
