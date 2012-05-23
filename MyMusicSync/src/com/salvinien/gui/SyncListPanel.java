@@ -12,7 +12,6 @@ import javax.swing.tree.DefaultTreeModel;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.gui.tableTree.SyncListNode;
-import com.salvinien.gui.tableTree.TableTreeTransferHandler;
 import com.salvinien.gui.tableTree.TreeTransferHandler;
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceSyncList;
@@ -38,11 +37,13 @@ public class SyncListPanel extends JPanel
 		theTree.setDragEnabled(true);
 	    theTree.setTransferHandler(new TreeTransferHandler());
 
-		
 		JScrollPane jp = new JScrollPane( theTree);		
 		add(jp);
 
 		setNewDevice(aDevice);
+		
+		theTree.setPreferredSize(new Dimension(600,600));
+		
 	}
 	
 	
@@ -70,7 +71,11 @@ public class SyncListPanel extends JPanel
 		}
 		
 		
+
 		((DefaultTreeModel)theTree.getModel()).reload();
+
+//		for( int i =0 ; i<theTree.getRowCount(); i++)
+//					theTree.expandRow(i);
 	}
 	
 	

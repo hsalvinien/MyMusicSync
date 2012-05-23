@@ -2,10 +2,8 @@ package com.salvinien.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -15,14 +13,12 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.salvinien.discography.SongSynchro;
 import com.salvinien.discography.SongSynchroContainer;
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceContainer;
@@ -65,7 +61,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
         
         this.add( createDeviceListPanel(), BorderLayout.NORTH);
         this.add( createSyncListPanel(), BorderLayout.SOUTH);
-
+        
         mom = aMom;
     }
 
@@ -124,16 +120,14 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		Vector<Vector<String>>rowData = new Vector<Vector<String>>(); 
 
 		Vector< String> aRow= new Vector< String>();
-		aRow.add("");
-		aRow.add("");
-		aRow.add("");
+		aRow.add("");aRow.add("");aRow.add("");
 			
 		rowData.add(aRow);
 		
 		theDeviceTable = new JTable( rowData, Titles);
 		
-		 DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();    
-	     dtcr.setHorizontalAlignment(SwingConstants.CENTER);  
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();    
+	    dtcr.setHorizontalAlignment(SwingConstants.CENTER);  
 
 		TableColumn column = theDeviceTable.getColumnModel().getColumn(0);
 		int width = 100;
@@ -162,26 +156,18 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		bSync.setActionCommand( String.valueOf(B_SYNCHRONIZE));
 		bSync.addActionListener(this);
 	
-		theDeviceListPanel.add(bSync);
-		
-		
-		
-		///
-		JTextField j= new JTextField();
-		theDeviceListPanel.add( j);
+		theDeviceListPanel.add(bSync, BorderLayout.SOUTH);
 		
 		return theDeviceListPanel;
 	}
+
 	
 	protected JPanel createSyncListPanel()
 	{
-		JPanel aPanel = new JPanel();
 		
 		theSyncListPanel = new SyncListPanel(selectedDevice );
-		aPanel.add( theSyncListPanel);
 		
-		
-		return aPanel;
+		return theSyncListPanel;
 	}
 	
 	
