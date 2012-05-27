@@ -36,7 +36,7 @@ public class SongNode extends ADefaultMutableTreeNode
 	    switch(column) 
 	    {
 		    case 0:	return theSong.getName();
-		    case 1: return Converter.int2StringKB( theSong.getSize());
+		    case 1: return Converter.int2StringMB( theSong.getSize());
 		    case 2:
 		    	String shk = Long.toHexString(theSong.getHashkey());
 		    	return shk;

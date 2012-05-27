@@ -3,11 +3,23 @@ package com.salvinien.utils;
 import java.nio.charset.Charset;
 import java.util.Vector;
 
+
+/*
+ * @class: Converter
+ * 
+ * This class manages conversion between byte[] and int, or  int and strings or byte[] and strings
+ * 
+ */
+
 public class Converter
 {
 	
+	/*@method : Vector<Integer> stringToVector( String aString)
+	 * split a string in a vector of strings
+	 * the string is supposed to be like   "[ xxx, xxx, xxx ...]"
+	 */
 	public static Vector<Integer> stringToVector( String aString)
-	{ //the string is supposed to be like   "[ xxx, xxx, xxx ...]"
+	{ 
 		String S = aString.substring(1, aString.length()-1);
 		
 		String ts[]= S.split(",");
@@ -23,6 +35,12 @@ public class Converter
 		
 		return v;
 	}
+	
+	
+	
+	/*@method : int byteArrayToInt( byte[] b)
+	 * convert a byte[4] to an int
+	 */
 	public static int byteArrayToInt( byte[] b)
 	{
 		int r=0;
@@ -36,6 +54,9 @@ public class Converter
 		return r;
 	}
 
+	/*@method : int byteArrayToInt( byte[] b)
+	 * convert a byte[4]or byte[3] to an int (little indian)
+	 */
 	public static int byteArrayToIntMBS( byte[] b)
 	{
 		int r=0;
@@ -60,7 +81,10 @@ public class Converter
 		return r;
 	}
 	
-	public static String int2StringKB( long a)
+	/*@method : String int2StringKB( long a)
+	 * convert a long onto s atring using Mb units
+	 */
+	public static String int2StringMB( long a)
 	{
 		String s=null;
 		
@@ -70,7 +94,11 @@ public class Converter
 		
 		return s;
 	}
-	
+
+	/*@method : String byteToString( byte[] b)
+	 * convert a byte[] into string using UTF  
+	 * it is a generic methods able to find which charset to use
+	 */
 	public static String byteToString( byte[] b)
 	{
 		String s=null;
