@@ -12,6 +12,7 @@ public class GUImother extends JPanel
 	String title;
 	
 	myApp mom;
+	JFrame theFrame;
 	
 	GUImother( myApp anApp, String aTitle)
 	{
@@ -34,15 +35,15 @@ public class GUImother extends JPanel
     void createAndShowGUI() 
     {
         //Create and set up the window.
-        JFrame frame = new JFrame(title);
+    	theFrame = new JFrame(title);
         
         //set up the content pane.
         setOpaque(true); //content panes must be opaque
-        frame.setContentPane(this);
+        theFrame.setContentPane(this);
 
         //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+        theFrame.pack();
+        theFrame.setVisible(true);
     }
 
 

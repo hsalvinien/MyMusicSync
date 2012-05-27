@@ -54,6 +54,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	public syncDevicePanel( myApp aMom)
     {
         
+        mom = aMom;
+        
         Border boxForm =BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Device"), BorderFactory.createEmptyBorder(5,5,5,5)); 
         this.setBorder( boxForm);
         BoxLayout l1= new BoxLayout(this, BoxLayout.PAGE_AXIS);
@@ -69,8 +71,6 @@ public class syncDevicePanel extends JPanel implements ActionListener
         theSyncListPanel.setMaximumSize( new Dimension(MAX_WIDTH,600));
 
         
-        
-        mom = aMom;
     }
 
 	
@@ -175,7 +175,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	protected JPanel createSyncListPanel()
 	{
 		
-		theSyncListPanel = new SyncListPanel(selectedDevice );
+		theSyncListPanel = new SyncListPanel(mom, selectedDevice );
 		
 		return theSyncListPanel;
 	}

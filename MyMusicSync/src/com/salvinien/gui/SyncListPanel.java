@@ -34,10 +34,11 @@ public class SyncListPanel extends JPanel implements MouseListener
 	protected DefaultMutableTreeNode root;
 
 	protected Device theDevice;
+	myApp theMom;
 	
-	
-	public SyncListPanel( Device aDevice)
+	public SyncListPanel( myApp aMom, Device aDevice)
 	{
+		theMom = aMom;
 		
 		 BoxLayout l1= new BoxLayout(this, BoxLayout.PAGE_AXIS);
 	     this.setLayout(l1);

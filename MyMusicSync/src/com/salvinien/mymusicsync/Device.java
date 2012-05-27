@@ -92,4 +92,17 @@ public class Device
 		}
 	}
 
+	//add a syncList to a device and save it to database
+	public void addDeviceSyncList( DeviceSyncList aDeviceSyncList)
+	{
+		//1) add the device to the container
+		container.add(aDeviceSyncList);
+		
+		//2) save it to database
+		String query = " Insert into DeviceSyncList ('DeviceID' , 'DefaultPath', 'PlaylistId') VALUES ('";
+		query += String.valueOf(this.getDeviceID())+"' , '"+aDeviceSyncList.getDefaultPath()+"', '"+String.valueOf(aDeviceSyncList.PlaylistId)+"') ";
+			
+		MyDatabase.getSingleton().executeSimpleQuery(query);
+		MyDatabase.getSingleton().commit();
+	}
 }

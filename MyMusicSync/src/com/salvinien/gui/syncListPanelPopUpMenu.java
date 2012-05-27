@@ -24,6 +24,7 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 	public final static int PuP_EXPAND_ALL=1;
 	public final static int PuP_REMOVE_NODE=2;
 	public final static int PuP_DISSOCIATE_PLAYLIST=3;
+	public final static int PuP_ASSOCIATE_PLAYLIST=4;
 	
 	
 	protected SyncListPanel theSyncListPanel;
@@ -55,6 +56,13 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 		menuItem.addActionListener(this);
 		this.add(menuItem);
 
+		//Remove a node
+		menuItem = new JMenuItem("Associate a Synclist", KeyEvent.VK_A);
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription( "Create a new association synclist <-> device");
+		menuItem.setActionCommand(  String.valueOf(PuP_ASSOCIATE_PLAYLIST));
+		menuItem.addActionListener(this);
+		this.add(menuItem);
 		
 		
 		theSyncListPanel = aSyncListPanel;
@@ -104,6 +112,13 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
         		((DefaultTreeModel)theSyncListPanel.theTree.getModel()).reload();
 
         		break;
+        		
+        		
+        	case PuP_ASSOCIATE_PLAYLIST:
+        		syncListDeviceAssociation aSyncListDeviceAssociation= new syncListDeviceAssociation( theSyncListPanel);
+        		aSyncListDeviceAssociation.createAndShowGUI();
+        		break;
+        		
         		
         	default: //do nothing
         		System.out.print("default=>");
