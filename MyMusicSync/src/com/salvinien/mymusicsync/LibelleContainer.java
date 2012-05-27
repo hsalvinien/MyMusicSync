@@ -50,6 +50,22 @@ public class LibelleContainer
 
 	
 	
+	public int[] getIds()
+	{
+		int[] v = new int[ containerId.values().size()];
+		Iterator<Libelle> it = containerId.values().iterator();
+		
+		int i=0;
+		while(it.hasNext())
+		{
+			v[i] = it.next().getId();
+			i++;
+		}
+		
+		return v;
+	}
+
+	
 	public String[] getLibelles()
 	{
 		String[] v = new String[ containerId.values().size()];

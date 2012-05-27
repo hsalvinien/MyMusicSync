@@ -27,5 +27,7 @@ public abstract class ADefaultMutableTreeNode extends DefaultMutableTreeNode
 	//to be implemented
 	public abstract Object getValueAt(int column); 
 	public abstract String getTypeName();
+	public abstract void removeMe();
+	public abstract void removeNode( ADefaultMutableTreeNode aNode);
 
 }

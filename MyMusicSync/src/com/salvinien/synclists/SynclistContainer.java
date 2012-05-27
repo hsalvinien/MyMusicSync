@@ -21,7 +21,7 @@ public class SynclistContainer
 	{
 		//creates the physical containers
 		containerId = new HashMap< Integer, Synclist>();
-		containerTableName = "SynclistValues";
+		containerTableName= "SynclistValues";
 		loadFromDB();
 	}
 
@@ -42,8 +42,32 @@ public class SynclistContainer
 
 	
 	//Methods
+	
+	
+	//prefill the container of Synclist with existing synclist 
+	//without adding the songs id. It is for addressing the case of playlist chich haven't yet associated with songs
+	protected void preFill()
+	{
+		int[] ids = SynclistNamesContainer.getSingleton().getIds();
+		
+		for( int i=0; i<ids.length; i++)
+		{
+		    Synclist p = containerId.get(ids[i]);
+		    if( p==null)
+		    	{
+		    		p= new Synclist( ids[i]);
+		    		containerId.put(ids[i], p);
+		    	}
+		    
+			
+		}
+		
+	}
+	
 	protected void loadFromDB()
 	{
+		preFill(); //case of playlist not yet associated with songs
+		
 		String Query= " SELECT * FROM "+containerTableName;
 		ResultSet rs = MyDatabase.getSingleton().executeQuery(Query);
 				

@@ -57,7 +57,7 @@ public class MusicNode extends ADefaultMutableTreeNode
 		
 		if( aNodeArtist == null)
 		{
-			aNodeArtist = new ArtistNode( ArtistContainer.getSingleton().getName(artistId));
+			aNodeArtist = new ArtistNode( artistId);
 			
 			containerArtist.put(artistId, aNodeArtist);
 			this.add( aNodeArtist);
@@ -89,6 +89,20 @@ public class MusicNode extends ADefaultMutableTreeNode
     	  getAlbum( aSong);
       }
   
+	}
+
+	@Override
+	public void removeMe()
+	{
+		// TODO Auto-generated method stub
+		System.out.println( "MusicNode");		
+	}
+
+	@Override
+	public void removeNode(ADefaultMutableTreeNode aNode)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 		
 	

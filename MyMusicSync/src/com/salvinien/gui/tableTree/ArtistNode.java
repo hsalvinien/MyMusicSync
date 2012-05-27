@@ -2,7 +2,9 @@ package com.salvinien.gui.tableTree;
 
 import java.util.HashMap;
 
+
 import com.salvinien.discography.AlbumContainer;
+import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
 
 public class ArtistNode extends ADefaultMutableTreeNode
@@ -11,13 +13,14 @@ public class ArtistNode extends ADefaultMutableTreeNode
 
 	
 	protected HashMap<Integer, AlbumNode> containerAlbum;
+	protected int theArtistId;
 	
 	
-	
-	public ArtistNode(String anArtist)	
+	public ArtistNode(int artistId)	
 	{
-		super( anArtist);
+		super( ArtistContainer.getSingleton().getName(artistId));
 		containerAlbum = new HashMap<Integer, AlbumNode> ();
+		theArtistId = artistId;
 	}
 	
 
@@ -29,7 +32,7 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		AlbumNode anAlbumNode =containerAlbum.get(albumId);
 		if( anAlbumNode==null)
 		{
-			anAlbumNode = new AlbumNode( AlbumContainer.getSingleton().getName(albumId));
+			anAlbumNode = new AlbumNode( albumId);
 			containerAlbum.put( albumId, anAlbumNode);
 			this.add( anAlbumNode);
 			
@@ -72,6 +75,42 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		    case 3: return " ";
 	    }
 
+	}
+
+
+	public void removeMe()
+	{
+		//1) we remove the songs from the synclist
+		//1.a we retreive all the AlbumNodeS in an array
+		AlbumNode ta[] = new AlbumNode[this.getChildCount()];
+		this.children.copyInto(ta);
+		
+		for( int i=0; i< ta.length; i++ )
+		{
+			ta[i].removeMe();
+		}
+		
+	
+		//2) we remove the AlbumNode from the ArtistNode 
+		//no need to do anyThing since the last ta[i].removeMe(); will implicitly call the removeNode of the ArtistNode.. 
+	}
+
+
+	public void removeNode(ADefaultMutableTreeNode aNode)
+	{
+		  int id= ((AlbumNode) aNode).theAlbumId;
+		  //remove the node from the container
+		  containerAlbum.remove((Integer) id);
+		  //remove the node from the node
+		  this.remove(aNode);
+		  
+		  //now if there is no more album for the Artist, it has to be removed
+		  if( containerAlbum.size()==0)
+		  {
+			ADefaultMutableTreeNode mum = (ADefaultMutableTreeNode) this.getParent();
+			mum.removeNode( this);
+		  }
+		  
 	}
 
 	

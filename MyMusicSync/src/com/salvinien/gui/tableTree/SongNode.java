@@ -3,14 +3,17 @@ package com.salvinien.gui.tableTree;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 
+import javax.swing.tree.TreeNode;
+
 import com.salvinien.discography.Song;
+import com.salvinien.synclists.Synclist;
 import com.salvinien.utils.Converter;
 
 public class SongNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 1586769874979868677L;
 	
-	private Song theSong;
+	protected Song theSong;
 	
 	public SongNode(String aSongName)	{super( aSongName);}
 	public SongNode(Song aSong)	
@@ -45,6 +48,24 @@ public class SongNode extends ADefaultMutableTreeNode
 		    	return sd;
 	    }
 
+	}
+
+	public void removeMe()
+	{
+		//1) we remove the song from the synclist
+		//1-a) we retreive the synclist
+		TreeNode tn[] = this.getPath();
+		SyncListNode s = (SyncListNode) tn[1];  //root being the level 0, the synclist is level 1
+		Synclist aSyncList = s.thePlayList;
+		aSyncList.removeSong(theSong.getId());
+		
+		//2) we remove the songNode from the AlbumNode
+		ADefaultMutableTreeNode mum = (ADefaultMutableTreeNode) this.getParent();
+		mum.removeNode( this);
+	}
+	public void removeNode(ADefaultMutableTreeNode aNode)
+	{
+		// do Nothing since it is the leaf
 	}
 
 

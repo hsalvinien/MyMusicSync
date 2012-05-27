@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -61,6 +62,12 @@ public class syncDevicePanel extends JPanel implements ActionListener
         
         this.add( createDeviceListPanel(), BorderLayout.NORTH);
         this.add( createSyncListPanel(), BorderLayout.SOUTH);
+
+        
+        theSyncListPanel.setPreferredSize(new Dimension(MAX_WIDTH,600));
+        theSyncListPanel.setMaximumSize( new Dimension(MAX_WIDTH,600));
+
+        
         
         mom = aMom;
     }
@@ -85,6 +92,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 			int anId = v.get(i).getPlaylistId();
 			
 			Synclist aPlaylist = SynclistContainer.getSingleton().getPlaylist(anId);
+
 			String name = aPlaylist.getName();
 			row.add( name);
 			
@@ -101,6 +109,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	protected JPanel createDeviceListPanel()
 	{
 		theDeviceListPanel = new JPanel();
+		
         BoxLayout l1= new BoxLayout(theDeviceListPanel, BoxLayout.PAGE_AXIS);
         theDeviceListPanel.setLayout(l1);
 	
