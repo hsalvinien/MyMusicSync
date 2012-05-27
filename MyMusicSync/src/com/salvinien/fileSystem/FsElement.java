@@ -5,6 +5,13 @@ import java.io.IOException;
 import java.nio.file.attribute.FileTime;
 
 
+/*
+ * @class: FsElement
+ * 
+ * This class is the base class to manage the song file in the file system 
+ * it gives the basic accessors and methods, and gives some methods to be implemented by daughters 
+ * 
+ */
 
 public abstract class FsElement 
 {
@@ -35,23 +42,21 @@ public abstract class FsElement
 	public String getName() 		{ return name;}
 	public String getPath() 		{ return path;}
 	public String getMountPoint() 	{ return mountPoint;}
+	/*@method : String getFullName() 
+	 * rebuild the full name with the name, mount point and path 
+	 */
 	public String getFullName() 	
 	{ 
 		String fullPath;
 		
-		fullPath = mountPoint+path;
-		if( path.length()>0 )
-		{
-			if( path.charAt(path.length()-1) != File.separatorChar )
-			{
-				fullPath+=File.separatorChar;
-			}
-		}
-		
-		fullPath+=name;
+		fullPath = mountPoint+getRelativeName() ;
 		
 		return fullPath;
 	}
+
+	/*@method : String getRelativeName() 
+	 * rebuild the name with the name and path (so not the mount point) 
+	 */
 	public String getRelativeName() 	
 	{ 
 		String fullPath;
@@ -77,6 +82,11 @@ public abstract class FsElement
 	public void setName( String aName) 				{ name = new String(aName);}
 	public void setPath( String aPath) 				{ path = new String(aPath);}
 	public void setMountPoint( String aMountPOint) 	{ mountPoint = new String(aMountPOint);}
+
+	
+	/*@method : void setFullName(String aMountPoint, String aPath)
+	 * splits the mount point, path and file name (if it is file) 
+	 */
 	public void setFullName(String aMountPoint, String aPath) 
 	{ 
 		int i =0;
@@ -84,7 +94,6 @@ public abstract class FsElement
 				
 		
 		//the name
-		//if( aPath.charAt(aPath.length()-1) == File.separatorChar )
 		char aChar =  aPath.charAt(aPath.length()-1);
 		if( (aChar == File.separatorChar ) || (aChar == '/' ) ) 
 		{
@@ -115,11 +124,10 @@ public abstract class FsElement
 	}
 	
 	
-	//methods
-	public abstract Boolean isDirectory();
-	public abstract void print();
 	
-	//to be expressed in an other way to allow package to be fully independant
-	public abstract void loadChild();
+	//methods, those methods have to be implemented in the daughters
+	public abstract Boolean isDirectory();   //return true if it is a directoty or false if a file
+	public abstract void print();			//print the elment (for debug purpose)
+	public abstract void loadChild();		//load the remaining tree
 
 }

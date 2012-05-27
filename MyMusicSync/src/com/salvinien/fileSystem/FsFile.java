@@ -11,6 +11,12 @@ import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
 
 
+/*
+ * @class: FsFile
+ * 
+ * This class is the leaf class to manage the song file in the file system 
+ * 
+ */
 public class FsFile extends FsElement
 {
 	Song song;
@@ -26,12 +32,11 @@ public class FsFile extends FsElement
 		super( aMountPoint, aFile);
 		try
 		{ 
+			//retrieve information fromn the files
 			BasicFileAttributes attr = Files.readAttributes(aFile.toPath(), BasicFileAttributes.class);
 			size = attr.size();
 			creationDate =attr.creationTime();
-			
 			hashkey = attr.hashCode();
-			
 			long javaTime = attr.lastModifiedTime().toMillis();
 			lastModification= new Date(javaTime);
 			 
@@ -44,16 +49,11 @@ public class FsFile extends FsElement
 	}
 
 	//Accessors
-	public long getSize() {return size;}
-	public int getHasKey() {return hashkey;}
-	public Date getLastModification() {return lastModification;}
-	
-	public void loadChild()	{}
-	public Boolean isDirectory() { return false;}
-	public void print()	
-	{
-		song.print();
-	}
-	
-	public Song getSong()	{ return song;}
+	public long getSize() 				{ return size;}
+	public int getHasKey() 				{ return hashkey;}
+	public Date getLastModification() 	{ return lastModification;}
+	public void loadChild()		 		{}  //do nting since it the leaf in the recursion
+	public Boolean isDirectory() 		{ return false;}
+	public void print()			 		{ song.print();}
+	public Song getSong()		 		{ return song;}
 }
