@@ -7,6 +7,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+/*
+ * @class: MyDatabase
+ * 
+ * This class manages access to the database, and query-ing
+ * 
+ * it is implemented as a singleton (Design pattern)
+ * 
+ * 
+ * 
+ * 
+ */
+
+
 public class MyDatabase 
 {
 	protected static MyDatabase  mySingleton=null;
@@ -19,6 +32,7 @@ public class MyDatabase
 	{
 		try 
 		{
+			//initialisation of JDBC driver and open the connection to the database
 			Class.forName("org.sqlite.JDBC");
 			theConnection = DriverManager.getConnection( connectionString+databaseFileName);
 			theConnection.setAutoCommit(false);
@@ -32,6 +46,7 @@ public class MyDatabase
 
 	
 	//ACCESSORS
+	//this accessor returns the only instance of the class
 	public static MyDatabase  getSingleton()
 	{	
 		if(mySingleton==null) mySingleton=new MyDatabase();
@@ -43,6 +58,9 @@ public class MyDatabase
 	
 	
 	//METHODS
+	/*@method : close
+	 * close the connection to the database.
+	 */
 	public void close()
 	{
 		try 
@@ -56,25 +74,13 @@ public class MyDatabase
 		}
 	}
 
-
-
-	public boolean isDatabasenew()
-	{
-		String query = "SELECT * FROM Parameters;";
-		try 
-		{
-			Statement stmt = theConnection.createStatement();
-			stmt.executeQuery(query);
-		}
-		catch(Exception e)
-		{
-			return true;
-		}
-		return false;
-	}
-
-
 	
+
+	/*@method : executeSimpleQuery( String aQuery)
+	 * execute a Query
+	 * it doesn't commit 
+	 * but if there is an error it rollbacks 
+	 */
 	public void executeSimpleQuery( String aQuery)
 	{
 		try 
@@ -94,6 +100,10 @@ public class MyDatabase
 	}
 
 
+
+	/*@method : commit()
+	 *  commit 
+	 */
 	public void commit()
 	{
 		try 
@@ -107,6 +117,9 @@ public class MyDatabase
 		}
 	}
 
+	/*@method : rollBack()
+	 *  rollBack 
+	 */
 	public void rollBack()
 	{
 		try 
@@ -122,7 +135,12 @@ public class MyDatabase
 	
 	
 	
-	
+
+	/*@method : ResultSet executeQuery( String aQuery)
+	 *  execute a quey and returns the resulting resultSet
+	 *  in case of error it doesn't rollback becasue normaly it is fora select 
+	 *  it does't commit
+	 */
 	public ResultSet executeQuery( String aQuery)
 	{
 		ResultSet rs = null;
@@ -143,6 +161,12 @@ public class MyDatabase
 		return rs;		
 	}	
 	
+	/*@method : ResultSet executeQueryRethroughtException( String aQuery)
+	 *  execute a quey and returns the resulting resultSet
+	 *  in case of error it doesn't rollback becasue normaly it is fora select 
+	 *  it does't commit
+	 *  this one rethrought the exception ( sometime we need it..)
+	 */
 	public ResultSet executeQueryRethroughtException( String aQuery) throws SQLException
 	{
 		Statement stmt = theConnection.createStatement();
