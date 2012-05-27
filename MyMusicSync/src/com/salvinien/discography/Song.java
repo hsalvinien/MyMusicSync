@@ -17,6 +17,15 @@ import com.salvinien.utils.Converter;
 
 import static java.nio.file.StandardCopyOption.*;
 
+
+
+/*
+ * @class: FileSongContainer
+ * 
+ * This class manages a song 
+ 
+ * 
+ */
 public class Song
 {
 	//Members
@@ -77,16 +86,52 @@ public class Song
 
 	
 	//METHODS
+	
+	//Methods
+	/*@method : print()
+	 * display a song in the console (debug purpose)
+	 */
 	public void print()
 	{
 		System.out.println( Name+ " ==>  FILE: size: " +String.valueOf(size)+"   hashkey: "+String.valueOf(hashkey)+"  Last Update:"+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(LastModification));
 
 	}
 	
+	
 
-	public void updateInfos( int lib, HashMap<String, String> h)
+	
+	/*@method : void copy( String sFrom, String sTo) throws IOException
+	 * copy a song from a location (sFrom) to another location (sTo) 
+	 */
+	public void copy( String sFrom, String sTo) throws IOException
 	{
-		///Artist
+		
+		//1) we create the target dir
+		String S = sTo+FileName;
+		S = S.substring(0, S.lastIndexOf(File.separatorChar));
+		Path targetDir = new File( S).toPath();
+		Files.createDirectories(targetDir);
+				
+		//2) we create a target file if there isn't
+		File fTo = new File( sTo+ FileName);
+		if( !fTo.exists())
+		{//if target file doesn't exist, we create an empty one
+			fTo.createNewFile();
+		}
+		
+		
+		Files.copy( Paths.get( sFrom + FileName), Paths.get( sTo+ FileName), REPLACE_EXISTING, COPY_ATTRIBUTES);
+		
+	}
+
+
+	
+	/*@method : updateInfos( int lib, HashMap<String, String> h)
+	 * uses the tag information in h, previously filled, to update the song information 
+	 */
+	private void updateInfos( int lib, HashMap<String, String> h)
+	{
+		//Artist
 		String Artist = h.get(Tags.getArtist(lib));
 		
 
@@ -102,7 +147,7 @@ public class Song
 			ArtistID = l.getId();
 		}
 
-		/////Album
+		//Album
 		String Album = h.get(Tags.getAlbum(lib));
 		if( Album!=null)
 		{
@@ -116,19 +161,22 @@ public class Song
 			AlbumID = l.getId();
 		}
 		
-		////Name
+		//song Name /title
 		String songName = h.get(Tags.getTitle(lib));
 		if(songName!=null)
 		{
 			Name= songName.trim();
 		}
-		
-		
-		
+			
 		
 	}
+
 	
-	//@TODO
+	
+	/*@method : updateInformationFromFile(String aMountPoint) throws IOException
+	 * retrieve information about songs directly from the file. it uses the right tag reading method depending on the file type   
+	 */
+
 	public void updateInformationFromFile(String aMountPoint) throws IOException
 	{
 		//extract Artist/album/song name from file
@@ -218,7 +266,22 @@ public class Song
 	}
 
 
-	public void updateInformationFromID3v1File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	
+	/*@method : updateInformationFromID3v1File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	 * retrieve  the song information from the file, case of a mp3 file (ID3v1)
+	 * 
+	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
+	 * 
+	 * for mp3 with ID3v1
+	 * 
+	 * Songname   is stored between byte 3-32
+	 * Artist	33-62
+	 * Album    63-92
+	 * Year     93-96
+	 * Comment  97-126
+	 * Genre    127
+	 */
+	private void updateInformationFromID3v1File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
 	{
 		byte [] b;
 		String S;
@@ -229,14 +292,14 @@ public class Song
 		is.read( b);
 		S = Converter.byteToString(b).trim() ;
 		if( S.length()!=0)
-			h.put( Tags.getAlbum(lib), S );
+			h.put( Tags.getTitle(lib), S ); 
 		
 		
 		b = new byte[ 30]; //Artist     30         33-62
 		is.read( b);
 		S = Converter.byteToString(b).trim() ;
 		if( S.length()!=0)
-			h.put( Tags.getAlbum(lib), S );
+			h.put( Tags.getArtist(lib), S );
 		
 	    b = new byte[ 30]; //Album      30         63-92
 		is.read( b);
@@ -250,7 +313,15 @@ public class Song
 	}
 
 	
-	public void updateInformationFromID3v2xFile( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	/*@method : updateInformationFromID3v2File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	 * retrieve  the song information from the file, case of a mp3 file (ID3v2)
+	 * 
+	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
+	 * 
+	 * for mp3 with ID3v2, the description has changed, it is now like Tag value 
+	 * so we start by reading the tag then the value
+	 */
+	private void updateInformationFromID3v2xFile( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
 	{
 		byte[] header= new byte[6];
 		byte[] headerSize= new byte[4];
@@ -279,7 +350,6 @@ public class Song
 			if( aTag[0]<=0) 
 				break;
 			
-//			Key = new String( aTag);
 			Key = Converter.byteToString(aTag);
 					
 			//read the size of the value
@@ -307,7 +377,14 @@ public class Song
 	
 
 	
-	public void updateInformationFromFlacFile( RandomAccessFile is, HashMap<String, String> h) throws IOException
+	/*@method : updateInformationFromFlacFile( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	 * retrieve  the song information from the file, case of flac file 
+	 * 
+	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
+	 * 
+	 * a flac tag  is a string "tagname = tagvalue"
+	 */
+	private void updateInformationFromFlacFile( RandomAccessFile is, HashMap<String, String> h) throws IOException
 	{
 		byte b[] = null;
 		byte anInt[] =new byte[4];
@@ -346,6 +423,13 @@ public class Song
 	
 	
 	
+	
+	
+	/*@method : boolean updateInformationFromSong( Song aSongFromFile)
+	 * check if the file is older or newer. If aSongFile is newer than this, then we upadte infos.
+	 * 
+	 * @todo : check that there isn't a bias due to the Math.abs ..
+	 */
 	public boolean updateInformationFromSong( Song aSongFromFile)
 	{
 		boolean songHasBeenModified=false;
@@ -362,27 +446,5 @@ public class Song
 		
 		
 		return songHasBeenModified;
-	}
-	
-	
-	public void copy( String sFrom, String sTo) throws IOException
-	{
-		
-		//1) we create th target dir
-		String S = sTo+FileName;
-		S = S.substring(0, S.lastIndexOf(File.separatorChar));
-		Path targetDir = new File( S).toPath();
-		Files.createDirectories(targetDir);
-				
-		//2) we create a target file if there isn't
-		File fTo = new File( sTo+ FileName);
-		if( !fTo.exists())
-		{//if target file doesn't exist, we create an empty one
-			fTo.createNewFile();
-		}
-		
-		
-		Files.copy( Paths.get( sFrom + FileName), Paths.get( sTo+ FileName), REPLACE_EXISTING, COPY_ATTRIBUTES);
-		
 	}
 }

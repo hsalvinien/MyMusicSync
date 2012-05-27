@@ -89,15 +89,15 @@ public class startPoint
 		
 		//5) compare fld & flhd
 		//5.1) the files which are in the database and are no more in the filesystem are deleted from Database
-		int nbRemovedSongs = SongContainer.getSingleton().getRemovedSongs( vSongs);
+		int nbRemovedSongs = SongContainer.getSingleton().removeDeletedSongs( vSongs);
 		System.out.println("Nb Elt : " + String.valueOf(vSongs.size())+"  removed songs : " + nbRemovedSongs);
 		
 		//5.2) the files which are in the fs and not in the database are added to database and removed from vSongs
-		int nbNewSongs = SongContainer.getSingleton().getNewSongs( vSongs);
+		int nbNewSongs = SongContainer.getSingleton().addNewSongs( vSongs);
 		System.out.println("Nb Elt : " + String.valueOf(vSongs.size())+"  new songs : " + nbNewSongs);
 		
 		//5.3) the files which are both in database and FS, do they have to be updated?
-		int nbUpdatedSongs = SongContainer.getSingleton().getUpdatedSongs( vSongs);
+		int nbUpdatedSongs = SongContainer.getSingleton().updateSongs( vSongs);
 		System.out.println("Nb Elt : " + String.valueOf(vSongs.size())+"  updated songs : " + nbUpdatedSongs);
 		
 		

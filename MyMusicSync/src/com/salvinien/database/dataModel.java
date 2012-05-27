@@ -25,7 +25,8 @@ public class dataModel
 	protected int version = 1;
 	
 	//CTOR
-	protected dataModel() 
+	//private to forbid the creation of instances but from getSingleton
+	private dataModel() 
 	{
 	}
 

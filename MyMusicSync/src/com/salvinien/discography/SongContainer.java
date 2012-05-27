@@ -14,17 +14,27 @@ import com.salvinien.database.MyDatabase;
 import com.salvinien.mymusicsync.Parameters;
 import com.salvinien.synclists.SynclistContainer;
 
-
+/*
+ * @class: SongContainer
+ * 
+ * This class manages SOngs
+ 
+ * it is implemented as a singleton (Design pattern)
+ * 
+ * 
+ *
+ */
 public class SongContainer
 {
 	//Members
-	protected HashMap< Integer, Song> containerId;
-	protected HashMap< String, Song> containerFileName;
-	protected String containerTableName;
+	protected HashMap< Integer, Song> containerId;			//this container references songs by their id
+	protected HashMap< String, Song> containerFileName;		//this container references songs by their FILE NAME
+	protected String containerTableName;					//this is the table name in the database
 	protected static SongContainer  mySingleton=null;
 
 	//CTOR
-	protected SongContainer() 
+	//private to forbid the creation of instances but from getSingleton
+	private SongContainer() 
 	{
 		//creates the physical containers
 		containerId = new HashMap< Integer, Song>();
@@ -33,6 +43,33 @@ public class SongContainer
 		init();
 	}
 
+	
+	//ACCESSORS
+	//accessor that gives the only instance of the  class 
+	public static SongContainer  getSingleton()
+	{	
+		if(mySingleton==null) mySingleton=new SongContainer();
+		
+		return mySingleton;
+	}
+
+	public Iterator<Song> getSongIteratorID() { return containerId.values().iterator();}				//returns an iterator of song (on containerId)
+	public Song getSong( int anId) 			{ return containerId.get(anId);}  							//returns a song given its id	(null if not found)
+	public Song getSong( String aFileName)	{ return containerId.get(getSongByFileName( aFileName));}	//returns a song given its filename	(null if nor found)
+	public int getSongByFileName( String aFileName)														//returns the id of a song gibe its filename (-1 if not found)
+	{
+		Song aSong = containerFileName.get(aFileName);
+		if(aSong == null) return -1;
+		
+		return aSong.getId();
+	}
+	
+	
+	
+	//Methods
+	/*@method : init
+	 * inits the container, ie loads data fron the database
+	 */
 	protected void init()
 	{
 		//load data from database
@@ -46,77 +83,29 @@ public class SongContainer
 			e.printStackTrace();
 		}		
 	}
-	
-	
-	//ACCESSORS
-	public static SongContainer  getSingleton()
-	{	
-		if(mySingleton==null) mySingleton=new SongContainer();
-		
-		return mySingleton;
-	}
 
-	public Song getSong( int anId)
-	{			
-		return containerId.get(anId);
-	}
-
-	public Song getSong( String aFileName)
-	{			
-		return containerId.get(getSongByFileName( aFileName));
-	}
-
-	public int getSongByFileName( String aFileName)
-	{
-		Song aSong = containerFileName.get(aFileName);
-		if(aSong == null) return -1;
-		
-		return aSong.getId();
-	}
-	
-	public Iterator<Song> getSongIteratorID() { return containerId.values().iterator();}
 	
 	
 	//Methods
-	
+	/*@method : int getNbOfAlbums( int artistID)
+	 * returns the number of albums given an artist id, this is done by requesting the database
+	 * in case of any problem, it returns -1
+	 */
 	public int getNbOfAlbums( int artistID) 
 	{
 		int nb=0;
-		
-	
-		try
-		{
-			nb = getNbOfAlbumsFromDB( artistID);
-		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+		try  						{ nb = getNbOfAlbumsFromDB( artistID);}
+		catch (SQLException e)		{ nb=-1;}
+				
 		return nb;
 	}
-	public int getNbOfSongs( int artistID) 
-	{
-		int nb=0;
-		
-	
-		try
-		{
-			nb = getNbOfSongsFromDB( artistID);
-		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return nb;
-	}
-	
-	protected int getNbOfAlbumsFromDB( int artistID) throws SQLException
+
+	/*@method : int getNbOfAlbumsFromDB( int artistID)
+	 * returns the number of albums given an artist id, this is done by requesting the database
+	 * 
+	 * this methods is called by getNbOfAlbums, and  is not visible outside from the class (private
+	 */
+	private int getNbOfAlbumsFromDB( int artistID) throws SQLException
 	{
 		int nb=0;
 		
@@ -136,6 +125,27 @@ public class SongContainer
 	    return nb;
 	}
 
+	
+	
+	/*@method : int getNbOfSongs( int artistID)
+	 * returns the number of songs given an artist id, this is done by requesting the database
+	 * in case of any problem, it returns -1
+	 */
+	public int getNbOfSongs( int artistID) 
+	{
+		int nb=0;
+		try						{ nb = getNbOfSongsFromDB( artistID);}
+		catch (SQLException e)	{ nb = -1;}
+		
+		return nb;
+	}
+	
+	
+	/*@method : int getNbOfSongsFromDB( int artistID)
+	 * returns the number of dongss given an artist id, this is done by requesting the database
+	 * 
+	 * this methods is called by getNbOfSongs, and  is not visible outside from the class (private
+	 */
 	protected int getNbOfSongsFromDB( int artistID) throws SQLException
 	{
 		int nb=0;
@@ -158,7 +168,13 @@ public class SongContainer
 
 	
 	
-	protected void loadFromDB() throws ParseException, SQLException
+	
+	/*@method : loadFromDB
+	 * loads data from database
+	 * 
+	 * this methods is called by Init, and  is not visible outside from the class (private
+	 */
+	private void loadFromDB() throws ParseException, SQLException
 	{
 		String Query= " SELECT * FROM "+containerTableName;
 		ResultSet rs = MyDatabase.getSingleton().executeQuery(Query);
@@ -178,7 +194,10 @@ public class SongContainer
 		    String S1= rs.getString("LastModification");
 		    Date LastModification = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" ).parse(S1);
 			   
+		    //create an instance of snog
 		    Song aSong = new Song( id, name, fileName, idArtist, idAlbum, hashkey, size, LastModification);
+		    
+		    //add the songs to both containers
 		    containerId.put(id, aSong);
 		    containerFileName.put(fileName, aSong);
 		}
@@ -187,6 +206,10 @@ public class SongContainer
 	}
 	
 
+	/*@method : Song create( Song aSong)
+	 * create a song in the database, it returns the song with its new id
+	 * 
+	 */
 	public Song create( Song aSong)
 	{
 		if( aSong.getId() != -1) return aSong; //if it already exists... then...
@@ -211,7 +234,6 @@ public class SongContainer
 
 		MyDatabase.getSingleton().commit();
 
-//		Song aSong = new Song( aSongName, aFileName, anArtistId, anAlbumId, anHashkey, aSize, aLastModification);
 		//retreive the id
 		aString = aSong.getFileName(); 
 		aString = aString.replace("'", "''");
@@ -235,11 +257,16 @@ public class SongContainer
 		    rs.close();
 		}
 		catch (SQLException e)	{	e.printStackTrace();}
-		
+
+	    
 		return aSong;
 	}
 
 	
+	/*@method : update( Song aSong)
+	 * update a song in the database AND in both containers
+	 * 
+	 */
 	public void update( Song aSong)
 	{
 		String aString;
@@ -271,32 +298,37 @@ public class SongContainer
 		containerId.remove( anObj.getId());
 		containerFileName.remove( anObj.getFileName());
 		
-		//add the new album
+		//add the new song
 		containerId.put( aSong.getId(), aSong);
 		containerFileName.put(aSong.getFileName(), aSong);
 	}
 
 	
-	public int getNewSongs( HashMap<String, Song>  vSongs)
+	
+	
+	/*@method : int addNewSongs( HashMap<String, Song>  vSongs)
+	 * add new songs in the container (and the database), the potential songs are coming from an hashmap of songs
+	 * 
+	 * returns the number of songs which have been added to the song container form the Hasmap received in parameter
+	 * the songs which were new are removed form vSong
+	 */
+	public int addNewSongs( HashMap<String, Song>  vSongs)
 	{
 		int nbOfNewSongs=0;
-		Iterator<Song> it = vSongs.values().iterator();
+		Iterator<Song> it = vSongs.values().iterator(); //get an iterator from the Hashmap of potentiel new songs
 		Song aSong=null;
 		
+		//we iterate through vSong
 		while(it.hasNext())
 		{
-			aSong = it.next();
+			aSong = it.next(); //get the next song
 			
-			Song aSong1 = containerFileName.get( aSong.getFileName());
-			if(aSong1 !=null)
-			{
-				//so the song is already in databasee 
-			}
-			else
+			Song aSong1 = containerFileName.get( aSong.getFileName()); //is the song already in the container (if yes we do nothing)
+			if(aSong1 ==null)
 			{
 				//so the song is not yet in database
 				try
-				{
+				{ // we retrieve information from the file directly
 					aSong.updateInformationFromFile(Parameters.getSingleton().getRoot());
 				}
 				catch (IOException e)
@@ -304,39 +336,52 @@ public class SongContainer
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				this.create(aSong);
-				it.remove();
-				nbOfNewSongs++;
+				
+				this.create(aSong); //we create the song in Database and add it to both container (id, filename)
+				
+				it.remove(); // we remove it form vSong
+				
+				nbOfNewSongs++; //+1 in the number of new songs
 			}
 
-		}
+		}//end while
 		
 		return nbOfNewSongs;
 	}
 	
 	
-	public int getUpdatedSongs( HashMap<String, Song>  vSongs)
+	
+	
+	/*@method : int updateSongs( HashMap<String, Song>  vSongs)
+	 * update songs in the container (and the database), the potential newer songs are coming from an hashmap of songs
+	 * 
+	 * returns the number of songs which have been updated in the song container form the Hashmap received in parameter
+	 * the songs which were newer are removed form vSong, actually it's if the songs already exists in the songs container
+	 * then it is removed from vSong (even if it is not newer)
+	 */
+	public int updateSongs( HashMap<String, Song>  vSongs)
 	{
 		int nbOfSongs=0;
-		Iterator<Song> it = vSongs.values().iterator();
+		Iterator<Song> it = vSongs.values().iterator();//get an iterator from the Hashmap of potentiel newer songs
 		Song aSong=null;
 		
+		//we iterate through vSong
 		while(it.hasNext())
 		{
-			aSong = it.next();
+			aSong = it.next();//get the next song
 			
-			Song aSong1 = containerFileName.get( aSong.getFileName());
+			Song aSong1 = containerFileName.get( aSong.getFileName());//is the song already in the container (if no we do nothing)
 			if(aSong1 !=null)
 			{
-				//so the song is already in databasee 
-				if( aSong1.updateInformationFromSong( aSong))
+				//so the song is already in database
+				if( aSong1.updateInformationFromSong( aSong)) //update the song information, is there really somethong updated? 
 				{
-					//yes we have to update the database
+					//yes so we have to update the database
 					this.update(aSong1);
 					nbOfSongs++;
 				}
 				
-				it.remove();
+				it.remove(); //remove the song from the vSongs
 			}
 
 		}
@@ -345,19 +390,27 @@ public class SongContainer
 	}
 
 	
-	public int getRemovedSongs(  HashMap<String, Song>  vSongs)
+	
+	
+	
+	
+	/*@method : int removeDeletedSongs( HashMap<String, Song>  vSongs)
+	 * remove songs which are in the song container (in the database), and not in vSongs
+	 * 
+	 * returns the number of songs which have been removed
+	 */
+	public int removeDeletedSongs(  HashMap<String, Song>  vSongs)
 	{
 		int nbOfSongs=0;
 
-		Iterator<Song> it = containerId.values().iterator();
-		
+		Iterator<Song> it = containerId.values().iterator();//we are going to iterate through the song container
 		while( it.hasNext())
 		{
-			Song aSong = it.next();
+			Song aSong = it.next();  //get next song
 			
-			Song s = vSongs.get(aSong.getFileName());
+			Song s = vSongs.get(aSong.getFileName());  //is the song in vSong
 			if( s==null)
-			{//Ok it means we have a song in our database that is no more in the system
+			{	//Ok it means we have a song in our database that is no more in the system
 				//so we remove it from the database->songs AND database->Playlists
 				//@TODO => we could check that is not just file move in using the hashkey and data and size and name
 		
@@ -387,34 +440,42 @@ public class SongContainer
 	
 	
 	
+	/*@method : Vector<Integer> getSongByAlbum( int albumId)
+	 * returns a vector of song which belongs to an album 
+	 * 
+	 * notice: may be we coiuld be faster in makign directly a query in database rather then iterate through the whole song container
+	 */
 	public Vector<Integer> getSongByAlbum( int albumId)
 	{
-		Vector<Integer> v = new Vector<Integer>();
+		Vector<Integer> v = new Vector<Integer>(); //create a vector
 
-		Iterator<Song> it = containerId.values().iterator();
+		Iterator<Song> it = containerId.values().iterator(); //get an Iterator from the song container 
 		
 		while( it.hasNext())
 		{
-			Song aSong = it.next();
+			Song aSong = it.next();//next song
 			
-			if( aSong.getAlbumID()==albumId) v.add(aSong.getId());
+			if( aSong.getAlbumID()==albumId) v.add(aSong.getId()); //if the song is from the album, we add the id in the vector
 		}
 		
 		return v;
 	}
 
 
+	/*@method : Vector<Integer> getSongByArtist( int artistId)
+	 * returns a vector of song which belongs to an artists 
+	 * notice: may be we could be faster in makign directly a query in database rather then iterate through the whole song container
+	 */
 	public Vector<Integer> getSongByArtist( int artistId)
 	{
-		Vector<Integer> v = new Vector<Integer>();
+		Vector<Integer> v = new Vector<Integer>();//create a vector
 
-		Iterator<Song> it = containerId.values().iterator();
-		
+		Iterator<Song> it = containerId.values().iterator(); //get an Iterator from the song container
 		while( it.hasNext())
 		{
-			Song aSong = it.next();
+			Song aSong = it.next();//next song
 			
-			if( aSong.getArtistID()==artistId) v.add(aSong.getId());
+			if( aSong.getArtistID()==artistId) v.add(aSong.getId()); //if the song is from the artist, we add the id in the vector
 		}
 		
 		return v;

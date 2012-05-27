@@ -1,16 +1,24 @@
 package com.salvinien.discography;
 
 import java.util.Vector;
+/*
+ * @class: SongSynchro
+ * 
+ * This class manages the song synchro between the root and the device  
+ 
+ * 
+ */
 
 public class SongSynchro
 {
-	protected Song SongRoot;   //song which is in the root (can be null)
-	protected Song SongDevice;	   //song which is in the device (can be null)
+	protected Song SongRoot;   	//song which is in the root (can be null)
+	protected Song SongDevice;  //song which is in the device (can be null)
 	boolean doNothing;
 	boolean From2To;
 	
 	boolean ModifySyncList;
 	
+	//Ctor
 	public SongSynchro(Song aSongRoot, boolean aFrom2To, boolean aDoNothing, Song aSongDevice, boolean aModiSyncList)
 	{
 		doNothing=aDoNothing;
@@ -21,6 +29,11 @@ public class SongSynchro
 	}
 	
 	
+	
+	//Methods
+	/*@method : String Artist()
+	 * returns the artist, the song in the root has priority 
+	 */
 	public String Artist()
 	{
 		String Artist;
@@ -36,6 +49,11 @@ public class SongSynchro
 		return Artist;
 	}
 	
+
+	//Methods
+	/*@method : String Album()
+	 * returns the album, the song in the root has priority 
+	 */
 	public String Album()
 	{
 		String Album;
@@ -52,6 +70,10 @@ public class SongSynchro
 	}
 	
 	
+	//Methods
+	/*@method : String NameSource()
+	 * returns the song name fromn the source, if null, it returns a default value 
+	 */
 	public String NameSource()
 	{
 		String NameSource;
@@ -67,6 +89,10 @@ public class SongSynchro
 		return NameSource;
 	}
 
+	//Methods
+	/*@method : String NameTarget()
+	 * returns the song name fromn the target, if null, it returns a default value 
+	 */
 	public String NameTarget()
 	{
 		String NameTarget;
@@ -83,6 +109,13 @@ public class SongSynchro
 	}
 
 	
+	
+	
+	//Methods
+	/*@method : Vector<String> toVstring()
+	 * returns a vector of strings, these are the values we want to display in a row  
+	 */
+
 	public Vector<String> toVstring()
 	{
 		Vector<String> v = new Vector<String>();
@@ -136,8 +169,6 @@ public class SongSynchro
 		{
 			v.add("N");
 		}
-
-
 		
 		
 		return v;

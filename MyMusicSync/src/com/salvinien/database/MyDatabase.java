@@ -28,7 +28,8 @@ public class MyDatabase
 	protected final String connectionString = "jdbc:sqlite:";
 
 	//CTOR
-	protected MyDatabase() 
+	//private to forbid the creation of instances but from getSingleton
+	private MyDatabase() 
 	{
 		try 
 		{

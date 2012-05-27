@@ -6,7 +6,7 @@ import java.util.Vector;
 public class SongSynchroContainer
 {
 
-	Vector<SongSynchro> container =	new Vector<SongSynchro>();
+	private Vector<SongSynchro> container =	new Vector<SongSynchro>();
 	
 	
 	public void add( SongSynchro aSongSynchro)
