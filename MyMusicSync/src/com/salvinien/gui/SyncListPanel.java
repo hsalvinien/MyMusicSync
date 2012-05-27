@@ -33,6 +33,7 @@ public class SyncListPanel extends JPanel implements MouseListener
 	protected JTree theTree;
 	protected DefaultMutableTreeNode root;
 
+	protected Device theDevice;
 	
 	
 	public SyncListPanel( Device aDevice)
@@ -62,6 +63,7 @@ public class SyncListPanel extends JPanel implements MouseListener
 	public void setNewDevice( Device aDevice)
 	{
 		//if the tree has already been constructed
+		theDevice = aDevice;
 		root.removeAllChildren();
 		theTree.removeAll();
 		

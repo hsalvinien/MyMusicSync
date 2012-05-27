@@ -41,12 +41,13 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	public final static int JC_DEVICE 		= 1;
 	public final static int B_SYNCHRONIZE	= 2;
 	
-	protected Device selectedDevice;
 	protected JTable theDeviceTable;
 	protected JPanel theDeviceListPanel ;
 	protected JButton bAnalysis;
 	protected JButton bSync;
+	
 	protected SyncListPanel theSyncListPanel;
+	protected Device selectedDevice;
 
 	myApp mom;
 	

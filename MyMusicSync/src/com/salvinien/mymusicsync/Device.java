@@ -3,9 +3,11 @@ package com.salvinien.mymusicsync;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.Vector;
 
 import com.salvinien.database.MyDatabase;
+import com.salvinien.synclists.Synclist;
 
 public class Device
 {
@@ -63,6 +65,31 @@ public class Device
 
 	    rs.close();	     
 	}
+
 	
+	
+	//remove a playlist from the deivce
+	public void unAssociateSyncList( Synclist aSynclist)
+	{
+		//we itarate throuhgt the container
+		for( int i =0; i< container.size(); i++)
+		{
+			//when we have the playslist we are looking up
+			if( container.get(i).getPlaylistId() == aSynclist.getId())
+			{
+				//we remove it fron the container
+				container.remove(i);
+				
+				// and from the database
+				String Query= " DELETE FROM DeviceSyncList ";	
+				Query=  Query + " WHERE DeviceID='"+String.valueOf(this.DeviceID)+"'  and PlaylistId='"+String.valueOf(aSynclist.getId())+"'";
+								
+				MyDatabase.getSingleton().executeSimpleQuery(Query);
+				MyDatabase.getSingleton().commit();
+							
+				return;
+			}
+		}
+	}
 
 }

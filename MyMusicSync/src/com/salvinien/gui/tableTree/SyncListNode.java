@@ -2,6 +2,8 @@ package com.salvinien.gui.tableTree;
 
 import java.util.HashMap;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 
@@ -10,7 +12,7 @@ public class SyncListNode extends ADefaultMutableTreeNode
 	private static final long	serialVersionUID	= 1329348084639690276L;
 	
 	protected HashMap<Integer, ArtistNode> containerArtist;
-	Synclist thePlayList;
+	protected Synclist thePlayList;
 	
 	
 	public SyncListNode(Synclist aPlayList)	
@@ -65,22 +67,17 @@ public class SyncListNode extends ADefaultMutableTreeNode
 	@Override
 	public void removeMe()
 	{
-		//if there is no artist then it we have to remove the playlist, which means we have to remove the association with the device and no more.
-		if( this.getChildCount()==0)
+		//0) if no artist, then do nothing
+		if( this.getChildCount()==0) return;
+		
+		//1) we remove the songs from the synclist
+		//1.a we retreive all the AlbumNodeS in an array
+		ArtistNode ta[] = new ArtistNode[this.getChildCount()];
+		this.children.copyInto(ta);
+		
+		for( int i=0; i< ta.length; i++ )
 		{
-			System.out.println( " SyncLIstNode => todo : remove the association between the playlist and the device");
-		}
-		else
-		{
-			//1) we remove the songs from the synclist
-			//1.a we retreive all the AlbumNodeS in an array
-			ArtistNode ta[] = new ArtistNode[this.getChildCount()];
-			this.children.copyInto(ta);
-			
-			for( int i=0; i< ta.length; i++ )
-			{
-				ta[i].removeMe();
-			}
+			ta[i].removeMe();
 		}
 	
 		//2) we remove the ArtistNode from the SyncList 
@@ -98,11 +95,20 @@ public class SyncListNode extends ADefaultMutableTreeNode
 		  this.remove(aNode);
 		  
 		  //now if there is no more artist for the SyncList ...  we do nothing we keep the synclist
+		  //to remove the node, we hae to call removeMeCompletly
 		  if( containerArtist.size()==0)
 		  {
 		  }
 		  
 	}
 	
+	public void removeMeCompletly()
+	{
+		//! this is for removing a synclist from the device SO we reomve only the assoication not the songs from the synclist 
+		DefaultMutableTreeNode mum = (DefaultMutableTreeNode) this.getParent();
+		mum.remove( this);		  
+	}
+
+
 }
 
