@@ -2,6 +2,22 @@ package com.salvinien.database;
 
 import java.sql.ResultSet;
 
+/*
+ * @class: dataModel
+ * 
+ * This class manages the definitions of the data model
+ * it manages also:
+ * - the versionning of the data model
+ * - the pre-population of the database
+ * - and the population for test purpose
+ * 
+ * it is implemented as a singleton (Design pattern)
+ * 
+ * 
+ * 
+ * 
+ */
+
 public class dataModel
 {
 	
@@ -15,6 +31,7 @@ public class dataModel
 
 	
 	//ACCESSORS
+	//this accessor returns the only instance of the class
 	public static dataModel  getSingleton()
 	{	
 		if(mySingleton==null) mySingleton=new dataModel();
@@ -24,7 +41,11 @@ public class dataModel
 
 	
 	//METHODS
-	
+	/*@method : checkDatabase
+	 * check the database.
+	 * 1) if the database doesn't exist, it creates it
+	 * 2) if the database exists but is from a previous version, then it runs upgrade patch  
+	 */
 	public void checkDatabase()
 	{
 		String query = "SELECT * FROM Version";
@@ -45,7 +66,10 @@ public class dataModel
 
 	
 	
-	protected void createDataModel() 
+	/*@method : createDataModel
+	 * create the data model
+	 */
+	private void createDataModel() 
 	{
 		String aQuery;
 		aQuery 	= 	"CREATE TABLE Songs (" +
@@ -118,7 +142,12 @@ public class dataModel
 	}
 
 	
-	protected void populate() 
+	
+	
+	/*@method : populate
+	 * initialize the database 
+	 */
+	private void populate() 
 	{
 		String aQuery;
 		aQuery = 	"INSERT INTO SynclistNames (Name) values ( 'All')";
@@ -143,8 +172,12 @@ public class dataModel
 		MyDatabase.getSingleton().commit();
 	}
 
+
 	
-	protected void populateTest() 
+	/*@method : populateTest
+	 * initialize the database with test data 
+	 */
+	private void populateTest() 
 	{
 		String aQuery;
 		
@@ -211,8 +244,10 @@ public class dataModel
 	
 	
 	
-	
-	public 	void updateDataModelFromVersion( int currentVersion)
+	/*@method : updateDataModelFromVersion
+	 * update the data model from its current version to the the new version  
+	 */	
+	private void updateDataModelFromVersion( int currentVersion)
 	{
 		if( currentVersion == version)  return; //the current version and the datamodel are the same so nothing to update
 		
