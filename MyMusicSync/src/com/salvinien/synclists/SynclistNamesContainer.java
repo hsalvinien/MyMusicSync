@@ -2,6 +2,16 @@ package com.salvinien.synclists;
 
 import com.salvinien.mymusicsync.LibelleContainer;
 
+
+/*
+ * @class: SynclistNamesContainer
+ * 
+ * This class manages synclists names
+ * 
+ * it is implemented has a singleton
+ * 
+ */
+
 public class SynclistNamesContainer extends LibelleContainer
 {
 	//Members
@@ -10,7 +20,7 @@ public class SynclistNamesContainer extends LibelleContainer
 	//CTOR
 	protected SynclistNamesContainer() 
 	{
-		super( "SynclistNames");
+		super( "SynclistNames"); //table name
 	}
 
 	

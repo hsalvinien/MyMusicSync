@@ -7,6 +7,15 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
+/*
+ * @class: SynclistContainer
+ * 
+ * This class manages synclists
+ * 
+ * it is implemented has a singleton
+ * 
+ */
+
 public class SynclistContainer
 {
 	//Members
@@ -34,19 +43,18 @@ public class SynclistContainer
 		
 		return mySingleton;
 	}
-	public Synclist getPlaylist(int anId)
-	{			
-		return containerId.get(anId);
-	}
+	public Synclist getPlaylist(int anId) 	{ return containerId.get(anId);}
 
 
 	
 	//Methods
 	
 	
-	//prefill the container of Synclist with existing synclist 
-	//without adding the songs id. It is for addressing the case of playlist chich haven't yet associated with songs
-	protected void preFill()
+	/*@method : void preFill()
+	 *prefill the container of Synclist with existing synclist 
+	 *without adding the songs id. It is for addressing the case of playlist which haven't yet associated with songs
+	 */
+	private void preFill()
 	{
 		int[] ids = SynclistNamesContainer.getSingleton().getIds();
 		
@@ -64,7 +72,10 @@ public class SynclistContainer
 		
 	}
 	
-	protected void loadFromDB()
+	/*@method : void loadFromDB()
+	 * load the synclist from databse 
+	 */
+	private void loadFromDB()
 	{
 		preFill(); //case of playlist not yet associated with songs
 		
@@ -101,7 +112,11 @@ public class SynclistContainer
 	}
 	
 	
-	public void removeSongFromAllPlaylist( int anId)
+	/*@method : removeSongFromAllPlaylist( int aSongId)
+	 * remove a song from all playlists
+	 * 
+	 */
+	public void removeSongFromAllPlaylist( int aSongId)
 	{
 		//we remove the song from the container
 		Iterator<Synclist> it = containerId.values().iterator();
@@ -109,27 +124,30 @@ public class SynclistContainer
 		{
 			Synclist p = it.next();
 			
-			p.removeSong( anId);
-			if(p.getSize()==0) //if the playlist has no more items we remove it from the container
-			{
-				it.remove();
-			}
+			p.removeSong( aSongId);
+			//even if the playlist is associated with no more songs we still keep it
 		}
 		
 		//we remove the song from the database
 		String Query= " DELETE FROM "+containerTableName;	
-		Query=  Query + " WHERE ID='"+String.valueOf(anId)+"'";
+		Query=  Query + " WHERE SongID='"+String.valueOf(aSongId)+"'";
 		
 		MyDatabase.getSingleton().executeSimpleQuery(Query);
 		MyDatabase.getSingleton().commit();
 	}
 	
 	
+	
+	
+	/*@method : void save( Synclist aSyncList)
+	 * save aSynlist in database
+	 * 
+	 */
 	public void save( Synclist aSyncList)
 	{
 		//let's be bourrin
 		
-		//1) we delete the songs from table
+		//1) we delete the playlist-songs from table
 		String Query= " DELETE FROM "+containerTableName;	
 		Query=  Query + " WHERE SynclistID='"+String.valueOf(aSyncList.getId())+"'";
 		
