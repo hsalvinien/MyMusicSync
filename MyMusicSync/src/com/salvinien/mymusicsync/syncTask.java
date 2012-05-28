@@ -15,7 +15,7 @@ import com.salvinien.synclists.SynclistContainer;
 
 public class syncTask
 {
-	protected Synclist thePlaylist;
+	protected Synclist theSynclist;
 	protected DeviceSyncList theDeviceSyncList;
 	
 	//Ctors
@@ -23,7 +23,7 @@ public class syncTask
 	{
 		theDeviceSyncList = aDeviceSyncList;
 
-		thePlaylist =  SynclistContainer.getSingleton().getPlaylist( aDeviceSyncList.getPlaylistId());
+		theSynclist =  SynclistContainer.getSingleton().getSynclist( aDeviceSyncList.getSynclistId());
 	}
 	
 	
@@ -39,11 +39,11 @@ public class syncTask
 		//2) are they Songs in the device which are not in the synclist?
 		songInDeviceNotInSyncList(deviceSongs, aContainer);
 	
-		//3) are they songs in the playlist which are not in the devices or songs which newer in the root than in the device 
-		songInPlaylistNotInDevice( deviceSongs, aContainer); 
+		//3) are they songs in the Synclist which are not in the devices or songs which newer in the root than in the device 
+		songInSynclistNotInDevice( deviceSongs, aContainer); 
 
 		//4) are they songs which are newer in the device than in the root, if it is the case we should update the root 
-		songNewerInDeviceThanInPlaylist( deviceSongs, aContainer) ;
+		songNewerInDeviceThanInSynclist( deviceSongs, aContainer) ;
 		
 		return aContainer;
 	}
@@ -64,15 +64,15 @@ public class syncTask
 
 	protected void songInDeviceNotInSyncList( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)	
 	{
-		//are they Songs in the device which are not in the playslist two choices:
+		//are they Songs in the device which are not in the Syncslist two choices:
 				//=> we remove them from the device
-				//or we add them to the playlist and THEN copy them into root, well just check that it is not already in the root...
+				//or we add them to the Synclist and THEN copy them into root, well just check that it is not already in the root...
 
 		Iterator<Song> it = deviceSongs.values().iterator();
 		while( it.hasNext())
 		{
 			Song aSong = it.next();
-			if( thePlaylist.hasSong(aSong) == false)
+			if( theSynclist.hasSong(aSong) == false)
 			{
 				//so we have found a song in the device which is not in the syncList
 				SongSynchro aSongSynchro = new SongSynchro(null, false, false, aSong, true);
@@ -83,11 +83,11 @@ public class syncTask
 
 
 
-	protected void songInPlaylistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
+	protected void songInSynclistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
 	{
-		//are they songs in the playlist which are not in the devices or songs which are newer in the root than in the device 
+		//are they songs in the Synclist which are not in the devices or songs which are newer in the root than in the device 
 		//if yes we copy them from the root to the devices
-		Vector<Song> vSongInRootNotInDevice = thePlaylist.getSongNotInDevice( deviceSongs);
+		Vector<Song> vSongInRootNotInDevice = theSynclist.getSongNotInDevice( deviceSongs);
 		Iterator<Song> it = vSongInRootNotInDevice.iterator();
 		while( it.hasNext())
 		{
@@ -101,7 +101,7 @@ public class syncTask
 	}
 
 
-	protected void songNewerInDeviceThanInPlaylist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
+	protected void songNewerInDeviceThanInSynclist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
 	{
 		 
 		//are they songs which are newer in the device than in the root, if it is the case we should update the root 
@@ -124,9 +124,9 @@ public class syncTask
 			}
 			else
 			{
-				//the song is in the device but note in the playlis
-				//this case will no happen more when  songInDeviceNotInPlaylist is completed
-				System.out.println( "the song is in the device but note in the playlis, this case will no happen more when  songInDeviceNotInPlaylist is completed : "+aSong.getFileName() );
+				//the song is in the device but note in the Synclis
+				//this case will no happen more when  songInDeviceNotInSynclist is completed
+				System.out.println( "the song is in the device but note in the Synclist, this case will no happen more when  songInDeviceNotInSynclist is completed : "+aSong.getFileName() );
 			}
 		}
 	}

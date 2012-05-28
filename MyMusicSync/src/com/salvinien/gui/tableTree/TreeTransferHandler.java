@@ -122,7 +122,7 @@ public class TreeTransferHandler extends TransferHandler
         {
         	int songId = it.next();
         	
-        	aSyncList.addSong(songId); //add the song to the playlist
+        	aSyncList.addSong(songId); //add the song to the Synclist
         	theSyncListNode.getArtist( SongContainer.getSingleton().getSong(songId)); //create the node int the tree 
         }
         SynclistContainer.getSingleton().save(aSyncList);

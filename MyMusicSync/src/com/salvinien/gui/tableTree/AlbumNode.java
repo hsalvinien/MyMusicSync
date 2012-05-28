@@ -63,7 +63,7 @@ public class AlbumNode extends ADefaultMutableTreeNode
 		//1-a) we retreive the synclist
 		TreeNode tn[] = this.getPath();
 		SyncListNode s = (SyncListNode) tn[1];  //root being the level 0, the synclist is level 1
-		Synclist aSyncList = s.thePlayList;
+		Synclist aSyncList = s.theSyncList;
 
 		for( int i=0; i<this.getChildCount(); i++)
 		{

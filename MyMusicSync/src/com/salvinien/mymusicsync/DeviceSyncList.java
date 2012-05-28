@@ -3,17 +3,17 @@ package com.salvinien.mymusicsync;
 public class DeviceSyncList
 {
 	protected String DefaultPath;
-	protected int PlaylistId;
+	protected int SynclistId;
 
 	//CTOR
-	public DeviceSyncList( String aDefaultPath, int aPlaylistId)
+	public DeviceSyncList( String aDefaultPath, int aSynclistId)
 	{
 		DefaultPath = aDefaultPath;
-		PlaylistId = aPlaylistId;
+		SynclistId = aSynclistId;
 	}
 	
 	//ACCESSORS
 	public String getDefaultPath()  { return DefaultPath;}
-	public int getPlaylistId()		{ return PlaylistId;}
+	public int getSynclistId()		{ return SynclistId;}
 	
 }

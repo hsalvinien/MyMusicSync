@@ -43,7 +43,8 @@ public class SynclistContainer
 		
 		return mySingleton;
 	}
-	public Synclist getPlaylist(int anId) 	{ return containerId.get(anId);}
+	public Synclist getSynclist(int anId) 			{ return containerId.get(anId);}
+	public void addSynclist(Synclist aSyncList) 	{ containerId.put(aSyncList.getId(), aSyncList);}
 
 
 	
@@ -52,7 +53,7 @@ public class SynclistContainer
 	
 	/*@method : void preFill()
 	 *prefill the container of Synclist with existing synclist 
-	 *without adding the songs id. It is for addressing the case of playlist which haven't yet associated with songs
+	 *without adding the songs id. It is for addressing the case of Synclist which haven't yet associated with songs
 	 */
 	private void preFill()
 	{
@@ -77,7 +78,7 @@ public class SynclistContainer
 	 */
 	private void loadFromDB()
 	{
-		preFill(); //case of playlist not yet associated with songs
+		preFill(); //case of Synclist not yet associated with songs
 		
 		String Query= " SELECT * FROM "+containerTableName;
 		ResultSet rs = MyDatabase.getSingleton().executeQuery(Query);
@@ -88,14 +89,14 @@ public class SynclistContainer
 			while(rs.next())
 			{
 			    //Retrieve by column name
-			    int PlaylistId  = rs.getInt("SynclistId");
+			    int SynclistId  = rs.getInt("SynclistId");
 			    int SongId  	= rs.getInt("SongID");
 			    
-			    Synclist p = containerId.get(PlaylistId);
+			    Synclist p = containerId.get(SynclistId);
 			    if( p==null)
 			    	{
-			    		p= new Synclist( PlaylistId);
-			    		containerId.put(PlaylistId, p);
+			    		p= new Synclist( SynclistId);
+			    		containerId.put(SynclistId, p);
 			    	}
 			    
 			    p.addSong(SongId);
@@ -112,11 +113,11 @@ public class SynclistContainer
 	}
 	
 	
-	/*@method : removeSongFromAllPlaylist( int aSongId)
-	 * remove a song from all playlists
+	/*@method : removeSongFromAllSynclist( int aSongId)
+	 * remove a song from all Syncylists
 	 * 
 	 */
-	public void removeSongFromAllPlaylist( int aSongId)
+	public void removeSongFromAllSynclist( int aSongId)
 	{
 		//we remove the song from the container
 		Iterator<Synclist> it = containerId.values().iterator();
@@ -125,7 +126,7 @@ public class SynclistContainer
 			Synclist p = it.next();
 			
 			p.removeSong( aSongId);
-			//even if the playlist is associated with no more songs we still keep it
+			//even if the Synclist is associated with no more songs we still keep it
 		}
 		
 		//we remove the song from the database
@@ -147,7 +148,7 @@ public class SynclistContainer
 	{
 		//let's be bourrin
 		
-		//1) we delete the playlist-songs from table
+		//1) we delete the Synclist-songs from table
 		String Query= " DELETE FROM "+containerTableName;	
 		Query=  Query + " WHERE SynclistID='"+String.valueOf(aSyncList.getId())+"'";
 		
@@ -168,4 +169,30 @@ public class SynclistContainer
 			
 		MyDatabase.getSingleton().commit();
 	}
+
+
+	/*@method : void delete( int aSyncListID)
+	 * delete a synclist from the names container, from database AND from SynclisContainer
+	 * 
+	 * actually, to delete a synclist you can rather (if you prefer) call the delete from SynclistNamesContainer
+	 * it is exactly the same, both methods work together and insure the same service  
+	 */
+	public void delete( int aSyncListID)
+	{
+		//0) precheck
+		if( this.getSynclist(aSyncListID)==null)   return;
+		
+		//1) we remove it from from the container and its database table
+		this.containerId.remove(aSyncListID);
+		String Query = "DELETE FROM "+containerTableName+ " WHERE SynclistID="+aSyncListID;
+		MyDatabase.getSingleton().executeSimpleQuery(Query);
+		MyDatabase.getSingleton().commit();
+		
+		
+		//2) delete from SynclistContainer
+		SynclistContainer.getSingleton().delete( aSyncListID);
+	}
+
+
+
 }

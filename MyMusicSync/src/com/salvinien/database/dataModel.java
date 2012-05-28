@@ -114,7 +114,7 @@ public class dataModel
 		aQuery 	= 	"CREATE TABLE DeviceSyncList(" +
 					"DeviceID INTEGER, " +
 					"DefaultPath VARCHAR(256), " +
-					"PlaylistId INTEGER)";
+					"SynclistId INTEGER)";
 
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		aQuery 	= 	"CREATE TABLE Parameters(" +
@@ -190,27 +190,27 @@ public class dataModel
 		
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'deviceTest', 2) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 1, 'C:\\FileSystemeE\\development\\git-repos\\MyMusicSync\\MyMusicSync\\myMusicTest', 3)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 1, 'C:\\FileSystemeE\\development\\git-repos\\MyMusicSync\\MyMusicSync\\myMusicTest', 3)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
 
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'MyWD', 3) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 2, 'G:\\1.Multimedia\\Audio\\1.Audio-flac', 3)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 2, 'G:\\1.Multimedia\\Audio\\1.Audio-flac', 3)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'SG II', 4) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 3, 'E:\\root', 3)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 3, 'E:\\root', 3)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 3, 'F:\\sd', 4)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 3, 'F:\\sd', 4)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'DX100', 5) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 4, 'G:\\root', 3)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 4, 'G:\\root', 3)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'PlaylistId') VALUES ( 4, 'H:\\sd', 4)";
+		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 4, 'H:\\sd', 4)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
 

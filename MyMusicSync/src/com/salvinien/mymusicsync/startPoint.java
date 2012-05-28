@@ -69,7 +69,7 @@ public class startPoint
 		//2.1) Music root Dir
 		Parameters.getSingleton();
 		
-		//2.2) Load all albums, artists, playlistnames
+		//2.2) Load all albums, artists, Synclistnames
 		AlbumContainer.getSingleton();
 		ArtistContainer.getSingleton();
 		SynclistNamesContainer.getSingleton();

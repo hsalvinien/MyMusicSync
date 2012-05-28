@@ -90,15 +90,15 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		{
 			Vector<String> row = new Vector<String>();
 
-			int anId = v.get(i).getPlaylistId();
+			int anId = v.get(i).getSynclistId();
 			
-			Synclist aPlaylist = SynclistContainer.getSingleton().getPlaylist(anId);
+			Synclist aSynclist = SynclistContainer.getSingleton().getSynclist(anId);
 
-			String name = aPlaylist.getName();
+			String name = aSynclist.getName();
 			row.add( name);
 			
 			row.add( v.get(i).getDefaultPath());
-			int nb = aPlaylist.getSize();
+			int nb = aSynclist.getSize();
 			String s= String.valueOf(nb);
 			row.add( s);
 			

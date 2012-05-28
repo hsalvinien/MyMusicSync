@@ -181,4 +181,24 @@ public class LibelleContainer
 		containerName.put( anObj.getName(), anObj);
 	}
 
+	
+	/*@method : void delete( int anID)
+	 * delete a libelle from the container, from database 
+	 */
+	public void delete( int anID)
+	{
+		//1) first we remove it from the hashmaps
+		Libelle aLibelle = containerId.get(anID);
+		containerName.remove(aLibelle.getName());
+		containerId.remove(anID);
+
+		//2) we remove it from the database
+		String Query = " DELETE FROM "+containerTableName+  " WHERE Id = "+ anID;
+		MyDatabase.getSingleton().executeSimpleQuery(Query);		
+		MyDatabase.getSingleton().commit();
+		
+		
+	}
+
+	
 }

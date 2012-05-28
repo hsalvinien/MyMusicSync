@@ -12,18 +12,18 @@ public class SyncListNode extends ADefaultMutableTreeNode
 	private static final long	serialVersionUID	= 1329348084639690276L;
 	
 	protected HashMap<Integer, ArtistNode> containerArtist;
-	protected Synclist thePlayList;
+	protected Synclist theSyncList;
 	
 	
-	public SyncListNode(Synclist aPlayList)	
+	public SyncListNode(Synclist aSyncList)	
 	{
-		super( aPlayList.getName());
+		super( aSyncList.getName());
 		containerArtist = new HashMap<Integer, ArtistNode> ();
-		thePlayList = aPlayList;
+		theSyncList = aSyncList;
 	}
 	
 	
-	public 	Synclist getSynclist() { return thePlayList;}
+	public 	Synclist getSynclist() { return theSyncList;}
 
 	public ArtistNode getArtist(Song aSong)
 	{

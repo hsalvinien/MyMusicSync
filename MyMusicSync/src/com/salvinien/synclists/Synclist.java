@@ -37,7 +37,7 @@ public class Synclist
 	public void removeSong( int anId)	{ theContainer.remove(anId); }
 
 	/*@method : boolean hasSong( int aSongId)
-	 * check if a song is in the playlist
+	 * check if a song is in the Synclist
 	 */
 	public boolean hasSong( int aSongId)
 	{
@@ -48,11 +48,11 @@ public class Synclist
 	}
 	
 	/*@method : boolean hasSong( Song aSong)
-	 * check if a song is in the playlist
+	 * check if a song is in the Synclist
 	 */
 	public boolean hasSong( Song aSong)	
 	{
-		//1) is the song a song in the database rq: if not, it cannot be in the playlist!!!
+		//1) is the song a song in the database rq: if not, it cannot be in the Synclist!!!
 		int id = SongContainer.getSingleton().getSongByFileName( aSong.getFileName());
 		
 		return hasSong(id);

@@ -200,7 +200,7 @@ public class Song
 			return;  
 		}
  			
-		if( head[0]=='#'  && head[1]=='E'  && head[2]=='X'  && head[3]=='T'  ) // playlist case
+		if( head[0]=='#'  && head[1]=='E'  && head[2]=='X'  && head[3]=='T'  ) // Synclist case
 		{
 			is.close();
 			return;  

@@ -56,7 +56,7 @@ public class SongNode extends ADefaultMutableTreeNode
 		//1-a) we retreive the synclist
 		TreeNode tn[] = this.getPath();
 		SyncListNode s = (SyncListNode) tn[1];  //root being the level 0, the synclist is level 1
-		Synclist aSyncList = s.thePlayList;
+		Synclist aSyncList = s.theSyncList;
 		aSyncList.removeSong(theSong.getId());
 		
 		//2) we remove the songNode from the AlbumNode

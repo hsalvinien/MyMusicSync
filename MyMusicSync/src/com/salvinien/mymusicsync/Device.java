@@ -56,10 +56,10 @@ public class Device
 		while(rs.next())
 		{
 		    //Retrieve by column name
-			int PlaylistId  	= rs.getInt("PlaylistId");
+			int SynclistId  	= rs.getInt("SynclistId");
 		    String DefaultPath  = rs.getString("DefaultPath");
 
-		    DeviceSyncList aDeviceSyncList = new DeviceSyncList( DefaultPath, PlaylistId);
+		    DeviceSyncList aDeviceSyncList = new DeviceSyncList( DefaultPath, SynclistId);
 		    container.add(aDeviceSyncList);
 		}
 
@@ -68,21 +68,21 @@ public class Device
 
 	
 	
-	//remove a playlist from the deivce
+	//remove a Synclist from the deivce
 	public void unAssociateSyncList( Synclist aSynclist)
 	{
 		//we itarate throuhgt the container
 		for( int i =0; i< container.size(); i++)
 		{
-			//when we have the playslist we are looking up
-			if( container.get(i).getPlaylistId() == aSynclist.getId())
+			//when we have the Syncslist we are looking up
+			if( container.get(i).getSynclistId() == aSynclist.getId())
 			{
 				//we remove it fron the container
 				container.remove(i);
 				
 				// and from the database
 				String Query= " DELETE FROM DeviceSyncList ";	
-				Query=  Query + " WHERE DeviceID='"+String.valueOf(this.DeviceID)+"'  and PlaylistId='"+String.valueOf(aSynclist.getId())+"'";
+				Query=  Query + " WHERE DeviceID='"+String.valueOf(this.DeviceID)+"'  and SynclistId='"+String.valueOf(aSynclist.getId())+"'";
 								
 				MyDatabase.getSingleton().executeSimpleQuery(Query);
 				MyDatabase.getSingleton().commit();
@@ -99,8 +99,8 @@ public class Device
 		container.add(aDeviceSyncList);
 		
 		//2) save it to database
-		String query = " Insert into DeviceSyncList ('DeviceID' , 'DefaultPath', 'PlaylistId') VALUES ('";
-		query += String.valueOf(this.getDeviceID())+"' , '"+aDeviceSyncList.getDefaultPath()+"', '"+String.valueOf(aDeviceSyncList.PlaylistId)+"') ";
+		String query = " Insert into DeviceSyncList ('DeviceID' , 'DefaultPath', 'SynclistId') VALUES ('";
+		query += String.valueOf(this.getDeviceID())+"' , '"+aDeviceSyncList.getDefaultPath()+"', '"+String.valueOf(aDeviceSyncList.SynclistId)+"') ";
 			
 		MyDatabase.getSingleton().executeSimpleQuery(query);
 		MyDatabase.getSingleton().commit();

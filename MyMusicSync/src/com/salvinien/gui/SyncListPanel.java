@@ -73,15 +73,15 @@ public class SyncListPanel extends JPanel implements MouseListener
 		while( it.hasNext())
 		{
 			DeviceSyncList aDeviceSyncList=it.next();
-			int aPlaylisId = aDeviceSyncList.getPlaylistId();
+			int aSynclisId = aDeviceSyncList.getSynclistId();
 			
-			Synclist aPlayList = SynclistContainer.getSingleton().getPlaylist(aPlaylisId);
+			Synclist aSyncList = SynclistContainer.getSingleton().getSynclist(aSynclisId);
 
-			SyncListNode aSyncListNode = new SyncListNode( aPlayList);
+			SyncListNode aSyncListNode = new SyncListNode( aSyncList);
 			
 			root.add( aSyncListNode);
 			
-			addPlaylist( aPlayList, aSyncListNode);
+			addSynclist( aSyncList, aSyncListNode);
 		}
 		
 		((DefaultTreeModel)theTree.getModel()).reload();
@@ -89,9 +89,9 @@ public class SyncListPanel extends JPanel implements MouseListener
 	}
 	
 	
-	protected void addPlaylist( Synclist aPlaylist, SyncListNode aSyncListNode)
+	protected void addSynclist( Synclist aSynclist, SyncListNode aSyncListNode)
 	{
-		Iterator<Integer> it = aPlaylist.iterator();
+		Iterator<Integer> it = aSynclist.iterator();
 		while( it.hasNext())
 		{
 			int id = it.next();

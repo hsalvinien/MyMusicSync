@@ -16,6 +16,7 @@ import com.salvinien.gui.tableTree.SyncListNode;
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
+import com.salvinien.synclists.SynclistNamesContainer;
 
 public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 {
@@ -23,8 +24,9 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 
 	public final static int PuP_EXPAND_ALL=1;
 	public final static int PuP_REMOVE_NODE=2;
-	public final static int PuP_DISSOCIATE_PLAYLIST=3;
-	public final static int PuP_ASSOCIATE_PLAYLIST=4;
+	public final static int PuP_DISSOCIATE_SYNCLIST=3;
+	public final static int PuP_ASSOCIATE_SYNCLIST=4;
+	public final static int PuP_DELETE_SYNCLIST=5;
 	
 	
 	protected SyncListPanel theSyncListPanel;
@@ -48,11 +50,19 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 		this.add(menuItem);
 
 		
-		//Remove a node
+		//Dissociate a synclist
 		menuItem = new JMenuItem("Dissociate Synclist &device", KeyEvent.VK_D);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription( "Remove the associatio synclist <-> device, but keep the synclist");
-		menuItem.setActionCommand(  String.valueOf(PuP_DISSOCIATE_PLAYLIST));
+		menuItem.setActionCommand(  String.valueOf(PuP_DISSOCIATE_SYNCLIST));
+		menuItem.addActionListener(this);
+		this.add(menuItem);
+
+		//Delete a node
+		menuItem = new JMenuItem("Delete a Synclist", KeyEvent.VK_S);
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription( "delete the synclist");
+		menuItem.setActionCommand(  String.valueOf(PuP_DELETE_SYNCLIST));
 		menuItem.addActionListener(this);
 		this.add(menuItem);
 
@@ -60,7 +70,7 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 		menuItem = new JMenuItem("Associate a Synclist", KeyEvent.VK_A);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription( "Create a new association synclist <-> device");
-		menuItem.setActionCommand(  String.valueOf(PuP_ASSOCIATE_PLAYLIST));
+		menuItem.setActionCommand(  String.valueOf(PuP_ASSOCIATE_SYNCLIST));
 		menuItem.addActionListener(this);
 		this.add(menuItem);
 		
@@ -92,29 +102,24 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
         		}
         		break;
         	 	
-        	case PuP_DISSOCIATE_PLAYLIST: //remove association between device and synclist
+        	case PuP_DISSOCIATE_SYNCLIST: //remove association between device and synclist
         		
-        		TreePath tq[] = theSyncListPanel.theTree.getSelectionPaths();
-        		
-        		for( int i=0; i < tq.length; i++)
-        		{
-        			TreePath aTq = tq[i];
-        			Object to[] = aTq.getPath();
-        			
-        			SyncListNode aSyncListNode= (SyncListNode) to[ 1];  //1 is the synclist level 
-        			Device aDevice =  theSyncListPanel.theDevice;
-        			aDevice.unAssociateSyncList( aSyncListNode.getSynclist());
-        			
-        			aSyncListNode.removeMeCompletly();
-        		}
-
+        		removeSyncList( false); //we don't delete the synclist
         		
         		((DefaultTreeModel)theSyncListPanel.theTree.getModel()).reload();
 
         		break;
         		
+        	case PuP_DELETE_SYNCLIST: //delete synclist
         		
-        	case PuP_ASSOCIATE_PLAYLIST:
+        		removeSyncList( true); //we  delete the synclist
+
+        		((DefaultTreeModel)theSyncListPanel.theTree.getModel()).reload();
+
+        		break;
+        		
+
+        	case PuP_ASSOCIATE_SYNCLIST:
         		syncListDeviceAssociation aSyncListDeviceAssociation= new syncListDeviceAssociation( theSyncListPanel);
         		aSyncListDeviceAssociation.createAndShowGUI();
         		break;
@@ -126,4 +131,35 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
         }
 	
 	}
+	
+	
+	
+	protected void removeSyncList(boolean deleteSyncList)
+	{
+		TreePath tq[] = theSyncListPanel.theTree.getSelectionPaths();
+		
+		for( int i=0; i < tq.length; i++)
+		{
+			TreePath aTq = tq[i];
+			Object to[] = aTq.getPath();
+			
+			if(to.length<2) continue; //if have selected the root node, we cannot know which synclist we want to remove
+			
+			SyncListNode aSyncListNode= (SyncListNode) to[ 1];  //1 is the synclist level 
+			Device aDevice =  theSyncListPanel.theDevice;
+
+			Synclist aSyncList = aSyncListNode.getSynclist();
+			aDevice.unAssociateSyncList( aSyncList);
+			aSyncListNode.removeMeCompletly();
+			
+			if( deleteSyncList)
+			{
+				SynclistNamesContainer.getSingleton().delete( aSyncList.getId());				
+			}
+			
+		}
+		
+	}
+	
+	
 }

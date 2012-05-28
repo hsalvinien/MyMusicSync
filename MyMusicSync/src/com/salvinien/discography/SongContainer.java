@@ -411,15 +411,15 @@ public class SongContainer
 			Song s = vSongs.get(aSong.getFileName());  //is the song in vSong
 			if( s==null)
 			{	//Ok it means we have a song in our database that is no more in the system
-				//so we remove it from the database->songs AND database->Playlists
+				//so we remove it from the database->songs AND database->Synclists
 				//@TODO => we could check that is not just file move in using the hashkey and data and size and name
 		
 				//1) we remove the song from the containers
 				it.remove(); //from the id containers
 				containerFileName.remove(aSong.getFileName()); //from the filename containers
 				
-				//2) we remove the song from the playlists
-				SynclistContainer.getSingleton().removeSongFromAllPlaylist(aSong.getId());
+				//2) we remove the song from the Synclists
+				SynclistContainer.getSingleton().removeSongFromAllSynclist(aSong.getId());
 				
 				//3) from the database
 				String Query= " DELETE FROM "+containerTableName;	
