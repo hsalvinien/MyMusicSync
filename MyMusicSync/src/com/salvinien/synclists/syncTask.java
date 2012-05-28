@@ -1,4 +1,4 @@
-package com.salvinien.mymusicsync;
+package com.salvinien.synclists;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,11 +7,17 @@ import java.util.Vector;
 import com.salvinien.discography.FileSongContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
-import com.salvinien.discography.SongSynchro;
-import com.salvinien.discography.SongSynchroContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.synclists.Synclist;
-import com.salvinien.synclists.SynclistContainer;
+import com.salvinien.mymusicsync.Device;
+import com.salvinien.mymusicsync.DeviceSyncList;
+
+/*
+ * @class: syncTask
+ * 
+ * This class manages a the synchronization between the root lib uisng a synclist
+ * 
+ * 
+ */
 
 public class syncTask
 {
@@ -30,6 +36,11 @@ public class syncTask
 	//Accessors
 	
 	//Methods
+	/*@method : SongSynchroContainer sync(SongSynchroContainer aContainer)
+	 * generate the synchro to be done
+	 * 
+	 * actually it adds the new sync to do to a previously filled container (in cas of several synclit for a single device) 
+	 */
 	public SongSynchroContainer sync(SongSynchroContainer aContainer) 
 	{
 		
@@ -50,18 +61,28 @@ public class syncTask
 
 
 
+	/*@method : HashMap<String, Song> loadSongFromDevice()
+	 * load songs from the device into an hashmap
+	 */
 	protected HashMap<String, Song> loadSongFromDevice() 
 	{
+		//1) load the files in a FsDir/FsFile tree
 		FsDir rDevice = new FsDir( theDeviceSyncList.getDefaultPath(),"");
 		rDevice.loadChild();
+		
+		//2) transform the tree in hashmap
 			//hashmap of songs which are on the device
 		HashMap<String, Song> deviceSongs = new FileSongContainer( rDevice).getContainerFileName();
 
+		
 		return deviceSongs;
 	}
 
 
-
+	/*@method : void songInDeviceNotInSyncList( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	 * list the songs on the device which are not in the synclist and add them in a SongSynchroContainer, in order to ask the user what he wants
+	 * us to do either remove from the device or add it to the synclist and maybe add to the root lib. 
+	 */
 	protected void songInDeviceNotInSyncList( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)	
 	{
 		//are they Songs in the device which are not in the Syncslist two choices:
@@ -83,6 +104,13 @@ public class syncTask
 
 
 
+
+	/*@method : songInSynclistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	 * list the songs in the synclist which are not in the device and add them in a SongSynchroContainer
+	 * in order to ask the user what he wants us to do :
+	 * either remove from the it from the synclust and mey be from the root lib
+	 * or copy it to the device 
+	 */
 	protected void songInSynclistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
 	{
 		//are they songs in the Synclist which are not in the devices or songs which are newer in the root than in the device 
@@ -101,6 +129,10 @@ public class syncTask
 	}
 
 
+	/*@method : songNewerInDeviceThanInSynclist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	 * list the songs newer in the device than in the root lib
+	 * in order to ask the user what he wants us to do :
+	 */
 	protected void songNewerInDeviceThanInSynclist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer) 
 	{
 		 
@@ -124,8 +156,8 @@ public class syncTask
 			}
 			else
 			{
-				//the song is in the device but note in the Synclis
-				//this case will no happen more when  songInDeviceNotInSynclist is completed
+				//the song is in the device but not in the Synclis
+				//this case will no more  happen when  songInDeviceNotInSynclist is completed
 				System.out.println( "the song is in the device but note in the Synclist, this case will no happen more when  songInDeviceNotInSynclist is completed : "+aSong.getFileName() );
 			}
 		}

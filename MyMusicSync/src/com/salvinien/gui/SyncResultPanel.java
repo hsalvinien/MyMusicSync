@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 
-import com.salvinien.discography.SongSynchroContainer;
+import com.salvinien.synclists.SongSynchroContainer;
 
 
 public class SyncResultPanel extends GUImother implements ActionListener

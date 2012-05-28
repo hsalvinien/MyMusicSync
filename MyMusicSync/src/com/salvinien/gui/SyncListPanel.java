@@ -40,9 +40,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 	{
 		theMom = aMom;
 		
-		 BoxLayout l1= new BoxLayout(this, BoxLayout.PAGE_AXIS);
-	     this.setLayout(l1);
-		
+		BoxLayout l1= new BoxLayout(this, BoxLayout.PAGE_AXIS);
+	    this.setLayout(l1);
 		
 		root = new DefaultMutableTreeNode("Root");
 		theTree = new JTree( root);
@@ -52,11 +51,10 @@ public class SyncListPanel extends JPanel implements MouseListener
 
 		JScrollPane jp = new JScrollPane( theTree);		
 		add(jp);
-
+		
 		setNewDevice(aDevice);
 
-		theTree.addMouseListener(this);
-	
+		theTree.addMouseListener(this);	
 	}
 	
 	

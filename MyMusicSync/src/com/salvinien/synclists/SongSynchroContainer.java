@@ -1,7 +1,8 @@
-package com.salvinien.discography;
+package com.salvinien.synclists;
 
 import java.util.Iterator;
 import java.util.Vector;
+
 
 public class SongSynchroContainer
 {

@@ -2,8 +2,8 @@ package com.salvinien.gui;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.salvinien.discography.SongSynchro;
-import com.salvinien.discography.SongSynchroContainer;
+import com.salvinien.synclists.SongSynchro;
+import com.salvinien.synclists.SongSynchroContainer;
 
 public class SyncSongTableModel extends AbstractTableModel 
 {

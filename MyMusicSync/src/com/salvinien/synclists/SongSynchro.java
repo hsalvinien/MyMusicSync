@@ -1,4 +1,4 @@
-package com.salvinien.discography;
+package com.salvinien.synclists;
 
 import java.util.Vector;
 /*
@@ -8,6 +8,10 @@ import java.util.Vector;
  
  * 
  */
+
+import com.salvinien.discography.AlbumContainer;
+import com.salvinien.discography.ArtistContainer;
+import com.salvinien.discography.Song;
 
 public class SongSynchro
 {
