@@ -19,6 +19,9 @@ public class SyncResultPanel extends GUImother implements ActionListener
 {
 	private static final long	serialVersionUID	= 7462800434070553694L;
 
+	private final int AE_QUIT=1;
+	private final int AE_FINISH_SYNC=2;
+	
 	protected JTable theSyncTable; 
 	
 	
@@ -70,34 +73,38 @@ public class SyncResultPanel extends GUImother implements ActionListener
 		JScrollPane aScPanel = new JScrollPane( theSyncTable);
 		
 		panelForm.add(aScPanel);
-		
 
-        
-        
-        
-        
-        
-        
-        JButton aButton = new JButton( "Finish Sync");
-        aButton.setActionCommand("100");
-
-        //Register a listener for the radio buttons.
-        aButton.addActionListener(this);          
-     	  panelForm.add( aButton);
-
-     	  
-        aButton = new JButton( "Quit");
-        aButton.setActionCommand("101");
-
-        //Register a listener for the radio buttons.
-        aButton.addActionListener(this);          
-     	  panelForm.add( aButton);
+		panelForm.add( createButtons());
      	  
         return panelForm;
     }
 
     
+    protected JPanel createButtons()
+    {
+        JPanel panelForm = new JPanel();
+        BoxLayout l1= new BoxLayout(panelForm, BoxLayout.LINE_AXIS);
+        panelForm.setLayout(l1);
 
+        
+        JButton aButton = new JButton( "Finish Sync");
+        aButton.setActionCommand(String.valueOf(AE_FINISH_SYNC));
+
+        //Register a listener for the radio buttons.
+        aButton.addActionListener(this);          
+     	panelForm.add( aButton);
+
+     	  
+        aButton = new JButton( "Quit");
+        aButton.setActionCommand(String.valueOf(AE_QUIT));
+
+        //Register a listener for the radio buttons.
+        aButton.addActionListener(this);          
+     	panelForm.add( aButton);
+        
+        
+        return panelForm;
+    }
 
 
 	
@@ -109,12 +116,15 @@ public class SyncResultPanel extends GUImother implements ActionListener
 
         switch( command)
         {
-        	case 100:	
+        	case AE_FINISH_SYNC:	
         		
+        		this.setVisible(false);
+        		theFrame.dispose();
         		break;
         		
-        	case 101:	
-        		
+        	case AE_QUIT:	
+        		this.setVisible(false);
+        		theFrame.dispose();		
         		break;
         		
         	default:
