@@ -2,7 +2,6 @@ package com.salvinien.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -12,7 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 
-import com.salvinien.gui.tableSync.SyncSongTableModel;
+import com.salvinien.gui.tableSync.TableSync;
+import com.salvinien.gui.tableSync.TableSyncModel;
 import com.salvinien.synclists.SongSynchroContainer;
 
 
@@ -52,23 +52,9 @@ public class SyncResultPanel extends GUImother implements ActionListener
         panelForm.setLayout(l1);
 
         
-        
 		
-		Vector< String> Titles = new Vector<String>();
-		Titles.add( "Artist"); Titles.add( "Album");Titles.add( "SongFrom");Titles.add( "ActionFrom");Titles.add( "DoNothing");Titles.add( "ActionTo");Titles.add( "SongTo");Titles.add( "ModifySyncList");
-
-/*		Vector< Vector<String>> rowData = new Vector< Vector<String>>();
-		Vector<String> row = new Vector<String>(); 			
-		rowData.add(row);
-		
-		theSyncTable = new JTable( rowData, Titles);
-*/		
-/*		SyncSongTableModel dm = (SyncSongTableModel) theSyncTable.getModel();
-		dm.setData(aContainer);
-		dm.fireTableDataChanged();
-*/		
-		SyncSongTableModel md = new SyncSongTableModel(aContainer);  
-		theSyncTable = new JTable( md);
+		TableSyncModel tsm = new TableSyncModel( aContainer); 
+		theSyncTable = new TableSync( tsm);
 
 		
 		JScrollPane aScPanel = new JScrollPane( theSyncTable);

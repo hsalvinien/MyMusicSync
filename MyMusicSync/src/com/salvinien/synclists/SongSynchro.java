@@ -31,7 +31,15 @@ public class SongSynchro
 		SongRoot = aSongRoot;
 		SongDevice = aSongDevice;
 	}
-	
+
+	public boolean IshouldDoNothing()	{ return  doNothing;}
+	public void  IshouldDoNothing( boolean b)	{ doNothing=b;}
+	public boolean isFrom()				{ return  From2To;}
+	public void isFrom(boolean b)		{ From2To=b;}
+	public boolean isTo()				{ return  !From2To;}
+	public void    isTo(boolean b)		{ From2To =!b;}
+	public boolean shouldImodifySyncList()	{ return  ModifySyncList;}
+	public void shouldImodifySyncList( boolean b)	{ ModifySyncList=b;}
 	
 	
 	//Methods

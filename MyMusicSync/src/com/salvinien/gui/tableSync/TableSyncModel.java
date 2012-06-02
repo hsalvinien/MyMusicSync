@@ -1,5 +1,8 @@
 package com.salvinien.gui.tableSync;
 
+import java.io.File;
+
+import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
@@ -35,10 +38,10 @@ public class TableSyncModel extends  AbstractTableModel
 	private void init()
 	{
         // Names of the columns.
-		columnNames = new String[]  {"Artist",		"Album", 		"Name", 	   	"ActionFrom",	"DoNothing",   	"ActionTo",   "	Name",       "	Modify SyncList"};
-        ColumnTypes = new Class<?>[]{String.class, 	String.class, 	String.class, 	String.class, 	Boolean.class, 	String.class, 	String.class, 	String.class};
+		columnNames = new String[]  {"Artist",		"Album", 		"Name", 	   	" ",			" ",   			" ",   			"Name",       "	Modify SyncList"};
+        ColumnTypes = new Class<?>[]{String.class, 	String.class, 	String.class, 	ImageIcon.class,ImageIcon.class,ImageIcon.class,String.class, 	Boolean.class};
         FixeSize    = new Boolean[] {false,			false,			false,			true,			true,			true,			false,			true};  	
-        ColumnSize  = new int[]  	{-1, 			-1,				-1,				70, 			70, 			70,				-1,				70};  	// column size
+        ColumnSize  = new int[]  	{-1, 			-1,				-1,				20, 			20, 			20,				-1,				70};  	// column size
         ColumnAlignement = new int[]{ RIGHT, 		RIGHT, 			RIGHT, 			CENTER, 		CENTER, 		CENTER, 		LEFT, 			CENTER}; //= SwingConstants.CENTER;
         isEditable	= new Boolean[]	{false,			false,			false,			true,			true,			true,			false,			true};
 	}
@@ -58,7 +61,50 @@ public class TableSyncModel extends  AbstractTableModel
 	public boolean isCellEditable(int row, int col) { return isEditable[ col];}
 
 	
-    public void setValueAt(Object aValue, Object node, int column) {}
+	public void setValueAt(Object value, int row, int col)  
+    {
+		if( row>= getRowCount()) return;
+		if( col>= getColumnCount()) return;
+    	
+
+		SongSynchro aSongSynchro = data.getElement(row);
+				
+		switch( col)
+		{
+			case 0:	return; 
+			case 1: return ;
+			case 2: return ; 
+			case 3: 
+				aSongSynchro.isTo( true);
+				aSongSynchro.IshouldDoNothing(false);				
+				break;
+				
+			case 4: 
+				aSongSynchro.IshouldDoNothing( !aSongSynchro.IshouldDoNothing());
+
+				break;
+				
+			case 5: 
+				aSongSynchro.isFrom(true );
+				aSongSynchro.IshouldDoNothing(false);
+
+				break;
+				
+			case 6: return ;
+			case 7: 
+				Boolean b3 = (Boolean) value;
+				aSongSynchro.shouldImodifySyncList(b3);
+				
+			default:
+				break;
+		}
+		fireTableCellUpdated(row, 3);
+		fireTableCellUpdated(row, 4);
+		fireTableCellUpdated(row, 5);
+		fireTableCellUpdated(row, 7);
+		
+		return;
+}
 	public Object getValueAt(int row, int col)
 	{
 
@@ -67,16 +113,77 @@ public class TableSyncModel extends  AbstractTableModel
 	
 		SongSynchro aSongSynchro = data.getElement(row);
 		
+		String path=null;
+		File file=null;
+		ImageIcon img=null;
 		switch( col)
 		{
 			case 0:	return aSongSynchro.Artist(); 
 			case 1: return aSongSynchro.Album();
 			case 2: return aSongSynchro.NameSource(); 
-			case 3: return " =>";
-			case 4: return "O";
-			case 5: return " =>";
+			case 3: 
+				if( aSongSynchro.isTo())
+				{
+					if( aSongSynchro.NameTarget().equals("==null==") )
+					{
+						if( aSongSynchro.IshouldDoNothing()) { path="img/delete-no.gif";}  
+						else	{	path = "img/delete.gif";}
+					}
+					else
+					{
+						if( aSongSynchro.IshouldDoNothing()) { path="img/copytoleft-no.gif";}  
+						else	{	path = "img/copytoleft.gif";}							
+					}
+				}
+				else
+				{
+					path="img/blank.gif";
+				}					
+
+				
+				file = new File(path);
+				img = new ImageIcon(file.getPath());				
+				return img;
+
+			case 4: 
+				if( aSongSynchro.IshouldDoNothing()) { path="img/donothing-true.gif";}  /*case true*/
+				else								 { path="img/donothing-false.gif";} //case false
+				
+				file = new File(path);
+				img = new ImageIcon(file.getPath());				
+				return img;
+				
+				
+			case 5: 
+				if( aSongSynchro.isFrom())
+				{
+					if( aSongSynchro.NameSource().equals("==null==") )
+					{
+						if( aSongSynchro.IshouldDoNothing()) { path="img/delete-no.gif";}  
+						else { path = "img/delete.gif";}
+					}
+					else
+					{
+						if( aSongSynchro.IshouldDoNothing()) { path="img/copytoright-no.gif";}  
+						else { path = "img/copytoright.gif";}							
+					}
+				}
+				else
+				{
+					path="img/blank.gif";
+				}					
+
+					
+				file = new File(path);
+				img = new ImageIcon(file.getPath());				
+				return img;
+				
 			case 6: return aSongSynchro.NameTarget();
 			case 7: 
+				if( aSongSynchro.IshouldDoNothing()) return false;
+				return aSongSynchro.shouldImodifySyncList();
+				
+			default:
 				break;
 		}
 		

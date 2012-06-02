@@ -29,8 +29,6 @@ public class startPoint
 	 */
 	public static void main(String[] args) throws IOException, SQLException 
 	{
-	
-	
 		 
 /*
 	      System.out.println("File system roots returned by   FileSystemView.getFileSystemView():");
