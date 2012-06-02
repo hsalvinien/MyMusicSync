@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 
+import com.salvinien.gui.tableSync.SyncSongTableModel;
 import com.salvinien.synclists.SongSynchroContainer;
 
 

@@ -195,7 +195,6 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
 	public int getColumnCount() {return Titles.length;}
     public String getColumnName(int column) {return Titles[column];}
     public Class<?> getColumnClass(int column) {return ColumnTypes[column];}
-//    public Class<?> getColumnClass(int column) { return Object.class; }
 
     
     public boolean isColumnFixedSize( int i)

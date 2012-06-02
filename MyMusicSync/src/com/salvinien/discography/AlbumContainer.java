@@ -5,7 +5,7 @@ import com.salvinien.mymusicsync.LibelleContainer;
 /*
  * @class: AlbumContainer
  * 
- * This class manages Artists
+ * This class manages Albums
  
  * it is implemented as a singleton (Design pattern)
  * 

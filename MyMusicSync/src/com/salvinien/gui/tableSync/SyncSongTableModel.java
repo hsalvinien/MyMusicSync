@@ -1,4 +1,4 @@
-package com.salvinien.gui;
+package com.salvinien.gui.tableSync;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -13,6 +13,7 @@ public class SyncSongTableModel extends AbstractTableModel
 	private static final long	serialVersionUID	= 8115485209571127650L;
 
 	private String[] columnNames = { "Artist", "Album", "Name", "ActionFrom","DoNothing","ActionTo","Name","ModifySyncList"};
+    protected Class<?>[]  ColumnTypes;	// Types of the columns.
 
 	private SongSynchroContainer data;
 
