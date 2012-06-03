@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
-import com.salvinien.gui.tableTree.TableTreeModel;
 import com.salvinien.synclists.SongSynchro;
 import com.salvinien.synclists.SongSynchroContainer;
 
@@ -37,7 +36,7 @@ public class TableSyncModel extends  AbstractTableModel
 
 	private void init()
 	{
-        // Names of the columns.
+        // Names of the columns.		0			1				2				3				4				5				7				8
 		columnNames = new String[]  {"Artist",		"Album", 		"Name", 	   	" ",			" ",   			" ",   			"Name",       "	Modify SyncList"};
         ColumnTypes = new Class<?>[]{String.class, 	String.class, 	String.class, 	ImageIcon.class,ImageIcon.class,ImageIcon.class,String.class, 	Boolean.class};
         FixeSize    = new Boolean[] {false,			false,			false,			true,			true,			true,			false,			true};  	
@@ -142,7 +141,9 @@ public class TableSyncModel extends  AbstractTableModel
 
 				
 				file = new File(path);
-				img = new ImageIcon(file.getPath());				
+				img = new ImageIcon(file.getPath());
+				
+				
 				return img;
 
 			case 4: 
