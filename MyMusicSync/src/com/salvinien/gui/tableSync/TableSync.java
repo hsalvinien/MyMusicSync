@@ -1,11 +1,15 @@
 package com.salvinien.gui.tableSync;
 
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 
 public class TableSync extends JTable
@@ -13,6 +17,8 @@ public class TableSync extends JTable
 	private static final long	serialVersionUID	= -7096672333942522731L;
 
 
+	
+	
 	public TableSync( TableSyncModel aTableModel) 
 	{
 		super(aTableModel);
@@ -46,6 +52,16 @@ public class TableSync extends JTable
 	     
 		 setShowGrid(false);
 		 setIntercellSpacing(new Dimension(0, 0));
+		 
+		 
+		 //set actions for a click on a column
+		 JTableHeader header = this.getTableHeader();
+		 header.setUpdateTableInRealTime(true);
+		 header.addMouseListener(new ColumnListener(this));
+		 header.setReorderingAllowed(true);
 	}	
+	
+	
+	
 
 }
