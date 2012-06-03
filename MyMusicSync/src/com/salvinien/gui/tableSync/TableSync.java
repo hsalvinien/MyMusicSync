@@ -1,16 +1,18 @@
 package com.salvinien.gui.tableSync;
 
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
+/*
+ * @class: TableSync
+ * 
+ * this class manages a table of sync on which the user has to tell what to do, the system being unable to decide by itself
+ * it extends a JTable and its associated model
+ */
 
 public class TableSync extends JTable
 {
@@ -18,13 +20,12 @@ public class TableSync extends JTable
 
 
 	
-	
+	//CTOR
 	public TableSync( TableSyncModel aTableModel) 
 	{
-		super(aTableModel);
-		
-		
-
+		//set the model
+		 setModel(aTableModel);
+		 
 	     //column size
 	     for(int i=0; i< aTableModel.getColumnCount(); i++ )
 	     {
@@ -42,7 +43,7 @@ public class TableSync extends JTable
 	    	 }
 	    	 
 	    	 //and align the display in the column
-
+	    	 //@todo
 	     }
 	     
 	     //set the editor of the imageIcon box to a JChecBox editor, in order to have simple click to change the values
@@ -50,9 +51,10 @@ public class TableSync extends JTable
 	     getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JCheckBox()));
 	     getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JCheckBox()));
 	     
-		 setShowGrid(false);
-		 setIntercellSpacing(new Dimension(0, 0));
-		 
+	     
+	     
+		 setShowGrid(false); //don't show borders around cells
+		 setIntercellSpacing(new Dimension(0, 0));//no space around cells
 		 
 		 //set actions for a click on a column
 		 JTableHeader header = this.getTableHeader();
@@ -60,8 +62,6 @@ public class TableSync extends JTable
 		 header.addMouseListener(new ColumnListener(this));
 		 header.setReorderingAllowed(true);
 	}	
-	
-	
 	
 
 }
