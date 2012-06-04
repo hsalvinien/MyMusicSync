@@ -8,7 +8,6 @@ import com.salvinien.discography.FileSongContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceSyncList;
 
 /*
@@ -25,15 +24,15 @@ public class syncTask
 	protected DeviceSyncList theDeviceSyncList;
 	
 	//Ctors
-	public syncTask( Device aDevice, DeviceSyncList aDeviceSyncList)
+	public syncTask( DeviceSyncList aDeviceSyncList)
 	{
 		theDeviceSyncList = aDeviceSyncList;
-
 		theSynclist =  SynclistContainer.getSingleton().getSynclist( aDeviceSyncList.getSynclistId());
 	}
 	
 	
 	//Accessors
+	
 	
 	//Methods
 	/*@method : SongSynchroContainer sync(SongSynchroContainer aContainer)
@@ -96,7 +95,7 @@ public class syncTask
 			if( theSynclist.hasSong(aSong) == false)
 			{
 				//so we have found a song in the device which is not in the syncList
-				SongSynchro aSongSynchro = new SongSynchro(null, false, false, aSong, true);
+				SongSynchro aSongSynchro = new SongSynchro(null, false, false, aSong, true, theDeviceSyncList);
 				aContainer.add( aSongSynchro);
 			}
 		}
@@ -122,7 +121,7 @@ public class syncTask
 			Song aSong  = it.next();
 			deviceSongs.put(aSong.getFileName(), aSong); //useless but cleaner
 																
-			SongSynchro aSongSynchro = new SongSynchro(aSong, true  , false, null, false); //this false
+			SongSynchro aSongSynchro = new SongSynchro(aSong, true  , false, null, false, theDeviceSyncList); //this false
 			aContainer.add( aSongSynchro);
 		}
 		
@@ -150,7 +149,7 @@ public class syncTask
 				if( l>1000)
 				//if( aSong.getLastModification().after( aSong1.getLastModification()))
 				{
-					SongSynchro aSongSynchro = new SongSynchro(aSong1, false, false, aSong, true);
+					SongSynchro aSongSynchro = new SongSynchro(aSong1, false, false, aSong, true, theDeviceSyncList);
 					aContainer.add( aSongSynchro);
 				}
 			}

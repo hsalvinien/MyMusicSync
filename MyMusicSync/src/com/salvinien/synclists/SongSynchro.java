@@ -12,6 +12,7 @@ import java.util.Vector;
 import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
+import com.salvinien.mymusicsync.DeviceSyncList;
 
 public class SongSynchro
 {
@@ -19,28 +20,34 @@ public class SongSynchro
 	protected Song SongDevice;  //song which is in the device (can be null)
 	boolean doNothing;
 	boolean From2To;
+	DeviceSyncList theDeviceSyncList;
 	
 	boolean ModifySyncList;
 	
 	//Ctor
-	public SongSynchro(Song aSongRoot, boolean aFrom2To, boolean aDoNothing, Song aSongDevice, boolean aModiSyncList)
+	public SongSynchro(Song aSongRoot, boolean aFrom2To, boolean aDoNothing, Song aSongDevice, boolean aModiSyncList, DeviceSyncList aDeviceSyncList)
 	{
 		doNothing=aDoNothing;
 		From2To=aFrom2To;
 		ModifySyncList=false;
 		SongRoot = aSongRoot;
 		SongDevice = aSongDevice;
+		
+		theDeviceSyncList= aDeviceSyncList;
+		
 	}
 
-	public boolean IshouldDoNothing()	{ return  doNothing;}
+	public boolean IshouldDoNothing()			{ return  doNothing;}
 	public void  IshouldDoNothing( boolean b)	{ doNothing=b;}
-	public boolean isFrom()				{ return  From2To;}
-	public void isFrom(boolean b)		{ From2To=b;}
-	public boolean isTo()				{ return  !From2To;}
-	public void    isTo(boolean b)		{ From2To =!b;}
-	public boolean shouldImodifySyncList()	{ return  ModifySyncList;}
+	public boolean isFrom()						{ return  From2To;}
+	public void isFrom(boolean b)				{ From2To=b;}
+	public boolean isTo()						{ return  !From2To;}
+	public void    isTo(boolean b)				{ From2To =!b;}
+	public boolean shouldImodifySyncList()		{ return  ModifySyncList;}
 	public void shouldImodifySyncList( boolean b)	{ ModifySyncList=b;}
-	
+	public Song getSongDevice() 				{ return SongDevice;}
+	public Song getSongRoot() 					{ return SongRoot;}
+	public DeviceSyncList getDeviceSyncList() 	{ return theDeviceSyncList;}
 	
 	//Methods
 	/*@method : String Artist()

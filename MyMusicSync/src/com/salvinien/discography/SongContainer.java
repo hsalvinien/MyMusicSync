@@ -1,5 +1,6 @@
 package com.salvinien.discography;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.sql.ResultSet;
@@ -34,7 +35,6 @@ public class SongContainer
 
 	//CTOR
 	//private to forbid the creation of instances but from getSingleton
-	private SongContainer() 
 	{
 		//creates the physical containers
 		containerId = new HashMap< Integer, Song>();
@@ -65,6 +65,39 @@ public class SongContainer
 	}
 	
 	
+
+	
+	
+	
+	/*@method : void removeDeleteSong( int anIdsong)
+	 * 
+	 * remove definitively a song from fs and database
+	 * ! doesn't clean eventual synclists 
+	 * 
+	 */
+	public void removeDeleteSong( int anIdsong)
+	{
+		//remove from containers
+		Song aSong = containerId.get( anIdsong);
+		containerFileName.remove(aSong.getFileName());		
+		containerId.remove(anIdsong);
+		
+		//remove from database
+		//1) from the database
+		String Query= " DELETE FROM "+containerTableName;	
+		Query=  Query + " WHERE ID='"+String.valueOf(anIdsong)+"'";
+		
+		MyDatabase.getSingleton().executeSimpleQuery(Query);
+		MyDatabase.getSingleton().commit();
+		
+		//2)from the fs
+		File f = new File( aSong.getFileName());
+		f.delete(); 
+	}
+	
+	
+	
+
 	
 	//Methods
 	/*@method : init
@@ -437,8 +470,6 @@ public class SongContainer
 		return nbOfSongs;
 	}
 
-	
-	
 	
 	/*@method : Vector<Integer> getSongByAlbum( int albumId)
 	 * returns a vector of song which belongs to an album 

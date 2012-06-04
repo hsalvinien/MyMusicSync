@@ -59,6 +59,7 @@ public class TableSyncModel extends  AbstractTableModel
     //Note that the data/cell address is constant,no matter where the cell appears onscreen.
 	public boolean isCellEditable(int row, int col) { return isEditable[ col];}
 
+	public SongSynchroContainer getData()	{ return data;}
 	//set the container, if it is null, create an empty one
 	public void setData(SongSynchroContainer aContainer)
 	{

@@ -105,6 +105,11 @@ public class SyncResultPanel extends GUImother implements ActionListener
         {
         	case AE_FINISH_SYNC:	
         		
+        		TableSyncModel tm = (TableSyncModel)theSyncTable.getModel();
+        		SongSynchroContainer theContainer =tm.getData();
+        		
+        		theContainer.synchronize();
+        		
         		this.setVisible(false);
         		theFrame.dispose();
         		break;

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -226,8 +225,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		Vector<DeviceSyncList> vSyncList = selectedDevice.getDeviceSyncLis();
 		for( int i=0; i < vSyncList.size(); i++)
 		{
-			syncTask aTask = new syncTask( selectedDevice,  vSyncList.get(i));
-		
+			syncTask aTask = new syncTask( vSyncList.get(i));
 			aTask.sync( aContainer);
 		}
 		
