@@ -8,7 +8,6 @@ import com.salvinien.discography.FileSongContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
-import com.salvinien.mymusicsync.DeviceSyncList;
 
 /*
  * @class: syncTask

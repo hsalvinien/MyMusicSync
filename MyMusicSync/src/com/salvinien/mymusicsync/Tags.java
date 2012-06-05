@@ -1,14 +1,31 @@
 package com.salvinien.mymusicsync;
 
+
+/*
+ * @class: Tags
+ * 
+ * This class manages tag names by type of tag lib 
+ * 
+ * generally you give the lib, you ask the type of info it returns the the Tag name
+ * 
+ */
+
 public class Tags
 {
 	
-	public static final int FLAC =1;
-	public static final int ID3v22 =2;
-	public static final int ID3v23 =3;
-	public static final int ID3v24 =4;
-	public static final int ID3v1 =5;
+	//Members: the libs
+	public static final int FLAC =1;		//flag tags
+	public static final int ID3v22 =2;		//mp3 tags, v2.2
+	public static final int ID3v23 =3;		//mp3 tags, v2.3
+	public static final int ID3v24 =4;		//mp3 tags, v2.4
+	public static final int ID3v1 =5;		//mp3 tags, v1
 	
+	
+	//METHODS
+	/*@method : public String getArtist( int lib)
+	 * 
+	 *   returns the tag artist 
+	 */
 	static public String getArtist( int lib)
 	{
 		switch (lib)
@@ -25,6 +42,10 @@ public class Tags
 	}
 
 	
+	/*@method : public String getAlbum( int lib)
+	 * 
+	 *   returns the tag Album
+	 */
 	static public String getAlbum( int lib)
 	{
 		switch (lib)
@@ -41,6 +62,11 @@ public class Tags
 	}
 
 
+	
+	/*@method : public String getTitle( int lib)
+	 * 
+	 *   returns the tag title (of the song)
+	 */
 	static public String getTitle( int lib)
 	{
 		switch (lib)
@@ -57,6 +83,11 @@ public class Tags
 	}
 
 
+	
+	/*@method : int tagLen( int lib)
+	 * 
+	 *   returns the length of the tag
+	 */
 	static public int tagLen( int lib)
 	{
 		switch (lib)
@@ -72,6 +103,10 @@ public class Tags
 		}
 	}
 
+	/*@method : int intLen( int lib)
+	 * 
+	 *   returns the length of the int that encode the size of the string to be read 
+	 */
 	static public int intLen( int lib)
 	{
 		switch (lib)
@@ -88,7 +123,10 @@ public class Tags
 	}
 	
 
-	
+	/*@method : int offsetTagValue( int lib)
+	 * 
+	 *   returns the offset (if any) before the information start  in the header
+	 */
 	static public int offsetTagValue( int lib)
 	{
 		switch (lib)
@@ -105,20 +143,4 @@ public class Tags
 	}
 	
 	
-	
-	static public String get( int lib)
-	{
-		switch (lib)
-		{
-			case ID3v1: 	return "";
-			case ID3v22: 	return "";
-			case ID3v23:	return "";
-			case ID3v24:	return "";
-				
-			case FLAC:
-			default:	return "";
-			
-		}
-	}
-
 }

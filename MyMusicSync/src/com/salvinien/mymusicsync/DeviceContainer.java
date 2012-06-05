@@ -9,6 +9,13 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
+/*
+ * @class: DeviceContainer
+ * 
+ * This class manages Devices
+ * 
+ * it is implemented as a Singleton
+ */
 public class DeviceContainer
 {
 
@@ -30,20 +37,6 @@ public class DeviceContainer
 		init();
 	}
 
-	protected void init()
-	{
-		//load data from database
-		try
-		{
-			loadFromDB();
-		}
-		catch (ParseException | SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	
 	
 	//ACCESSORS
 	public static DeviceContainer  getSingleton()
@@ -52,13 +45,8 @@ public class DeviceContainer
 		
 		return mySingleton;
 	}
-
-	public Device getDevice(String aName)
-	{	
-		return containerFileName.get(aName);
-	}
-
-	public String[] getDevices()
+	public Device getDevice(String aName)	{ return containerFileName.get(aName);} //returns a device, its name being given
+	public String[] getDevices()		//returns a string array of all the device names   
 	{
 		
 		Collection<Device> aCollection = containerFileName.values();
@@ -77,6 +65,28 @@ public class DeviceContainer
 	
 	
 	//Methods
+	/*@method : void init()
+	 * 
+	 *   init the container 
+	 */
+	protected void init()
+	{
+		//load data from database
+		try
+		{
+			loadFromDB();
+		}
+		catch (ParseException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	/*@method : protected void loadFromDB() throws ParseException, SQLException
+	 * 
+	 *   loads the container from database 
+	 */
 	protected void loadFromDB() throws ParseException, SQLException
 	{
 		String Query= " SELECT * FROM "+containerTableName;
@@ -103,6 +113,10 @@ public class DeviceContainer
 	
 
 	
+	/*@method : void create( Device aDevice)
+	 * 
+	 *   insert the device in the container as well as in database 
+	 */
 	public Device create( Device aDevice)
 	{
 		if( aDevice.getDeviceID() != -1) return aDevice; //if it already exists... then...
@@ -156,6 +170,11 @@ public class DeviceContainer
 	}
 
 	
+
+	/*@method : void update( Device aDevice)
+	 * 
+	 *   update a device in the container as well as in database 
+	 */
 	public void update( Device aDevice)
 	{
 		String aString;

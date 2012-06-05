@@ -1,11 +1,19 @@
-package com.salvinien.mymusicsync;
+package com.salvinien.synclists;
 
 import java.io.File;
 
+/*
+ * @class: DeviceSyncList
+ * 
+ * This class manages a DeviceSyncList
+ * 
+ * A device Synclist, represents the relationships between a Device and SyncList 
+ * 
+ */
 public class DeviceSyncList
 {
-	protected String DefaultPath;
-	protected int SynclistId;
+	protected String DefaultPath;  	//this is the mount point
+	protected int SynclistId;		//id 
 
 	//CTOR
 	public DeviceSyncList( String aDefaultPath, int aSynclistId)
@@ -18,6 +26,7 @@ public class DeviceSyncList
 		{
 			DefaultPath+=File.separatorChar;
 		}
+		
 		//2) we check that if the path has a form like x:\\ewewewe  alors the first letter has to be capitalized!
 		a = DefaultPath.charAt(1);
 		if(a ==':' )
@@ -26,7 +35,6 @@ public class DeviceSyncList
 			a = Character.toUpperCase(a);
 			DefaultPath = a + DefaultPath.substring(1);
 		}
-		
 		
 		SynclistId = aSynclistId;
 	}

@@ -15,6 +15,16 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
+
+/*
+ * @class: ScrDialogInit 
+ * 
+ * This class manages the choice of root library mount point
+ * 
+ * it's a modal screen
+ * 
+ */
+
 public class ScrDialogInit extends JDialog implements ActionListener 
 {
   /**
@@ -22,18 +32,21 @@ public class ScrDialogInit extends JDialog implements ActionListener
 	 */
   private static final long	serialVersionUID	= 3344291444433181236L;
 
+  //the java built-in file chooser
   protected JFileChooser fileChooser= new JFileChooser();
   
-  public File getRootFile()
+  
+  //ACCESSORS 
+  public File getRootFile() //return the chosen dir
   {
 	  File aFile = fileChooser.getCurrentDirectory();
 	  return aFile;
   }
   
+  
+  //CTOR
   public ScrDialogInit(JFrame parent) 
   {
-	  
-	  
     super(parent, "Init MusicSync", true);
     if (parent != null) 
     {
@@ -67,6 +80,7 @@ public class ScrDialogInit extends JDialog implements ActionListener
   
   public void actionPerformed(ActionEvent e) 
   {
+	//close the screen 
     setVisible(false); 
     dispose(); 
   }

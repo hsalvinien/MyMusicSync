@@ -8,6 +8,16 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
+
+/*
+ * @class: LibelleContainer
+ * 
+ * This class manages a container of  Libelle,  
+ * 
+ * this is the mother  class for all containers like artistContainer etc etc
+ * 
+ */
+
 public class LibelleContainer
 {
 	//Members
@@ -27,18 +37,6 @@ public class LibelleContainer
 		init();
 	}
 
-	protected void init()
-	{
-		//load data from database
-		loadFromDB();
-		
-		//load the specif "Unknown" element
-		unknown = containerName.get("Unknown");
-		if( unknown ==null)
-		{
-			unknown = this.create("Unknown");
-		}		
-	}
 	
 	//ACCESSORS
 	public Libelle getUnknown() 			{ return unknown;}
@@ -47,10 +45,8 @@ public class LibelleContainer
 	public Libelle getLibelle(String aName)	{ return containerName.get(aName);}
 	public int 	   getId(String aName)		{ return containerName.get(aName).getId();}
 	public String  getName(int anId)		{ return containerId.get(anId).getName();}
-
 	
-	
-	public int[] getIds()
+	public int[] getIds()			// returns an array of ids	
 	{
 		int[] v = new int[ containerId.values().size()];
 		Iterator<Libelle> it = containerId.values().iterator();
@@ -66,7 +62,7 @@ public class LibelleContainer
 	}
 
 	
-	public String[] getLibelles()
+	public String[] getLibelles()	// returns an array of libelles
 	{
 		String[] v = new String[ containerId.values().size()];
 		Iterator<Libelle> it = containerId.values().iterator();
@@ -83,6 +79,28 @@ public class LibelleContainer
 
 	
 	//Methods
+	/*@method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
+	 * 
+	 *   just init the container 
+	 */
+	private void init()
+	{
+		//load data from database
+		loadFromDB();
+		
+		//load the specif "Unknown" element
+		unknown = containerName.get("Unknown");
+		if( unknown ==null)
+		{
+			unknown = this.create("Unknown");
+		}		
+	}
+	
+
+	/*@method : void loadFromDB()
+	 * 
+	 *   loads data from database to the container 
+	 */
 	protected void loadFromDB()
 	{
 		String Query= " SELECT * FROM "+containerTableName;
@@ -114,6 +132,10 @@ public class LibelleContainer
 	}
 	
 	
+	/*@method : Libelle create( String aName)
+	 * 
+	 *   create a Libelle from the name (actully create it in database, gives an id etc etc 
+	 */
 	public Libelle create( String aName)
 	{
 		//1) is the album already in the container?
@@ -157,6 +179,9 @@ public class LibelleContainer
 	}
 
 	
+	/*@method : void update( Libelle anObj)
+	 * update a libelle in database 
+	 */
 	public void update( Libelle anObj)
 	{
 		//1) is the album already in the container?

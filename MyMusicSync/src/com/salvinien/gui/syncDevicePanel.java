@@ -21,7 +21,7 @@ import javax.swing.table.TableColumn;
 
 import com.salvinien.mymusicsync.Device;
 import com.salvinien.mymusicsync.DeviceContainer;
-import com.salvinien.mymusicsync.DeviceSyncList;
+import com.salvinien.synclists.DeviceSyncList;
 import com.salvinien.synclists.SongSynchroContainer;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;

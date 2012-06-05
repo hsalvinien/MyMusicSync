@@ -12,7 +12,6 @@ import java.util.Vector;
 import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
-import com.salvinien.mymusicsync.DeviceSyncList;
 
 public class SongSynchro
 {

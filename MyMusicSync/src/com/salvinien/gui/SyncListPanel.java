@@ -18,7 +18,7 @@ import com.salvinien.gui.tableTree.ADefaultMutableTreeNode;
 import com.salvinien.gui.tableTree.SyncListNode;
 import com.salvinien.gui.tableTree.TreeTransferHandler;
 import com.salvinien.mymusicsync.Device;
-import com.salvinien.mymusicsync.DeviceSyncList;
+import com.salvinien.synclists.DeviceSyncList;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
 

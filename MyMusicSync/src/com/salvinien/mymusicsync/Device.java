@@ -3,21 +3,32 @@ package com.salvinien.mymusicsync;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Iterator;
 import java.util.Vector;
 
 import com.salvinien.database.MyDatabase;
+import com.salvinien.synclists.DeviceSyncList;
 import com.salvinien.synclists.Synclist;
 
+
+
+/*
+ * @class: Device
+ * 
+ * This class manages a Device 
+ * 
+ * 
+ */
 public class Device
 {
-	protected int DeviceID;
-	protected String DeviceName;
-	protected int DeviceType;
+	protected int DeviceID;				//device id
+	protected String DeviceName;		//device name, the one which is shown in the interface
+	protected int DeviceType;			//device type, not used until now, but will be soon (ext hd, usb hd, network etc etc)
 
-	Vector<DeviceSyncList> container = new Vector<DeviceSyncList> ();
+	Vector<DeviceSyncList> container = new Vector<DeviceSyncList> ();		//a Device may have several synclists (cf my SGII, has two usdb hosts)
+																			//this allow to have several mount points for a single device 
 	
 	
+	//different CTORs
 	public Device( String aDeviceName, int aDeviceType)
 	{
 		init( -1, aDeviceName, aDeviceType);		
@@ -26,7 +37,23 @@ public class Device
 	{
 		init( aDeviceID, aDeviceName, aDeviceType);
 	}
-	public void init( int aDeviceID, String aDeviceName, int aDeviceType)
+	
+	
+
+	//ACCESSORS
+	public int 	  getDeviceID()		{ return DeviceID;}
+	public String getDeviceName()	{ return  DeviceName;}
+	public int 	  getDeviceType()	{ return  DeviceType;}
+	public void setDeviceID( int anId)		{ DeviceID  =anId;}
+	public Vector<DeviceSyncList> getDeviceSyncLis() { return container;}
+
+
+	//Methods
+	/*@method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
+	 * 
+	 *   just init the members 
+	 */
+	private void init( int aDeviceID, String aDeviceName, int aDeviceType)
 	{
 		DeviceID = aDeviceID;
 		DeviceName = aDeviceName;
@@ -34,18 +61,10 @@ public class Device
 	}
 
 
-
-	//ACCESSORS
-	public int 	  getDeviceID()		{ return DeviceID;}
-	public String getDeviceName()	{ return  DeviceName;}
-	public int 	  getDeviceType()	{ return  DeviceType;}
-
-	public void setDeviceID( int anId)		{ DeviceID  =anId;}
-
-	public Vector<DeviceSyncList> getDeviceSyncLis() { return container;}
-
-
-	//Methods
+	/*@method : void loadMoreFromDB() throws ParseException, SQLException
+	 * 
+	 *   loads the synclists from the database 
+	 */
 	protected void loadMoreFromDB() throws ParseException, SQLException
 	{
 		String Query= " SELECT * FROM DeviceSyncList where DeviceID =" + String.valueOf(DeviceID);
@@ -67,11 +86,13 @@ public class Device
 	}
 
 	
-	
-	//remove a Synclist from the deivce
+	/*@method : void unAssociateSyncList( Synclist aSynclist)
+	 * 
+	 *   remove a Synclist from the device 
+	 */	
 	public void unAssociateSyncList( Synclist aSynclist)
 	{
-		//we itarate throuhgt the container
+		//we iterate throught the container
 		for( int i =0; i< container.size(); i++)
 		{
 			//when we have the Syncslist we are looking up
@@ -92,7 +113,11 @@ public class Device
 		}
 	}
 
-	//add a syncList to a device and save it to database
+	
+	/*@method : addDeviceSyncList( DeviceSyncList aDeviceSyncList)
+	 * 
+	 *   add a syncList to a device and save it to database 
+	 */	
 	public void addDeviceSyncList( DeviceSyncList aDeviceSyncList)
 	{
 		//1) add the device to the container
@@ -100,7 +125,7 @@ public class Device
 		
 		//2) save it to database
 		String query = " Insert into DeviceSyncList ('DeviceID' , 'DefaultPath', 'SynclistId') VALUES ('";
-		query += String.valueOf(this.getDeviceID())+"' , '"+aDeviceSyncList.getDefaultPath()+"', '"+String.valueOf(aDeviceSyncList.SynclistId)+"') ";
+		query += String.valueOf(this.getDeviceID())+"' , '"+aDeviceSyncList.getDefaultPath()+"', '"+String.valueOf(aDeviceSyncList.getSynclistId())+"') ";
 			
 		MyDatabase.getSingleton().executeSimpleQuery(query);
 		MyDatabase.getSingleton().commit();

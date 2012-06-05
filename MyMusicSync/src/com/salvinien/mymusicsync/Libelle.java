@@ -1,5 +1,15 @@
 package com.salvinien.mymusicsync;
 
+
+/*
+ * @class: Libelle
+ * 
+ * This class manages a Libelle, which is a Name and an Id 
+ * 
+ * this is the base class for all containers like artistContainer etc etc
+ * 
+ */
+
 public class Libelle
 {
 	//members

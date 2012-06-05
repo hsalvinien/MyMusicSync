@@ -15,8 +15,8 @@ import javax.swing.border.Border;
 
 
 import com.salvinien.mymusicsync.Device;
-import com.salvinien.mymusicsync.DeviceSyncList;
 import com.salvinien.mymusicsync.Libelle;
+import com.salvinien.synclists.DeviceSyncList;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.synclists.SynclistNamesContainer;

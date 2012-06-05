@@ -8,6 +8,14 @@ import javax.swing.JFrame;
 
 import com.salvinien.database.MyDatabase;
 
+/*
+ * @class: Parmeters
+ * 
+ * This class manages the differents parameters of the application
+ *  
+ *  it is a Singleton
+ * 
+ */
 public class Parameters 
 {
 	protected String root=null;
@@ -34,13 +42,18 @@ public class Parameters
 		
 		return mySingleton;
 	}
-	
 	public String getRoot() { return root;}
 	
 	
 	
 	
 	//METHODS
+	/*@method : void loadFromDB() throws SQLException
+	 * 
+	 *   load the parameters ofrem database
+	 *   
+	 *   if there is no root, ask the user (using the modal screen), where is the mount point of the library 
+	 */
 	protected void loadFromDB() throws SQLException
 	{
 		String Query= " SELECT * FROM "+containerTableName +" WHERE ";
