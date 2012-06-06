@@ -22,6 +22,16 @@ import com.salvinien.synclists.DeviceSyncList;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
 
+
+/*
+ * @class: SyncListPanel 
+ * 
+ * This class manages the synclist of the selected device
+ * 
+ * it implements an MouseListener to catch the left-clicks to show the JPopupMenu
+ * 
+ */
+
 public class SyncListPanel extends JPanel implements MouseListener
 {
 
@@ -36,6 +46,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 	protected Device theDevice;
 	myApp theMom;
 	
+	
+	//CTOR
 	public SyncListPanel( myApp aMom, Device aDevice)
 	{
 		theMom = aMom;
@@ -46,6 +58,7 @@ public class SyncListPanel extends JPanel implements MouseListener
 		root = new DefaultMutableTreeNode("Root");
 		theTree = new JTree( root);
 		
+		//to allow DND and CP from the library tree
 		theTree.setDragEnabled(true);
 	    theTree.setTransferHandler(new TreeTransferHandler());
 
@@ -58,6 +71,14 @@ public class SyncListPanel extends JPanel implements MouseListener
 	}
 	
 	
+
+	
+	//Methods
+	/*@method : void setNewDevice( Device aDevice)
+	 * 
+	 *   it displays the synclists fo the device
+	 *     
+	 */
 	
 	public void setNewDevice( Device aDevice)
 	{
@@ -66,27 +87,32 @@ public class SyncListPanel extends JPanel implements MouseListener
 		root.removeAllChildren();
 		theTree.removeAll();
 		
-						
+		//for all synclists of the device				
 		Iterator<DeviceSyncList> it =aDevice.getDeviceSyncLis().iterator();
 		while( it.hasNext())
 		{
+			//next synclist
 			DeviceSyncList aDeviceSyncList=it.next();
 			int aSynclisId = aDeviceSyncList.getSynclistId();
-			
 			Synclist aSyncList = SynclistContainer.getSingleton().getSynclist(aSynclisId);
 
+			//create the synclist tree (under root)
 			SyncListNode aSyncListNode = new SyncListNode( aSyncList);
-			
 			root.add( aSyncListNode);
 			
 			addSynclist( aSyncList, aSyncListNode);
 		}
 		
-		((DefaultTreeModel)theTree.getModel()).reload();
+		((DefaultTreeModel)theTree.getModel()).reload(); //repaint the tree
 
 	}
 	
 	
+	/*@method : void addSynclist( Synclist aSynclist, SyncListNode aSyncListNode)
+	 * 
+	 *   add the elements of the synclist to the synclistnodes
+	 *     
+	 */
 	protected void addSynclist( Synclist aSynclist, SyncListNode aSyncListNode)
 	{
 		Iterator<Integer> it = aSynclist.iterator();
@@ -103,6 +129,11 @@ public class SyncListPanel extends JPanel implements MouseListener
 
 	
 	
+	/*@method : void removeNodes( TreePath tp[])
+	 * 
+	 *   remove nodes fron the tree
+	 *     
+	 */
 	public void removeNodes( TreePath tp[])
 	{
 		for( int i=0; i < tp.length; i++)
@@ -118,7 +149,12 @@ public class SyncListPanel extends JPanel implements MouseListener
 		((DefaultTreeModel)theTree.getModel()).reload();
 	}
     		
-	
+
+	/*@method : void expandAll()
+	 * 
+	 *   expand all nodes
+	 *     
+	 */
 	public  void expandAll()
 	{
 		for( int i =0 ; i<theTree.getRowCount(); i++)
@@ -127,14 +163,22 @@ public class SyncListPanel extends JPanel implements MouseListener
 
 
 
+	//the methods to be implemented of the mouselistener
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e)  {}
 	public void mousePressed(MouseEvent e) {}
+
+	/*@method : void mouseReleased(MouseEvent e)
+	 * 
+	 *   when the mouse button is released (left, middle or right) is released, this method is called  
+	 *     
+	 */
 	public void mouseReleased(MouseEvent e)
 	{
-		if( e.isPopupTrigger())
+		if( e.isPopupTrigger())  //is-it the right button?
 		{
+			//yes so we show the popupmenu
 			syncListPanelPopUpMenu m = new syncListPanelPopUpMenu(this);
 			m.show(e.getComponent(), e.getX(), e.getY());
 		}		

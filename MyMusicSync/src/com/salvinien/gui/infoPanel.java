@@ -14,10 +14,21 @@ import com.salvinien.gui.tableTree.MusicNode;
 import com.salvinien.gui.tableTree.SongContainerModel;
 import com.salvinien.gui.tableTree.TableTree;
 
+
+/*
+ * @class: infoPanel  
+ * 
+ * This class manages the panel (left side of the main frame), which is the root library tree
+ * 
+ * the real intelligence of this part is in the tabel (com.salvinien.gui.tableTree)
+ * 
+ */
+
 public class infoPanel extends JPanel
 {
 	private static final long	serialVersionUID	= 6187409787084974465L;
 
+	//CTOR
 	public infoPanel()
 	      {
 	          

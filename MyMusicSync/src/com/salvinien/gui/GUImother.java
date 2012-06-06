@@ -5,15 +5,27 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/*
+ * @class: GUImother
+ * 
+ * This class manages a window, it used as an help to create a simple window
+ * (you just have to subclass this)
+ * 
+ * ---This is susceptibel to be changed---
+ * 
+ */
+
 public class GUImother extends JPanel
 {
 	static final long serialVersionUID=-1;
 	
+	//
 	String title;
-	
 	myApp mom;
 	JFrame theFrame;
 	
+	
+	//CTOR
 	GUImother( myApp anApp, String aTitle)
 	{
         super(new BorderLayout());
@@ -27,7 +39,7 @@ public class GUImother extends JPanel
 	public String  getTitle()				{ return title;}
 	
 	
-    /**
+    /*@method : void createAndShowGUI() 
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event-dispatching thread.

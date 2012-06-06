@@ -2,39 +2,37 @@ package com.salvinien.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.salvinien.database.MyDatabase;
 
 
+/*
+ * @class: myApp
+ * 
+ * This class manages the main window of the App, it is called from the main (after some iniitalization) 
+ * 
+ * 
+ */
 
-public class myApp extends JFrame implements ActionListener
+public class myApp extends JFrame 
 {
 	private static final long	serialVersionUID	= -1008495897396933252L;
 
 
-		//	 Actions Event
-	private final static int AE_NEW_DEVICE = 1;
 
+	//CTOR
 	public myApp()
 	{		
 		try
-		{
+		{//set the look and feel
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		}
 		catch (ClassNotFoundException | InstantiationException
@@ -43,12 +41,19 @@ public class myApp extends JFrame implements ActionListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+		
+		//set some callbacks 
 		addWindowCallbacks();
 	}
 
 	
 
-	
+	//Methods
+	/*@method : void addWindowCallbacks()
+	 * 
+	 *   sets some callback which are called depending on the actions 
+	 *   read the method names, it is self explainatory
+	 */	
 	private void addWindowCallbacks()
 	{
 		addWindowListener(new WindowListener() 
@@ -86,53 +91,15 @@ public class myApp extends JFrame implements ActionListener
 	}
 
 	
-	private JMenu createMenuFile()
-	{
-		JMenu menu;
-		JMenuItem menuItem;
-		
-//		Build the Metronome menu.
-		menu = new JMenu("Devices");
-		menu.setMnemonic(KeyEvent.VK_P);
-		menu.getAccessibleContext().setAccessibleDescription( "This menu manages Devices");
-
-//		new DEvice
-		menuItem = new JMenuItem("New Device", KeyEvent.VK_N);
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
-		menuItem.getAccessibleContext().setAccessibleDescription( "Create a Device");
-		menuItem.setActionCommand(  String.valueOf(AE_NEW_DEVICE));
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		
-		return(menu);
-	}
-
-	 
-	private void createMenus()
-	{
-		JMenuBar menuBar;
-		
-//			Where the GUI is created:
-		JMenu menu;
-
-//			Create the menu bar.
-		menuBar = new JMenuBar();
-
-		
-//			PROFILE menu.
-		menu = createMenuFile();
-		menuBar.add(menu);
-		
-				
-		//mainFrame.setJMenuBar(menuBar);
-		this.setJMenuBar(menuBar);
-	}
-		
-
 	
 	
 	
+	
+	/*@method : Container createContentPane()
+	 * 
+	 *   creates the window
+	 *   
+	 */	
 	 public Container createContentPane() 
 	 {
 	        //Create the content-pane-to-be.
@@ -154,49 +121,11 @@ public class myApp extends JFrame implements ActionListener
 	        return contentPane;
 	    }
 
-	    public void actionPerformed(ActionEvent e) 
-	    {
-	    	String s1 = e.getActionCommand();
-	        int actionNumber = Integer.parseInt(s1);
-	        
-	        switch( actionNumber)
-	        {
-	        	case AE_NEW_DEVICE: /*Create a new device*/
-	        		//GuiMetronomeSetup aGuiMetronomeSetup= new GuiMetronomeSetup( this); 
-	        		//aGuiMetronomeSetup.createAndShowGUI();
-	        	 break;
-
-	        	 	
-	        	default: //do nothing
-	        		System.out.print("default=>");
-	        		System.out.print(actionNumber);
-	        }
-
-/*	        JMenuItem source = (JMenuItem)(e.getSource());
-	        String s = "Action event detected."
-	        		   + s1
-	                   + newline
-	                   + "    Event source: " + source.getText()
-	                   + " (an instance of " + getClassName(source) + ")";
-	        output.append(s + newline);
-	        output.setCaretPosition(output.getDocument().getLength());
-*/	        
-	    }
-
-
-	    // Returns just the class name -- no package info.
-	    protected String getClassName(Object o) 
-	    {
-	        String classString = o.getClass().getName();
-	        int dotIndex = classString.lastIndexOf(".");
-	        return classString.substring(dotIndex+1);
-	    }
-
-
 	
 	
 	
-    /**
+	/*@method : void createAndShowGUI()
+	 * 
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event-dispatching thread.
@@ -208,9 +137,6 @@ public class myApp extends JFrame implements ActionListener
     	this.setTitle("My MuZic Synchronizer");
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //create menus
-        createMenus();
-        
   
         //main display
         Container aContainer = createContentPane(); 
@@ -221,7 +147,16 @@ public class myApp extends JFrame implements ActionListener
         this.setVisible(true);
     }
 
+
     
+	/*@method : void CLEANEXIT()
+	 *
+	 * method called when the  user closes the app
+	 * 
+	 * it allows us to close cleanly the database
+	 * 
+     */
+
     private void CLEANEXIT()
     {
     	MyDatabase.getSingleton().close();
