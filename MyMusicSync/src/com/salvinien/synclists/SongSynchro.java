@@ -13,6 +13,20 @@ import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
 
+
+
+
+/*
+ * @class: SongSynchro
+ * 
+ * This class manages what action (if any) has to be done between a song on the device and a song on the root lib
+ * 
+ * normally:
+ * 1) this is the result of first try of synchronization. When the application cannot decide what to do, an instance is filled with information
+ * 2) the app ask the user what to do ( => fills doNothing ans From2To flags)
+ * 3) then when thoses flags are filled, we can do a synchronization 
+ * 
+ */
 public class SongSynchro
 {
 	protected Song SongRoot;   	//song which is in the root (can be null)
@@ -36,6 +50,7 @@ public class SongSynchro
 		
 	}
 
+	// ACCESSORS
 	public boolean IshouldDoNothing()			{ return  doNothing;}
 	public void  IshouldDoNothing( boolean b)	{ doNothing=b;}
 	public boolean isFrom()						{ return  From2To;}

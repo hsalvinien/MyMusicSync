@@ -7,7 +7,7 @@ import java.io.File;
  * 
  * This class manages a DeviceSyncList
  * 
- * A device Synclist, represents the relationships between a Device and SyncList 
+ * A device Synclist, represents the relationships between a Synclist, a Device and the mount point on the Device 
  * 
  */
 public class DeviceSyncList

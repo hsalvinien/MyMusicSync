@@ -14,6 +14,19 @@ import com.salvinien.mymusicsync.Parameters;
 import static java.nio.file.StandardCopyOption.*;
 
 
+
+/*
+ * @class: SongSynchroContainer
+ * 
+ * This class manages a container of SongSynchro
+ * 
+ * normally:
+ * 1) this is the result of first try of synchronization. 
+ * 2) the app ask the user what to do ( => fills doNothing ans From2To flags)
+ * 3) then when thoses flags are filled, we can do a synchronization in applying the synchronize() method 
+ * 
+ */
+
 public class SongSynchroContainer
 {
 
@@ -30,16 +43,25 @@ public class SongSynchroContainer
 	
 	
 	
-	
+	//Methods
+	/*@method : void synchronize()
+	 *  apply all the decisions taken by the user in term of synchonization
+	 *  
+	 *   if isTo is true then it is a synchro from the device to the root
+	 *   else it is a synchro from the root to the device 
+	 */
 	public void synchronize()
 	{
+		
+		//we iterator throuht the container
 		Iterator<SongSynchro> it = iterator();
 		while( it.hasNext())
 		{
 			SongSynchro s= it.next();
 			
-			if( s.IshouldDoNothing())  continue;
-			if(s.isTo())
+			if( s.IshouldDoNothing())  continue; //nothing to do  so next
+			
+			if(s.isTo())  
 			{
 				//case : the action goes from the device to the root
 				try 						{ DeviceToRoot(s);}
@@ -47,17 +69,22 @@ public class SongSynchroContainer
 			}
 			else
 			{
+				//case : the action goes from the root to the device
 				RootToDevice(s);
 				
 			}
-			
-			
+						
 		}
 		
 	}
 	
 	
 	
+	/*@method : void DeviceToRoot(SongSynchro s) throws IOException
+	 *  
+	 *  synchro from Device to Root
+	 *   
+	 */
 	private void DeviceToRoot(SongSynchro s) throws IOException
 	{
 		Song target = s.getSongRoot();
@@ -105,6 +132,12 @@ public class SongSynchroContainer
 		
 	}
 	
+
+	/*@method : void RootToDevice(SongSynchro s) 
+	 *  
+	 *  synchro from root to Device 
+	 *   
+	 */
 	private void RootToDevice(SongSynchro s)
 	{
 		Song source = s.getSongRoot();
