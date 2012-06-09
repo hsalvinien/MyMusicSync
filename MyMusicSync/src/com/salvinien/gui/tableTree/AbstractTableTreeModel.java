@@ -8,36 +8,66 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+/*
+ * @class: AbstractTableTreeModel 
+ * 
+ * Base class for tabletree
+ * 
+ * 
+ */
+
 public abstract class AbstractTableTreeModel implements TableTreeModel 
 {
 	
     
     protected String[]  Titles;  		// Names of the columns.
     protected Class<?>[]  ColumnTypes;	// Types of the columns.
-    protected Boolean[]  FixeSize;  	// is the 
-    protected int[]  	ColumnSize;  	// is the 
-    protected int[] 	ColumnAlignement; //= ;
+    protected Boolean[]  FixeSize;  	// which column has a fixed size or not
+    protected int[]  	ColumnSize;  	// what size for which columns
+    protected int[] 	ColumnAlignement; // alignments
 	
     protected DefaultMutableTreeNode theRoot;     
     protected EventListenerList listenerList = new EventListenerList();
   
+    
+    //CTOR
     public AbstractTableTreeModel(DefaultMutableTreeNode aRoot) { theRoot = aRoot;}
 
     //
     // Default implmentations for methods in the TreeModel interface. 
     //
 
+    //ACCESSORS
     public Object getRoot() {return theRoot;}
- 
-
-    
     public boolean isLeaf(Object node) { return getChildCount(node) == 0;}
-
-    
     public void valueForPathChanged(TreePath path, Object newValue) {}
+    public void addTreeModelListener(TreeModelListener l) { listenerList.add(TreeModelListener.class, l);}
+    public void removeTreeModelListener(TreeModelListener l) { listenerList.remove(TreeModelListener.class, l);}
+
+   /** By default, make the column with the Tree in it the only editable one. 
+    *  Making this column editable causes the JTable to forward mouse 
+    *  and keyboard events in the Tree column to the underlying JTree. 
+    */ 
+    public boolean isCellEditable(Object node, int column) { return getColumnClass(column) == TableTreeModel.class;    }
+    public void setValueAt(Object aValue, Object node, int column) {}
+    public Object getChild(Object aNode, int i)	{ return ((DefaultMutableTreeNode) aNode).getChildAt(i);}
+	public int getChildCount(Object aNode)		{ return ((DefaultMutableTreeNode) aNode).getChildCount();}
+	public int getColumnCount() 				{ return Titles.length;}
+    public String getColumnName(int column) 	{ return Titles[column];}
+    public Class<?> getColumnClass(int column) 	{ return ColumnTypes[column];}
+    public boolean isColumnFixedSize( int i) 	{ return ( FixeSize== null)? false:FixeSize[i];}
+    public int ColumnSize( int i)				{ return ( ColumnSize== null)? -1: ColumnSize[i];}
+    public int ColumnAlignement( int i)			{ return ( ColumnAlignement== null) ? SwingConstants.LEFT : ColumnAlignement[i];}
+     
+    public abstract boolean isRootVisible();
 
     
-    // This is not called in the JTree's default mode: use a naive implementation. 
+    /*
+     * @method : int getIndexOfChild(Object parent, Object child)
+     * 
+     * returns the index a child in a parent
+     * 
+     */
     public int getIndexOfChild(Object parent, Object child) 
     {
         for (int i = 0; i < getChildCount(parent); i++) 
@@ -50,11 +80,9 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
 	return -1; 
     }
 
-    public void addTreeModelListener(TreeModelListener l) { listenerList.add(TreeModelListener.class, l);}
-
-    public void removeTreeModelListener(TreeModelListener l) { listenerList.remove(TreeModelListener.class, l);}
 
     /*
+     * @method : void fireTreeNodesChanged(Object source, Object[] path, int[] childIndices,Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
      * is lazily created using the parameters passed into 
@@ -82,6 +110,8 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     }
 
     /*
+     * @method : void fireTreeNodesInserted(Object source, Object[] path,  int[] childIndices, Object[] children)
+     * 
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
      * is lazily created using the parameters passed into 
@@ -109,6 +139,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     }
 
     /*
+     * @method : void fireTreeNodesRemoved(Object source, Object[] path, int[] childIndices,Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
      * is lazily created using the parameters passed into 
@@ -135,6 +166,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     }
 
     /*
+     * @method : void fireTreeStructureChanged(Object source, Object[] path, int[] childIndices, Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
      * is lazily created using the parameters passed into 
@@ -161,62 +193,5 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
         }
     }
 
-    //
-    // Default impelmentations for methods in the TableTreeModel interface. 
-    //
-
-
-   /** By default, make the column with the Tree in it the only editable one. 
-    *  Making this column editable causes the JTable to forward mouse 
-    *  and keyboard events in the Tree column to the underlying JTree. 
-    */ 
-    public boolean isCellEditable(Object node, int column) { return getColumnClass(column) == TableTreeModel.class;    }
-
-    public void setValueAt(Object aValue, Object node, int column) {}
-
-    
-    
-    
-    
-    public Object getChild(Object aNode, int i) 
-    { 
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) aNode;
-		
-    	return node.getChildAt(i); 
-    }
-
-	public int getChildCount(Object aNode)
-	{
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) aNode;
-		
-		return node.getChildCount();
-	}
-
-	public int getColumnCount() {return Titles.length;}
-    public String getColumnName(int column) {return Titles[column];}
-    public Class<?> getColumnClass(int column) {return ColumnTypes[column];}
-
-    
-    public boolean isColumnFixedSize( int i)
-    {
-    	if( FixeSize== null) return false;
-    	
-    	return FixeSize[i];
-    }
-    public int ColumnSize( int i)
-    {
-    	if( ColumnSize== null) return -1;
-    	
-    	return ColumnSize[i];
-    }
-    public int ColumnAlignement( int i)
-    {
-    	if( ColumnAlignement== null) return SwingConstants.LEFT;
-    	
-    	return ColumnAlignement[i];
-    }
-    
-    
-    public abstract boolean isRootVisible();
 }
 

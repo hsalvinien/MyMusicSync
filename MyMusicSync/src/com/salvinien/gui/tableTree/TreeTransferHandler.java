@@ -18,6 +18,14 @@ import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.utils.Converter;
 
+
+/*
+ * @class: TreeTransferHandler
+ * 
+ * This class manages the transfert of data when there is a Drag n Drop action and CCP
+ * this one is specific to a the tablesync 
+ */
+
 public class TreeTransferHandler extends TransferHandler
 {
 	private static final long	serialVersionUID	= -318289928111396520L;
@@ -30,7 +38,15 @@ public class TreeTransferHandler extends TransferHandler
     }
     
    
-    
+	//METHODS
+	/*@method : boolean canImport(TransferHandler.TransferSupport info)
+	 * this method has to be overridden, 
+	 * 
+	 * it tells if the import can be done or not
+	 * 
+	 * actually for us, it just check that the data to import are encapsluated in a String
+	 * 
+	 */ 
     public boolean canImport(TransferHandler.TransferSupport info) 
     {
         // Check for String flavor
@@ -41,38 +57,63 @@ public class TreeTransferHandler extends TransferHandler
         return true;
    }
 
+
+	/*@method : Transferable createTransferable(JComponent c)
+	 * this method has to be overridden, 
+	 * 
+	 * it extracts data from the componnent and encapsulates it in a String
+	 * 
+	 */ 
     protected Transferable createTransferable(JComponent c) 
     {
     	JTree t = (JTree) c;
 
     	TreePath TP[] = t.getSelectionPaths();
     	Vector<Integer> v= new Vector<Integer>();
+    	//iteration throught the Nodes
     	for( int i=0; i<TP.length; i++)
     	{
     		ADefaultMutableTreeNode aNode = (ADefaultMutableTreeNode) TP[i].getLastPathComponent();
-    		aNode.getSongIds(v);
+    		aNode.getSongIds(v);  //extract song ids and add them to the vector 
     	}
     	
+    	//converts the vector into s string  
     	String S= v.toString();    	
     	
+    	//returns the Transferable object made of a string encapsulating the song ids
         return new StringSelection(S);
     }
     
+    
+    
+	/*@method : int getSourceActions(JComponent c)
+	 * this method has to be overridden, 
+	 * 
+	 * honestly I don't really know why we have to do this (actually  I didn't take the time)
+	 * I guess it is something like it is a copy or a move ( deleting or not the source)
+	 * 
+	 */ 
     public int getSourceActions(JComponent c) 
     {
         return TransferHandler.COPY;
     }
+
     
+
+	/*@method : boolean importData(TransferHandler.TransferSupport info)
+	 * this method has to be overridden, 
+	 * 
+	 * it imports data, it is actually the reverse function of createTransferable()
+	 * 
+	 */ 
     public boolean importData(TransferHandler.TransferSupport info) 
     {
     
-      /*  if (!info.isDrop()) 
+       /*  if (!info.isDrop()) 
         {
             return false;
         }
-*/
-
-        
+       */
 
         // Get the string that is being dropped.
         Transferable t = info.getTransferable();
@@ -132,9 +173,19 @@ public class TreeTransferHandler extends TransferHandler
         return true;
     }
 
+
+    
+    
+	/*@method : void exportDone(JComponent c, Transferable data, int action)
+	 * this method has to be overridden, 
+	 * 
+	 * it is called after the export has been done
+	 * 
+	 * it can be used for any post action 
+	 * 
+	 */ 
     protected void exportDone(JComponent c, Transferable data, int action) 
     {
-    	//@todo: remove the node
     }
     
 }

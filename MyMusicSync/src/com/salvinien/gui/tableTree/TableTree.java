@@ -16,19 +16,19 @@ import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreeModel;
 
 
-
+/*
+ * @class: TableTree
+ * 
+ * This class manage a table with a Jtree as a first column 
+ * 
+ */
 
 public class TableTree extends JTable
 {
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 1L;
-	/**
-	 * 
-	 */
 	protected TableTreeCellRenderer	tree;
 
+	//CTOR
 	public TableTree( AbstractTableTreeModel TableTreeModel) 
 	{
 		super();
@@ -101,7 +101,9 @@ public class TableTree extends JTable
 		setIntercellSpacing(new Dimension(0, 0));
 	}
 
+
 	/*
+	 * @method : int getEditingRow()
 	 * Workaround for BasicTableUI anomaly. Make sure the UI never tries to
 	 * paint the editor. The UI currently uses different techniques to paint the
 	 * renderers and editors and overriding setBounds() below is not the right
@@ -117,7 +119,12 @@ public class TableTree extends JTable
 
 	
 	
-	
+	/*
+	 * @class: TableTreeCellEditor
+	 * 
+	 * trivial cell editor for the tabletree  
+	 * 
+	 */	
 	public class TableTreeCellEditor extends AbstractCellEditor implements TableCellEditor
 	{
 		private static final long	serialVersionUID	= 1L;
@@ -139,12 +146,15 @@ public class TableTree extends JTable
 	
 	
 	
+	/*
+	 * @class: TableTreeCellRenderer
+	 * 
+	 * trivial cell renderer for the tabletree  
+	 * 
+	 */	
 	public class TableTreeCellRenderer extends JTree implements TableCellRenderer
 	{
 
-		/**
-		 * 
-		 */
 		private static final long	serialVersionUID	= -413060051091608973L;
 		protected int	visibleRow;
 

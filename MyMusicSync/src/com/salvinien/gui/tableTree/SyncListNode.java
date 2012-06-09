@@ -7,6 +7,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 
+
+/*
+ * @class: SyncListNode
+ * 
+ * This class manages a node corresponding to a syncList
+ * 
+ * it is an extrend of ADefaultMutableTreeNode
+ * 
+ *   
+ *   the complete hierarchy is:
+ *   
+ *   (SynclistNode or MusicSyncNode)  contains ArtistNode(s) which contains AlbumNode(s) which contains SongNodes
+ *  the synclistNode is for synclists
+ *  MusicSyncNode is for a library
+ * 
+ */
+
 public class SyncListNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 1329348084639690276L;
@@ -14,7 +31,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 	protected HashMap<Integer, ArtistNode> containerArtist;
 	protected Synclist theSyncList;
 	
-	
+
+	//CTOR
 	public SyncListNode(Synclist aSyncList)	
 	{
 		super( aSyncList.getName());
@@ -22,9 +40,21 @@ public class SyncListNode extends ADefaultMutableTreeNode
 		theSyncList = aSyncList;
 	}
 	
-	
+	//ACCESSORS
 	public 	Synclist getSynclist() { return theSyncList;}
+	public String getTypeName()	{ return "SyncList";}
 
+
+	
+	
+	/*@method : ArtistNode getArtist( Song aSong)
+	 * 
+	 *
+	 *	returns an ArtistNode from the MusicNode depending aSong
+	 *
+	 *  it creates it if it doesn't exist
+	 * 
+	 */ 
 	public ArtistNode getArtist(Song aSong)
 	{
 		int artistId = aSong.getArtistID();
@@ -43,9 +73,13 @@ public class SyncListNode extends ADefaultMutableTreeNode
 		return anArtistNode;
 	}
 	
-	public String getTypeName()	{ return "SyncList";}
 
-
+	/*@method : Object getValueAt(int column)
+	 * 
+	 *
+	 *returns the infos which has to displayed at this specifc column 
+	 * 
+	 */ 
 	public Object getValueAt(int column)
 	{
 	    switch(column) 
@@ -64,7 +98,12 @@ public class SyncListNode extends ADefaultMutableTreeNode
 
 
 
-	@Override
+	/*@method : void removeMe()
+	 * 
+	 *
+	 *	remove a synclist,   
+	 * 
+	 */ 
 	public void removeMe()
 	{
 		//0) if no artist, then do nothing
@@ -86,6 +125,12 @@ public class SyncListNode extends ADefaultMutableTreeNode
 
 
 
+	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	 * 
+	 *
+	 *	remove all nodes form the node synclist,  
+	 * 
+	 */ 
 	public void removeNode(ADefaultMutableTreeNode aNode)
 	{
 		  int id= ((ArtistNode) aNode).theArtistId;
@@ -102,6 +147,12 @@ public class SyncListNode extends ADefaultMutableTreeNode
 		  
 	}
 	
+	/*@method : removeMeCompletly()
+	 * 
+	 *
+	 *	remove the  SyncListnode   
+	 * 
+	 */ 
 	public void removeMeCompletly()
 	{
 		//! this is for removing a synclist from the device SO we reomve only the assoication not the songs from the synclist 

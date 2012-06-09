@@ -7,6 +7,24 @@ import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
 
+
+
+/*
+ * @class: ArtistNode
+ * 
+ * This class manages a node corresponding to an ArtistNode
+ * 
+ * it is an extrend of ADefaultMutableTreeNode
+ * 
+ *   
+ *   the complete hierarchy is:
+ *   
+ *   (SynclistNode or MusicSyncNode)  contains ArtistNode(s) which contains AlbumNode(s) which contains SongNodes
+ *  the synclistNode is for synclists
+ *  MusicSyncNode is for a library
+ * 
+ */
+
 public class ArtistNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 899997495513106967L;
@@ -15,7 +33,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 	protected HashMap<Integer, AlbumNode> containerAlbum;
 	protected int theArtistId;
 	
-	
+
+	//Ctor
 	public ArtistNode(int artistId)	
 	{
 		super( ArtistContainer.getSingleton().getName(artistId));
@@ -23,9 +42,19 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		theArtistId = artistId;
 	}
 	
-
+	//ACCESSORS
 	public String getTypeName()	{ return "Artist";}
 
+	
+	
+	//METHODS
+		/*@method : AlbumNode getAlbum( Song aSong)
+	 * 
+	 *
+	 *	returns an AlbumNode from the Node depending on a Song
+	 *  if doesn't exist, it creates it
+	 * 
+	 */ 
 	public AlbumNode getAlbum(Song aSong)
 	{
 		int albumId = aSong.getAlbumID();
@@ -43,6 +72,12 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		return anAlbumNode;
 	}
 
+	/*@method : Object getValueAt(int column)
+	 * 
+	 *
+	 *returns the infos which has to displayed at this specifc column 
+	 * 
+	 */ 
 	public Object getValueAt(int column)
 	{
 	    switch(column) 
@@ -78,6 +113,12 @@ public class ArtistNode extends ADefaultMutableTreeNode
 	}
 
 
+	/*@method : void removeMe()
+	 * 
+	 *
+	 *	remove a song from a synclist 
+	 * 
+	 */ 
 	public void removeMe()
 	{
 		//1) we remove the songs from the synclist
@@ -95,7 +136,12 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		//no need to do anyThing since the last ta[i].removeMe(); will implicitly call the removeNode of the ArtistNode.. 
 	}
 
-
+	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	 * 
+	 *
+	 *	remove a node form the node list,  
+	 * 
+	 */ 
 	public void removeNode(ADefaultMutableTreeNode aNode)
 	{
 		  int id= ((AlbumNode) aNode).theAlbumId;

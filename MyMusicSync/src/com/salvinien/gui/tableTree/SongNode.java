@@ -9,12 +9,31 @@ import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 import com.salvinien.utils.Converter;
 
+
+
+/*
+ * @class: SongNode
+ * 
+ * This class manages a node corresponding to a SongNode
+ * 
+ * it is an extrend of ADefaultMutableTreeNode
+ * 
+ *   
+ *   the complete hierarchy is:
+ *   
+ *   (SynclistNode or MusicSyncNode)  contains ArtistNode(s) which contains AlbumNode(s) which contains SongNodes
+ *  the synclistNode is for synclists
+ *  MusicSyncNode is for a library
+ * 
+ */
+
 public class SongNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 1586769874979868677L;
 	
 	protected Song theSong;
 	
+	//CTORs
 	public SongNode(String aSongName)	{super( aSongName);}
 	public SongNode(Song aSong)	
 	{	
@@ -22,8 +41,8 @@ public class SongNode extends ADefaultMutableTreeNode
 		theSong = aSong;
 	}
 
-	public String getTypeName()	{ return "Song";}
-	
+	//ACCESSORS
+	public String getTypeName()	{ return "Song";}	
 	public void getSongIds( Vector<Integer> v)
 	{
 		v.add( theSong.getId());
@@ -31,6 +50,13 @@ public class SongNode extends ADefaultMutableTreeNode
 
 	
 
+	//METHODS
+	/*@method : Object getValueAt(int column)
+	 * 
+	 *
+	 *returns the infos which has to displayed at this specifc column 
+	 * 
+	 */ 
 	public Object getValueAt(int column)
 	{
 	    switch(column) 
@@ -50,6 +76,13 @@ public class SongNode extends ADefaultMutableTreeNode
 
 	}
 
+
+	/*@method : void removeMe()
+	 * 
+	 *
+	 *	remove a song from a synclist 
+	 * 
+	 */ 
 	public void removeMe()
 	{
 		//1) we remove the song from the synclist
@@ -63,11 +96,16 @@ public class SongNode extends ADefaultMutableTreeNode
 		ADefaultMutableTreeNode mum = (ADefaultMutableTreeNode) this.getParent();
 		mum.removeNode( this);
 	}
+
+	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	 * 
+	 *
+	 *	remove a node form the node list, as it is a leaf...there is no children so we do nothing
+	 * 
+	 */ 
 	public void removeNode(ADefaultMutableTreeNode aNode)
 	{
 		// do Nothing since it is the leaf
 	}
-
-
 
 }

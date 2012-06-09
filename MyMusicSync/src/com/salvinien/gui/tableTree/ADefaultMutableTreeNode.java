@@ -4,6 +4,21 @@ import java.util.Vector;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
+
+/*
+ * @class: ADefaultMutableTreeNode
+ * 
+ * This class is the base class to manage a nodes 
+ * 
+ *   the complete hierarchy is:
+ *   
+ *   (SynclistNode or MusicSyncNode)  contains ArtistNode(s) which contains AlbumNode(s) which contains SongNodes
+ *  the synclistNode is for synclists
+ *  MusicSyncNode is for a library
+ * 
+ */
+
 public abstract class ADefaultMutableTreeNode extends DefaultMutableTreeNode
 {
 	
@@ -14,6 +29,14 @@ public abstract class ADefaultMutableTreeNode extends DefaultMutableTreeNode
 	
 	
 	
+	/*@method : void getSongIds( Vector<Integer> v)
+	 * 
+	 *
+	 *	returns a vector of all song ids from the children nodes
+	 *
+	 *  it creates it if it doesn't exist
+	 * 
+	 */ 
 	public void getSongIds( Vector<Integer> v)
 	{
 		for( int i=0; i<getChildCount(); i++)

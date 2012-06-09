@@ -12,6 +12,15 @@ import javax.swing.tree.TreePath;
 
 import com.salvinien.gui.tableTree.TableTree.TableTreeCellRenderer;
 
+
+
+/*
+ * @class: TableTreeTransferHandlerCCP 
+ * 
+ * This class manages the transfert of data when there is a CCP action 
+ * this one is specific to a the tableTree 
+ */
+
 public class TableTreeTransferHandlerCCP  extends TransferHandler
 {
 	private static final long	serialVersionUID	= 5235609475030137511L;
@@ -24,9 +33,14 @@ public class TableTreeTransferHandlerCCP  extends TransferHandler
        
     
   
+	/*@method : Transferable createTransferable(JComponent c)
+	 * this method has to be overridden, 
+	 * 
+	 * it extracts data from the componnent and encapsulates it in a String
+	 * 
+	 */ 
     protected Transferable createTransferable(JComponent c) 
-    {
- 
+    { 
     	TableTree TT = (TableTree) c;
     	TableTreeCellRenderer t = TT.tree;
     	
@@ -44,9 +58,14 @@ public class TableTreeTransferHandlerCCP  extends TransferHandler
     }
     
     
+	/*@method : void exportToClipboard(JComponent c, Clipboard clip,int action)
+	 * this method has to be overridden, 
+	 * 
+	 * putthe info in a clipboard
+	 * 
+	 */ 
     public void exportToClipboard(JComponent c, Clipboard clip,int action)
     {
-    	//@TODO =>NOT TESTED AND ....NOT WORKING
     	Transferable t = createTransferable(c);
     	clip.setContents(t, (ClipboardOwner) t);
     }
@@ -55,22 +74,55 @@ public class TableTreeTransferHandlerCCP  extends TransferHandler
     
     
     
+	/*@method : int getSourceActions(JComponent c)
+	 * this method has to be overridden, 
+	 * 
+	 * honestly I don't really know why we have to do this (actually  I didn't take the time)
+	 * I guess it is something like it is a copy or a move ( deleting or not the source)
+	 * 
+	 */ 
     public int getSourceActions(JComponent c) 
     {
         return TransferHandler.COPY;
     }
 
 
-    //we don't want to import anything in the TableTree
+    
+    
+	/*@method : boolean canImport(TransferHandler.TransferSupport info)
+	 * this method has to be overridden, 
+	 * 
+	 * it tells if the import can be done or not
+	 * 
+	 * actually for us, we don't want to import anything in the TableTree so returns false
+	 * 
+	 */ 
     public boolean canImport(TransferHandler.TransferSupport info) 
     {
     	return false;
     }
+    
+    
+	/*@method : boolean importData(TransferHandler.TransferSupport info)
+	 * this method has to be overridden, 
+	 * 
+	 * it imports data, but actually we don't want to import anything in the TableTree, so we do nothing and return false
+	 * 
+	 */ 
     public boolean importData(TransferHandler.TransferSupport info) 
     {
             return false;
     }
 
+
+	/*@method : void exportDone(JComponent c, Transferable data, int action)
+	 * this method has to be overridden, 
+	 * 
+	 * it is called after the export has been done
+	 * 
+	 * it can be used for any post action 
+	 * 
+	 */ 
     protected void exportDone(JComponent c, Transferable data, int action) 
     {
      

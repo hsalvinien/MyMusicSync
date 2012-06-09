@@ -8,21 +8,49 @@ import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 
+/*
+ * @class: AlbumNode
+ * 
+ * This class manages a node corresponding to an AlbumNode
+ * 
+ * it is an extension of ADefaultMutableTreeNode
+ * 
+ *   
+ *   the complete hierarchy is:
+ *   
+ *   (SynclistNode or MusicSyncNode)  contains ArtistNode(s) which contains AlbumNode(s) which contains SongNodes
+ *  the synclistNode is for synclists
+ *  MusicSyncNode is for a library
+ * 
+ */
 
 public class AlbumNode extends ADefaultMutableTreeNode
 {
 	private static final long	serialVersionUID	= 5139317989238918397L;
 
-	protected HashMap<Integer, SongNode> container= new HashMap<Integer, SongNode>();
+	protected HashMap<Integer, SongNode> container= new HashMap<Integer, SongNode>();   // songNode container
 	protected int theAlbumId;
 	
 	
+	//Ctor
 	public AlbumNode(int albumId)	
 	{
 		super( AlbumContainer.getSingleton().getName(albumId));
 		theAlbumId = albumId;
 	}
 
+	//ACCESSORS
+	public String getTypeName()	{ return "Album";}
+	
+	
+	
+	//METHODS
+	/*@method : Object getValueAt(int column)
+	 * 
+	 *
+	 *returns the infos which has to displayed at this specifc column 
+	 * 
+	 */ 
 	public Object getValueAt(int column)
 	{
 	    switch(column) 
@@ -38,6 +66,13 @@ public class AlbumNode extends ADefaultMutableTreeNode
 	}
 
 
+	/*@method : SongNode getSong( Song aSong)
+	 * 
+	 *
+	 *	returns a SongNode from the AlbumNode depanding on a Song
+	 * if it doesnt exit, it create it 
+	 * 
+	 */ 
 	public SongNode getSong( Song aSong)
 	{
 		SongNode aSongNode =null;
@@ -52,11 +87,16 @@ public class AlbumNode extends ADefaultMutableTreeNode
 		
 		return aSongNode;
 	}
-	public String getTypeName()	{ return "Album";}
 
 	
 	
 	
+	/*@method : void removeMe()
+	 * 
+	 *
+	 *	remove a song from a synclist 
+	 * 
+	 */ 
 	public void removeMe()
 	{
 		//1) we remove the songs from the synclist
@@ -75,6 +115,12 @@ public class AlbumNode extends ADefaultMutableTreeNode
 		mum.removeNode( this);
 	}
 
+	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	 * 
+	 *
+	 *	remove a node form the node list 
+	 * 
+	 */ 
 	public void removeNode(ADefaultMutableTreeNode aNode)
 	{
 	  Song aSong = ((SongNode) aNode).theSong;
