@@ -8,7 +8,7 @@ import com.salvinien.discography.AlbumContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 
-/*
+/**
  * @class: AlbumNode
  * 
  * This class manages a node corresponding to an AlbumNode
@@ -45,7 +45,8 @@ public class AlbumNode extends ADefaultMutableTreeNode
 	
 	
 	//METHODS
-	/*@method : Object getValueAt(int column)
+	/**
+	 * @method : Object getValueAt(int column)
 	 * 
 	 *
 	 *returns the infos which has to displayed at this specifc column 
@@ -66,7 +67,8 @@ public class AlbumNode extends ADefaultMutableTreeNode
 	}
 
 
-	/*@method : SongNode getSong( Song aSong)
+	/**
+	 * @method : SongNode getSong( Song aSong)
 	 * 
 	 *
 	 *	returns a SongNode from the AlbumNode depanding on a Song
@@ -91,7 +93,8 @@ public class AlbumNode extends ADefaultMutableTreeNode
 	
 	
 	
-	/*@method : void removeMe()
+	/**
+	 * @method : void removeMe()
 	 * 
 	 *
 	 *	remove a song from a synclist 
@@ -115,7 +118,8 @@ public class AlbumNode extends ADefaultMutableTreeNode
 		mum.removeNode( this);
 	}
 
-	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	/**
+	 * @method : removeNode(ADefaultMutableTreeNode aNode)
 	 * 
 	 *
 	 *	remove a node form the node list 

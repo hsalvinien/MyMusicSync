@@ -7,7 +7,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Vector;
 
 
-/*
+/**
  * @class: FsFile
  * 
  * This class represents the Node class to manage the song file in the file system 
@@ -51,7 +51,8 @@ public class FsDir  extends FsElement
 	public void print()	              { System.out.println(getFullName() + " ==>  DIRECTORY:  created:" +creationDate);}
 
 
-	/*@method : void loadChild()
+	/**
+	 * @method : void loadChild()
 	 * recursion to load the tree of files songs
 	 */
 	public void loadChild()

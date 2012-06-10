@@ -9,7 +9,7 @@ import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.fileSystem.FsDir;
 
-/*
+/**
  * @class: syncTask
  * 
  * This class manages a the synchronization between the root lib uisng a synclist
@@ -34,7 +34,8 @@ public class syncTask
 	
 	
 	//Methods
-	/*@method : SongSynchroContainer sync(SongSynchroContainer aContainer)
+	/**
+	 * @method : SongSynchroContainer sync(SongSynchroContainer aContainer)
 	 * generate the synchro to be done
 	 * 
 	 * actually it adds the new sync to do to a previously filled container (in cas of several synclit for a single device) 
@@ -59,7 +60,8 @@ public class syncTask
 
 
 
-	/*@method : HashMap<String, Song> loadSongFromDevice()
+	/**
+	 * @method : HashMap<String, Song> loadSongFromDevice()
 	 * load songs from the device into an hashmap
 	 */
 	protected HashMap<String, Song> loadSongFromDevice() 
@@ -77,7 +79,8 @@ public class syncTask
 	}
 
 
-	/*@method : void songInDeviceNotInSyncList( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	/**
+	 * @method : void songInDeviceNotInSyncList( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
 	 * list the songs on the device which are not in the synclist and add them in a SongSynchroContainer, in order to ask the user what he wants
 	 * us to do either remove from the device or add it to the synclist and maybe add to the root lib. 
 	 */
@@ -103,7 +106,8 @@ public class syncTask
 
 
 
-	/*@method : songInSynclistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	/**
+	 * @method : songInSynclistNotInDevice( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
 	 * list the songs in the synclist which are not in the device and add them in a SongSynchroContainer
 	 * in order to ask the user what he wants us to do :
 	 * either remove from the it from the synclust and mey be from the root lib
@@ -127,7 +131,8 @@ public class syncTask
 	}
 
 
-	/*@method : songNewerInDeviceThanInSynclist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
+	/**
+	 * @method : songNewerInDeviceThanInSynclist( HashMap<String, Song> deviceSongs,  SongSynchroContainer aContainer)
 	 * list the songs newer in the device than in the root lib
 	 * in order to ask the user what he wants us to do :
 	 */

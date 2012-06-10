@@ -15,7 +15,7 @@ import com.salvinien.gui.tableSync.TableSync;
 import com.salvinien.gui.tableSync.TableSyncModel;
 import com.salvinien.synclists.SongSynchroContainer;
 
-/*
+/**
  * @class: SyncResultPanel  
  * 
  * This class manages the result of a synchronization, and shows the last tasks where the application cannot decide
@@ -66,7 +66,8 @@ public class SyncResultPanel extends GUImother implements ActionListener
 
 
 	//Methods
-	/*@method : void createPanel()
+	/**
+	 * @method : void createPanel()
 	 * 
 	 *   create all fields, and buttons
 	 *    
@@ -99,7 +100,8 @@ public class SyncResultPanel extends GUImother implements ActionListener
     }
 
     
-	/*@method : void createButtons()
+	/**
+	 * @method : void createButtons()
 	 * 
 	 *   create the buttons
 	 *    
@@ -134,7 +136,8 @@ public class SyncResultPanel extends GUImother implements ActionListener
 
 	
 	//Methods
-	/*@method : void actionPerformed(ActionEvent e)
+	/**
+	 * @method : void actionPerformed(ActionEvent e)
 	 * 
 	 *   this method is called each time the user click on one of the buttons
 	 */

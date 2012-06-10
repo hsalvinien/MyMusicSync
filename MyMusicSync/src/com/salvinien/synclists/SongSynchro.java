@@ -1,7 +1,7 @@
 package com.salvinien.synclists;
 
 import java.util.Vector;
-/*
+/**
  * @class: SongSynchro
  * 
  * This class manages the song synchro between the root and the device  
@@ -16,7 +16,7 @@ import com.salvinien.discography.Song;
 
 
 
-/*
+/**
  * @class: SongSynchro
  * 
  * This class manages what action (if any) has to be done between a song on the device and a song on the root lib
@@ -64,7 +64,8 @@ public class SongSynchro
 	public DeviceSyncList getDeviceSyncList() 	{ return theDeviceSyncList;}
 	
 	//Methods
-	/*@method : String Artist()
+	/**
+	 * @method : String Artist()
 	 * returns the artist, the song in the root has priority 
 	 */
 	public String Artist()
@@ -84,7 +85,8 @@ public class SongSynchro
 	
 
 	//Methods
-	/*@method : String Album()
+	/**
+	 * @method : String Album()
 	 * returns the album, the song in the root has priority 
 	 */
 	public String Album()
@@ -104,7 +106,8 @@ public class SongSynchro
 	
 	
 	//Methods
-	/*@method : String NameSource()
+	/**
+	 * @method : String NameSource()
 	 * returns the song name fromn the source, if null, it returns a default value 
 	 */
 	public String NameSource()
@@ -123,7 +126,8 @@ public class SongSynchro
 	}
 
 	//Methods
-	/*@method : String NameTarget()
+	/**
+	 * @method : String NameTarget()
 	 * returns the song name fromn the target, if null, it returns a default value 
 	 */
 	public String NameTarget()
@@ -145,7 +149,8 @@ public class SongSynchro
 	
 	
 	//Methods
-	/*@method : Vector<String> toVstring()
+	/**
+	 * @method : Vector<String> toVstring()
 	 * returns a vector of strings, these are the values we want to display in a row  
 	 */
 

@@ -9,7 +9,7 @@ import com.salvinien.discography.Song;
 
 
 
-/*
+/**
  * @class: ArtistNode
  * 
  * This class manages a node corresponding to an ArtistNode
@@ -48,7 +48,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 	
 	
 	//METHODS
-		/*@method : AlbumNode getAlbum( Song aSong)
+	/**
+	 * @method : AlbumNode getAlbum( Song aSong)
 	 * 
 	 *
 	 *	returns an AlbumNode from the Node depending on a Song
@@ -72,7 +73,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		return anAlbumNode;
 	}
 
-	/*@method : Object getValueAt(int column)
+	/**
+	 * @method : Object getValueAt(int column)
 	 * 
 	 *
 	 *returns the infos which has to displayed at this specifc column 
@@ -113,7 +115,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 	}
 
 
-	/*@method : void removeMe()
+	/**
+	 * @method : void removeMe()
 	 * 
 	 *
 	 *	remove a song from a synclist 
@@ -136,7 +139,8 @@ public class ArtistNode extends ADefaultMutableTreeNode
 		//no need to do anyThing since the last ta[i].removeMe(); will implicitly call the removeNode of the ArtistNode.. 
 	}
 
-	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	/**
+	 * @method : removeNode(ADefaultMutableTreeNode aNode)
 	 * 
 	 *
 	 *	remove a node form the node list,  

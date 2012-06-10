@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
-/*
+/**
  * @class: DeviceContainer
  * 
  * This class manages Devices
@@ -65,7 +65,8 @@ public class DeviceContainer
 	
 	
 	//Methods
-	/*@method : void init()
+	/**
+	 * @method : void init()
 	 * 
 	 *   init the container 
 	 */
@@ -83,7 +84,8 @@ public class DeviceContainer
 		}		
 	}
 	
-	/*@method : protected void loadFromDB() throws ParseException, SQLException
+	/**
+	 * @method : protected void loadFromDB() throws ParseException, SQLException
 	 * 
 	 *   loads the container from database 
 	 */
@@ -113,7 +115,8 @@ public class DeviceContainer
 	
 
 	
-	/*@method : void create( Device aDevice)
+	/**
+	 * @method : void create( Device aDevice)
 	 * 
 	 *   insert the device in the container as well as in database 
 	 */
@@ -171,7 +174,8 @@ public class DeviceContainer
 
 	
 
-	/*@method : void update( Device aDevice)
+	/**
+	 * @method : void update( Device aDevice)
 	 * 
 	 *   update a device in the container as well as in database 
 	 */

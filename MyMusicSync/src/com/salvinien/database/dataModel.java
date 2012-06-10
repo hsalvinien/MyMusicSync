@@ -2,7 +2,7 @@ package com.salvinien.database;
 
 import java.sql.ResultSet;
 
-/*
+/**
  * @class: dataModel
  * 
  * This class manages the definitions of the data model
@@ -42,7 +42,8 @@ public class dataModel
 
 	
 	//METHODS
-	/*@method : checkDatabase
+	/**
+	 * @method : checkDatabase
 	 * check the database.
 	 * 1) if the database doesn't exist, it creates it
 	 * 2) if the database exists but is from a previous version, then it runs upgrade patch  
@@ -67,7 +68,8 @@ public class dataModel
 
 	
 	
-	/*@method : createDataModel
+	/**
+	 * @method : createDataModel
 	 * create the data model
 	 */
 	private void createDataModel() 
@@ -145,7 +147,8 @@ public class dataModel
 	
 	
 	
-	/*@method : populate
+	/**
+	 * @method : populate
 	 * initialize the database 
 	 */
 	private void populate() 
@@ -175,7 +178,8 @@ public class dataModel
 
 
 	
-	/*@method : populateTest
+	/**
+	 * @method : populateTest
 	 * initialize the database with test data 
 	 */
 	private void populateTest() 
@@ -245,7 +249,8 @@ public class dataModel
 	
 	
 	
-	/*@method : updateDataModelFromVersion
+	/**
+	 * @method : updateDataModelFromVersion
 	 * update the data model from its current version to the the new version  
 	 */	
 	private void updateDataModelFromVersion( int currentVersion)

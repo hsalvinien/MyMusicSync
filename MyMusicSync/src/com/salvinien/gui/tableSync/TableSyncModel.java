@@ -11,7 +11,7 @@ import com.salvinien.synclists.SongSynchroContainer;
 
 
 
-/*
+/**
  * @class: TableSyncModel
  * 
  * overides the default Model to take in charge a TableSync
@@ -73,7 +73,7 @@ public class TableSyncModel extends  AbstractTableModel
 	
 	
 	//METHODS
-	/*
+	/**
 	 * @method: init()
 	 * 
 	 * Initializes header/size/ etc etc 
@@ -91,7 +91,8 @@ public class TableSyncModel extends  AbstractTableModel
 	}
 	
 	
-	/*@method : void setValueAt(Object value, int row, int col)
+	/**
+	 * @method : void setValueAt(Object value, int row, int col)
 	 * 
 	 * set a value in a cell  
 	 * 
@@ -164,7 +165,8 @@ public class TableSyncModel extends  AbstractTableModel
 	
 	
 
-	/*@method : Object getValueAt(int row, int col)
+	/**
+	 * @method : Object getValueAt(int row, int col)
 	 * 
 	 * get a value from a cell  
 	 * 
@@ -215,7 +217,7 @@ public class TableSyncModel extends  AbstractTableModel
 				return img;
 
 			case 4: //returns the righ icon
-				if( aSongSynchro.IshouldDoNothing()) { path="img/donothing-true.gif";}  /*case true*/
+				if( aSongSynchro.IshouldDoNothing()) { path="img/donothing-true.gif";}  //case true
 				else								 { path="img/donothing-false.gif";} //case false
 				
 				file = new File(path);

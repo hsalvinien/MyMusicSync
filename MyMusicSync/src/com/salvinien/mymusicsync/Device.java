@@ -11,7 +11,7 @@ import com.salvinien.synclists.Synclist;
 
 
 
-/*
+/**
  * @class: Device
  * 
  * This class manages a Device 
@@ -49,7 +49,8 @@ public class Device
 
 
 	//Methods
-	/*@method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
+	/**
+	 * @method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
 	 * 
 	 *   just init the members 
 	 */
@@ -61,7 +62,8 @@ public class Device
 	}
 
 
-	/*@method : void loadMoreFromDB() throws ParseException, SQLException
+	/**
+	 * @method : void loadMoreFromDB() throws ParseException, SQLException
 	 * 
 	 *   loads the synclists from the database 
 	 */
@@ -86,7 +88,8 @@ public class Device
 	}
 
 	
-	/*@method : void unAssociateSyncList( Synclist aSynclist)
+	/**
+	 * @method : void unAssociateSyncList( Synclist aSynclist)
 	 * 
 	 *   remove a Synclist from the device 
 	 */	
@@ -114,7 +117,8 @@ public class Device
 	}
 
 	
-	/*@method : addDeviceSyncList( DeviceSyncList aDeviceSyncList)
+	/**
+	 * @method : addDeviceSyncList( DeviceSyncList aDeviceSyncList)
 	 * 
 	 *   add a syncList to a device and save it to database 
 	 */	

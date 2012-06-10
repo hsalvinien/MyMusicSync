@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 
 import com.salvinien.database.MyDatabase;
 
-/*
- * @class: Parmeters
+/**
+ * @class: Parameters
  * 
  * This class manages the differents parameters of the application
  *  

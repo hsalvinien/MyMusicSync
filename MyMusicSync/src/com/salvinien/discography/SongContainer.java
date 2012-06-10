@@ -14,8 +14,9 @@ import java.util.Vector;
 import com.salvinien.database.MyDatabase;
 import com.salvinien.mymusicsync.Parameters;
 import com.salvinien.synclists.SynclistContainer;
+import com.salvinien.utils.FileSystemManager;
 
-/*
+/**
  * @class: SongContainer
  * 
  * This class manages SOngs
@@ -69,30 +70,34 @@ public class SongContainer
 	
 	
 	
-	/*@method : void removeDeleteSong( int anIdsong)
+	/**
+	 * @method : void removeDeleteSong( int anIdsong)
 	 * 
 	 * remove definitively a song from fs and database
-	 * ! doesn't clean eventual synclists 
-	 * 
+	 * clean eventual synclists 
+	 * clean the empty directories
 	 */
 	public void removeDeleteSong( int anIdsong)
 	{
-		//remove from containers
+		//1) remove from containers
 		Song aSong = containerId.get( anIdsong);
 		containerFileName.remove(aSong.getFileName());		
 		containerId.remove(anIdsong);
 		
-		//remove from database
-		//1) from the database
+		//2)remove from database
+			//a)and now we have to remove the file from the synclists
+		SynclistContainer.getSingleton().removeSongFromAllSynclist( anIdsong);
+
+			//b) from the database
 		String Query= " DELETE FROM "+containerTableName;	
 		Query=  Query + " WHERE ID='"+String.valueOf(anIdsong)+"'";
 		
 		MyDatabase.getSingleton().executeSimpleQuery(Query);
 		MyDatabase.getSingleton().commit();
 		
-		//2)from the fs
-		File f = new File( aSong.getFileName());
-		f.delete(); 
+		//3)from the fs and clean the directories
+		FileSystemManager.delteFileAndCleanDirectory(aSong.getFileName());
+
 	}
 	
 	
@@ -100,7 +105,8 @@ public class SongContainer
 
 	
 	//Methods
-	/*@method : init
+	/**
+	 * @method : init
 	 * inits the container, ie loads data fron the database
 	 */
 	protected void init()
@@ -120,7 +126,8 @@ public class SongContainer
 	
 	
 	//Methods
-	/*@method : int getNbOfAlbums( int artistID)
+	/**
+	 * @method : int getNbOfAlbums( int artistID)
 	 * returns the number of albums given an artist id, this is done by requesting the database
 	 * in case of any problem, it returns -1
 	 */
@@ -133,7 +140,8 @@ public class SongContainer
 		return nb;
 	}
 
-	/*@method : int getNbOfAlbumsFromDB( int artistID)
+	/**
+	 * @method : int getNbOfAlbumsFromDB( int artistID)
 	 * returns the number of albums given an artist id, this is done by requesting the database
 	 * 
 	 * this methods is called by getNbOfAlbums, and  is not visible outside from the class (private
@@ -160,7 +168,8 @@ public class SongContainer
 
 	
 	
-	/*@method : int getNbOfSongs( int artistID)
+	/**
+	 * @method : int getNbOfSongs( int artistID)
 	 * returns the number of songs given an artist id, this is done by requesting the database
 	 * in case of any problem, it returns -1
 	 */
@@ -174,7 +183,8 @@ public class SongContainer
 	}
 	
 	
-	/*@method : int getNbOfSongsFromDB( int artistID)
+	/**
+	 * @method : int getNbOfSongsFromDB( int artistID)
 	 * returns the number of dongss given an artist id, this is done by requesting the database
 	 * 
 	 * this methods is called by getNbOfSongs, and  is not visible outside from the class (private
@@ -202,7 +212,8 @@ public class SongContainer
 	
 	
 	
-	/*@method : loadFromDB
+	/**
+	 * @method : loadFromDB
 	 * loads data from database
 	 * 
 	 * this methods is called by Init, and  is not visible outside from the class (private
@@ -239,7 +250,8 @@ public class SongContainer
 	}
 	
 
-	/*@method : Song create( Song aSong)
+	/**
+	 * @method : Song create( Song aSong)
 	 * create a song in the database, it returns the song with its new id
 	 * 
 	 */
@@ -296,7 +308,8 @@ public class SongContainer
 	}
 
 	
-	/*@method : update( Song aSong)
+	/**
+	 * @method : update( Song aSong)
 	 * update a song in the database AND in both containers
 	 * 
 	 */
@@ -339,7 +352,8 @@ public class SongContainer
 	
 	
 	
-	/*@method : int addNewSongs( HashMap<String, Song>  vSongs)
+	/**
+	 * @method : int addNewSongs( HashMap<String, Song>  vSongs)
 	 * add new songs in the container (and the database), the potential songs are coming from an hashmap of songs
 	 * 
 	 * returns the number of songs which have been added to the song container form the Hasmap received in parameter
@@ -385,7 +399,8 @@ public class SongContainer
 	
 	
 	
-	/*@method : int updateSongs( HashMap<String, Song>  vSongs)
+	/**
+	 * @method : int updateSongs( HashMap<String, Song>  vSongs)
 	 * update songs in the container (and the database), the potential newer songs are coming from an hashmap of songs
 	 * 
 	 * returns the number of songs which have been updated in the song container form the Hashmap received in parameter
@@ -427,7 +442,8 @@ public class SongContainer
 	
 	
 	
-	/*@method : int removeDeletedSongs( HashMap<String, Song>  vSongs)
+	/**
+	 * @method : int removeDeletedSongs( HashMap<String, Song>  vSongs)
 	 * remove songs which are in the song container (in the database), and not in vSongs
 	 * 
 	 * returns the number of songs which have been removed
@@ -471,7 +487,8 @@ public class SongContainer
 	}
 
 	
-	/*@method : Vector<Integer> getSongByAlbum( int albumId)
+	/**
+	 * @method : Vector<Integer> getSongByAlbum( int albumId)
 	 * returns a vector of song which belongs to an album 
 	 * 
 	 * notice: may be we coiuld be faster in makign directly a query in database rather then iterate through the whole song container
@@ -493,7 +510,8 @@ public class SongContainer
 	}
 
 
-	/*@method : Vector<Integer> getSongByArtist( int artistId)
+	/**
+	 * @method : Vector<Integer> getSongByArtist( int artistId)
 	 * returns a vector of song which belongs to an artists 
 	 * notice: may be we could be faster in makign directly a query in database rather then iterate through the whole song container
 	 */

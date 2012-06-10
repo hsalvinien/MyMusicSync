@@ -17,7 +17,7 @@ import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.synclists.SynclistNamesContainer;
 
 
-/*
+/**
  * @class: syncListPanelPopUpMenu  
  * 
  * This class manages the popupmenu which is shown when the user left-click on the synclists of a device.
@@ -102,7 +102,8 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 
 
 	//Methods
-	/*@method : void actionPerformed(ActionEvent e)
+	/**
+	 * @method : void actionPerformed(ActionEvent e)
 	 * 
 	 *   this method is called each time the user click on an item of the menu
 	 */
@@ -113,11 +114,11 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
         
         switch( actionNumber)
         {
-        	case PuP_EXPAND_ALL: /*expand the tree*/
+        	case PuP_EXPAND_ALL: /**expand the tree*/
         		theSyncListPanel.expandAll();
         	 break;
 
-        	case PuP_REMOVE_NODE: /* remove a node */
+        	case PuP_REMOVE_NODE: /** remove a node */
         		TreePath tp[] = theSyncListPanel.theTree.getSelectionPaths();
         		
         		theSyncListPanel.removeNodes( tp);
@@ -160,7 +161,8 @@ public class syncListPanelPopUpMenu extends JPopupMenu implements ActionListener
 	
 	
 	
-	/*@method : void removeSyncList(boolean deleteSyncList)
+	/**
+	 * @method : void removeSyncList(boolean deleteSyncList)
 	 * 
 	 *   remove a synclist from a device, if deleteSyncList==true then it deletes the synclist physicall.
 	 */

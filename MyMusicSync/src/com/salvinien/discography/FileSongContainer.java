@@ -7,7 +7,7 @@ import com.salvinien.fileSystem.FsElement;
 import com.salvinien.fileSystem.FsFile;
 
 
-/*
+/**
  * @class: FileSongContainer
  * 
  * This class manages a container of songs (by their filenames)
@@ -37,7 +37,8 @@ public class FileSongContainer
 	//METHODS
 	
 	//Methods
-	/*@method : loadFromFS( FsDir root)
+	/**
+	 * @method : loadFromFS( FsDir root)
 	 * loads the  container from the FsDir tree, it uses recursivity, to go through the tree
 	 */
 	private void loadFromFS( FsDir root)
@@ -56,7 +57,8 @@ public class FileSongContainer
 		}
 	}
 	
-	/*@method : loadFromFS( FsFile root)
+	/**
+	 * @method : loadFromFS( FsFile root)
 	 * loads the  container from a FSFile, that the leaf of the FsDir tree recursive exploration
 	 */
 	private void loadFromFS( FsFile aFile)

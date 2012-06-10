@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-/*
+/**
  * @class: TableSync
  * 
  * this class manages a table of sync on which the user has to tell what to do, the system being unable to decide by itself

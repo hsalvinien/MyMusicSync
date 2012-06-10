@@ -16,7 +16,7 @@ import java.io.File;
 import javax.swing.JPanel;
 
 
-/*
+/**
  * @class: ScrDialogInit 
  * 
  * This class manages the choice of root library mount point
@@ -27,9 +27,6 @@ import javax.swing.JPanel;
 
 public class ScrDialogInit extends JDialog implements ActionListener 
 {
-  /**
-	 * 
-	 */
   private static final long	serialVersionUID	= 3344291444433181236L;
 
   //the java built-in file chooser

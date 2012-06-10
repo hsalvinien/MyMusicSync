@@ -22,7 +22,7 @@ public class startPoint
 {
 	
 	
-	/**
+	/***
 	 * @param args
 	 * @throws IOException 
 	 * @throws SQLException 

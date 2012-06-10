@@ -19,7 +19,7 @@ import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.utils.Converter;
 
 
-/*
+/**
  * @class: TreeTransferHandler
  * 
  * This class manages the transfert of data when there is a Drag n Drop action and CCP
@@ -39,7 +39,8 @@ public class TreeTransferHandler extends TransferHandler
     
    
 	//METHODS
-	/*@method : boolean canImport(TransferHandler.TransferSupport info)
+	/**
+	 * @method : boolean canImport(TransferHandler.TransferSupport info)
 	 * this method has to be overridden, 
 	 * 
 	 * it tells if the import can be done or not
@@ -58,7 +59,8 @@ public class TreeTransferHandler extends TransferHandler
    }
 
 
-	/*@method : Transferable createTransferable(JComponent c)
+	/**
+	 * @method : Transferable createTransferable(JComponent c)
 	 * this method has to be overridden, 
 	 * 
 	 * it extracts data from the componnent and encapsulates it in a String
@@ -86,7 +88,8 @@ public class TreeTransferHandler extends TransferHandler
     
     
     
-	/*@method : int getSourceActions(JComponent c)
+	/**
+	 * @method : int getSourceActions(JComponent c)
 	 * this method has to be overridden, 
 	 * 
 	 * honestly I don't really know why we have to do this (actually  I didn't take the time)
@@ -100,7 +103,8 @@ public class TreeTransferHandler extends TransferHandler
 
     
 
-	/*@method : boolean importData(TransferHandler.TransferSupport info)
+	/**
+	 * @method : boolean importData(TransferHandler.TransferSupport info)
 	 * this method has to be overridden, 
 	 * 
 	 * it imports data, it is actually the reverse function of createTransferable()
@@ -176,7 +180,8 @@ public class TreeTransferHandler extends TransferHandler
 
     
     
-	/*@method : void exportDone(JComponent c, Transferable data, int action)
+	/**
+	 * @method : void exportDone(JComponent c, Transferable data, int action)
 	 * this method has to be overridden, 
 	 * 
 	 * it is called after the export has been done

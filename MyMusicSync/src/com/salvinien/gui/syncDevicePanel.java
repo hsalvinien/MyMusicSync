@@ -28,7 +28,7 @@ import com.salvinien.synclists.SynclistContainer;
 import com.salvinien.synclists.syncTask;
 
 
-/*
+/**
  * @class: syncDevicePanel
  * 
  * This class manages the panel in charge of the devices and  their synclists (right size of the main window)  
@@ -40,9 +40,6 @@ import com.salvinien.synclists.syncTask;
 public class syncDevicePanel extends JPanel implements ActionListener
 {
 
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 1533245427593818182L;
 	private final static int MAX_WIDTH 		= 600;
 
@@ -86,7 +83,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
     }
 
 	
-	/*@method : refreshInfoDevice()
+	/**
+	 * @method : refreshInfoDevice()
 	 * 
 	 *   refreh the information when a device has been slected from the combbox 
 	 */
@@ -123,7 +121,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	}
 
 	
-	/*@method : JPanel createDeviceListPanel()
+	/**
+	 * @method : JPanel createDeviceListPanel()
 	 * 
 	 *   create the device part of the panel 
 	 */
@@ -195,7 +194,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	
 	
 	
-	/*@method : JPanel createSyncListPanel()
+	/**
+	 * @method : JPanel createSyncListPanel()
 	 * 
 	 *   creates the synclists part of the panel
 	 */
@@ -209,7 +209,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 	
 	
 	
-	/*@method : void actionPerformed(ActionEvent e)
+	/**
+	 * @method : void actionPerformed(ActionEvent e)
 	 * 
 	 *   this method is called each time the user click on the button, or on the combobox
 	 */
@@ -221,7 +222,7 @@ public class syncDevicePanel extends JPanel implements ActionListener
         
         switch( actionNumber)
         {
-        	case JC_DEVICE: /*Ok it 's the comboxbox*/
+        	case JC_DEVICE: /**Ok it 's the comboxbox*/
         		JComboBox<String> cb = (JComboBox<String>)e.getSource();
                 String aSelection = (String)cb.getSelectedItem();
                 selectedDevice = DeviceContainer.getSingleton().getDevice(aSelection); 
@@ -245,7 +246,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 
 	
 	
-	/*@method : SongSynchroContainer analyseAndSync()
+	/**
+	 * @method : SongSynchroContainer analyseAndSync()
 	 * 
 	 *   create a container of all tasks that cannot be done automatically and needs a decision fron the user 
 	 */
@@ -264,7 +266,8 @@ public class syncDevicePanel extends JPanel implements ActionListener
 		return aContainer;
 	}
 
-	/*@method : void displayAnalyse( SongSynchroContainer aContainer )
+	/**
+	 * @method : void displayAnalyse( SongSynchroContainer aContainer )
 	 * 
 	 *   the method displays what cannot be done automatically 
 	 */

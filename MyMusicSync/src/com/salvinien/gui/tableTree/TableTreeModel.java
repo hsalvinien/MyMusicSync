@@ -2,7 +2,7 @@ package com.salvinien.gui.tableTree;
 
 import javax.swing.tree.TreeModel;
 
-/*
+/**
  * @interface: TableTreeModel
  * 
  * This interface defines what the methods needs a tabletree

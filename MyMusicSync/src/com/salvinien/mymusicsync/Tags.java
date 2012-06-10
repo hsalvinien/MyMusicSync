@@ -1,7 +1,7 @@
 package com.salvinien.mymusicsync;
 
 
-/*
+/**
  * @class: Tags
  * 
  * This class manages tag names by type of tag lib 
@@ -22,7 +22,8 @@ public class Tags
 	
 	
 	//METHODS
-	/*@method : public String getArtist( int lib)
+	/**
+	 * @method : public String getArtist( int lib)
 	 * 
 	 *   returns the tag artist 
 	 */
@@ -42,7 +43,8 @@ public class Tags
 	}
 
 	
-	/*@method : public String getAlbum( int lib)
+	/**
+	 * @method : public String getAlbum( int lib)
 	 * 
 	 *   returns the tag Album
 	 */
@@ -63,7 +65,8 @@ public class Tags
 
 
 	
-	/*@method : public String getTitle( int lib)
+	/**
+	 * @method : public String getTitle( int lib)
 	 * 
 	 *   returns the tag title (of the song)
 	 */
@@ -84,7 +87,8 @@ public class Tags
 
 
 	
-	/*@method : int tagLen( int lib)
+	/**
+	 * @method : int tagLen( int lib)
 	 * 
 	 *   returns the length of the tag
 	 */
@@ -103,7 +107,8 @@ public class Tags
 		}
 	}
 
-	/*@method : int intLen( int lib)
+	/**
+	 * @method : int intLen( int lib)
 	 * 
 	 *   returns the length of the int that encode the size of the string to be read 
 	 */
@@ -123,7 +128,8 @@ public class Tags
 	}
 	
 
-	/*@method : int offsetTagValue( int lib)
+	/**
+	 * @method : int offsetTagValue( int lib)
 	 * 
 	 *   returns the offset (if any) before the information start  in the header
 	 */

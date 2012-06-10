@@ -4,7 +4,7 @@ package com.salvinien.gui.tableTree;
 import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-/*
+/**
  * @class: SongContainerModel   
  * 
  * this is the tableTreeModel for the infoPanel (right size of the panel) 
@@ -38,7 +38,8 @@ public class SongContainerModel extends AbstractTableTreeModel  implements Table
     //ACCESSORS
     public boolean isRootVisible()	{ return true;}
 
-	/*@method : Object getValueAt(Object node, int column)
+	/**
+	 * @method : Object getValueAt(Object node, int column)
 	 * 
 	 *
 	 *	returns the value at column column of the object node

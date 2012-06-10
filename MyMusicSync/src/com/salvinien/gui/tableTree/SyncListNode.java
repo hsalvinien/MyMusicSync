@@ -8,7 +8,7 @@ import com.salvinien.discography.Song;
 import com.salvinien.synclists.Synclist;
 
 
-/*
+/**
  * @class: SyncListNode
  * 
  * This class manages a node corresponding to a syncList
@@ -47,7 +47,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 
 	
 	
-	/*@method : ArtistNode getArtist( Song aSong)
+	/**
+	 * @method : ArtistNode getArtist( Song aSong)
 	 * 
 	 *
 	 *	returns an ArtistNode from the MusicNode depending aSong
@@ -74,7 +75,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 	}
 	
 
-	/*@method : Object getValueAt(int column)
+	/**
+	 * @method : Object getValueAt(int column)
 	 * 
 	 *
 	 *returns the infos which has to displayed at this specifc column 
@@ -98,7 +100,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 
 
 
-	/*@method : void removeMe()
+	/**
+	 * @method : void removeMe()
 	 * 
 	 *
 	 *	remove a synclist,   
@@ -125,7 +128,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 
 
 
-	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	/**
+	 * @method : removeNode(ADefaultMutableTreeNode aNode)
 	 * 
 	 *
 	 *	remove all nodes form the node synclist,  
@@ -147,7 +151,8 @@ public class SyncListNode extends ADefaultMutableTreeNode
 		  
 	}
 	
-	/*@method : removeMeCompletly()
+	/**
+	 * @method : removeMeCompletly()
 	 * 
 	 *
 	 *	remove the  SyncListnode   

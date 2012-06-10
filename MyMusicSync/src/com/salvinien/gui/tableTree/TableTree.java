@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreeModel;
 
 
-/*
+/**
  * @class: TableTree
  * 
  * This class manage a table with a Jtree as a first column 
@@ -80,13 +80,13 @@ public class TableTree extends JTable
 		// Force the JTable and JTree to share their row selection models.
 		tree.setSelectionModel(new DefaultTreeSelectionModel()
 		{
-			/**
+			/***
 			 * 
 			 */
 			private static final long	serialVersionUID	= 1L;
 
 			// Extend the implementation of the constructor, as if:
-			/* public this() */{
+			/** public this() */{
 				setSelectionModel(listSelectionModel);
 			}
 		});
@@ -102,7 +102,7 @@ public class TableTree extends JTable
 	}
 
 
-	/*
+	/**
 	 * @method : int getEditingRow()
 	 * Workaround for BasicTableUI anomaly. Make sure the UI never tries to
 	 * paint the editor. The UI currently uses different techniques to paint the
@@ -119,7 +119,7 @@ public class TableTree extends JTable
 
 	
 	
-	/*
+	/**
 	 * @class: TableTreeCellEditor
 	 * 
 	 * trivial cell editor for the tabletree  
@@ -146,7 +146,7 @@ public class TableTree extends JTable
 	
 	
 	
-	/*
+	/**
 	 * @class: TableTreeCellRenderer
 	 * 
 	 * trivial cell renderer for the tabletree  

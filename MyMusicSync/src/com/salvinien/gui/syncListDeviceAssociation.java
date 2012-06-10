@@ -25,7 +25,7 @@ import com.salvinien.synclists.SynclistNamesContainer;
 
 
 
-/*
+/**
  * @class: syncListDeviceAssociation
  * 
  * This class manages a window to associate a synclist to a device  
@@ -80,7 +80,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
 
 
 	//Methods
-	/*@method : void createPanel()
+	/**
+	 * @method : void createPanel()
 	 * 
 	 *   create all fields, and buttons
 	 *    
@@ -102,7 +103,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
     }
 
     
-	/*@method : void createMainPanel()
+	/**
+	 * @method : void createMainPanel()
 	 * 
 	 *   create all fields
 	 *    
@@ -130,7 +132,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
     
 
     
-	/*@method : void createButtonPanel()
+	/**
+	 * @method : void createButtonPanel()
 	 * 
 	 *   create the buttons (save and cancel)
 	 *    
@@ -164,7 +167,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
 
     
     
-	/*@method : JPanel createSyncListName()
+	/**
+	 * @method : JPanel createSyncListName()
 	 * 
 	 *   the sync list name
 	 *    
@@ -186,7 +190,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
     
     
     
-	/*@method : JPanel createSyncDirectory()
+	/**
+	 * @method : JPanel createSyncDirectory()
 	 * 
 	 *   the mount point
 	 *    
@@ -211,7 +216,8 @@ public class syncListDeviceAssociation extends GUImother implements ActionListen
     
     
 
-	/*@method : void actionPerformed(ActionEvent e)
+	/**
+	 * @method : void actionPerformed(ActionEvent e)
 	 * 
 	 *   this method is called each time the user click on one of the buttons, or on the combobox
 	 */

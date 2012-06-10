@@ -23,7 +23,7 @@ import com.salvinien.synclists.Synclist;
 import com.salvinien.synclists.SynclistContainer;
 
 
-/*
+/**
  * @class: SyncListPanel 
  * 
  * This class manages the synclist of the selected device
@@ -34,10 +34,6 @@ import com.salvinien.synclists.SynclistContainer;
 
 public class SyncListPanel extends JPanel implements MouseListener
 {
-
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= -3121566837540214523L;
 
 	protected JTree theTree;
@@ -74,7 +70,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 
 	
 	//Methods
-	/*@method : void setNewDevice( Device aDevice)
+	/**
+	 * @method : void setNewDevice( Device aDevice)
 	 * 
 	 *   it displays the synclists fo the device
 	 *     
@@ -108,7 +105,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 	}
 	
 	
-	/*@method : void addSynclist( Synclist aSynclist, SyncListNode aSyncListNode)
+	/**
+	 * @method : void addSynclist( Synclist aSynclist, SyncListNode aSyncListNode)
 	 * 
 	 *   add the elements of the synclist to the synclistnodes
 	 *     
@@ -129,7 +127,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 
 	
 	
-	/*@method : void removeNodes( TreePath tp[])
+	/**
+	 * @method : void removeNodes( TreePath tp[])
 	 * 
 	 *   remove nodes fron the tree
 	 *     
@@ -150,7 +149,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 	}
     		
 
-	/*@method : void expandAll()
+	/**
+	 * @method : void expandAll()
 	 * 
 	 *   expand all nodes
 	 *     
@@ -169,7 +169,8 @@ public class SyncListPanel extends JPanel implements MouseListener
 	public void mouseExited(MouseEvent e)  {}
 	public void mousePressed(MouseEvent e) {}
 
-	/*@method : void mouseReleased(MouseEvent e)
+	/**
+	 * @method : void mouseReleased(MouseEvent e)
 	 * 
 	 *   when the mouse button is released (left, middle or right) is released, this method is called  
 	 *     

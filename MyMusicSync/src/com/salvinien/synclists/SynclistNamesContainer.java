@@ -4,7 +4,7 @@ import com.salvinien.database.MyDatabase;
 import com.salvinien.mymusicsync.LibelleContainer;
 
 
-/*
+/**
  * @class: SynclistNamesContainer
  * 
  * This class manages synclists names
@@ -34,7 +34,8 @@ public class SynclistNamesContainer extends LibelleContainer
 	}
 
 
-	/*@method : void delete( int aSyncListID)
+	/**
+	 * @method : void delete( int aSyncListID)
 	 * delete a synclist from the names container, from database AND from SynclisContainer
 	 * 
 	 * actually, to delete a synclist you can rather (if you prefer) call the delete from SynclisContainer

@@ -8,7 +8,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-/*
+/**
  * @class: AbstractTableTreeModel 
  * 
  * Base class for tabletree
@@ -44,7 +44,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     public void addTreeModelListener(TreeModelListener l) { listenerList.add(TreeModelListener.class, l);}
     public void removeTreeModelListener(TreeModelListener l) { listenerList.remove(TreeModelListener.class, l);}
 
-   /** By default, make the column with the Tree in it the only editable one. 
+   /*** By default, make the column with the Tree in it the only editable one. 
     *  Making this column editable causes the JTable to forward mouse 
     *  and keyboard events in the Tree column to the underlying JTree. 
     */ 
@@ -62,7 +62,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     public abstract boolean isRootVisible();
 
     
-    /*
+    /**
      * @method : int getIndexOfChild(Object parent, Object child)
      * 
      * returns the index a child in a parent
@@ -81,7 +81,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
     }
 
 
-    /*
+    /**
      * @method : void fireTreeNodesChanged(Object source, Object[] path, int[] childIndices,Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -109,7 +109,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
         }
     }
 
-    /*
+    /**
      * @method : void fireTreeNodesInserted(Object source, Object[] path,  int[] childIndices, Object[] children)
      * 
      * Notify all listeners that have registered interest for
@@ -138,7 +138,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
         }
     }
 
-    /*
+    /**
      * @method : void fireTreeNodesRemoved(Object source, Object[] path, int[] childIndices,Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -165,7 +165,7 @@ public abstract class AbstractTableTreeModel implements TableTreeModel
         }
     }
 
-    /*
+    /**
      * @method : void fireTreeStructureChanged(Object source, Object[] path, int[] childIndices, Object[] children)
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 

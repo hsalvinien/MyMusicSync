@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import com.salvinien.database.MyDatabase;
 
-/*
+/**
  * @class: SynclistContainer
  * 
  * This class manages synclists
@@ -51,7 +51,8 @@ public class SynclistContainer
 	//Methods
 	
 	
-	/*@method : void preFill()
+	/**
+	 * @method : void preFill()
 	 *prefill the container of Synclist with existing synclist 
 	 *without adding the songs id. It is for addressing the case of Synclist which haven't yet associated with songs
 	 */
@@ -73,7 +74,8 @@ public class SynclistContainer
 		
 	}
 	
-	/*@method : void loadFromDB()
+	/**
+	 * @method : void loadFromDB()
 	 * load the synclist from databse 
 	 */
 	private void loadFromDB()
@@ -113,7 +115,8 @@ public class SynclistContainer
 	}
 	
 	
-	/*@method : removeSongFromAllSynclist( int aSongId)
+	/**
+	 * @method : removeSongFromAllSynclist( int aSongId)
 	 * remove a song from all Syncylists
 	 * 
 	 */
@@ -140,7 +143,8 @@ public class SynclistContainer
 	
 	
 	
-	/*@method : void save( Synclist aSyncList)
+	/**
+	 * @method : void save( Synclist aSyncList)
 	 * save aSynlist in database
 	 * 
 	 */
@@ -171,7 +175,8 @@ public class SynclistContainer
 	}
 
 
-	/*@method : void delete( int aSyncListID)
+	/**
+	 * @method : void delete( int aSyncListID)
 	 * delete a synclist from the names container, from database AND from SynclisContainer
 	 * 
 	 * actually, to delete a synclist you can rather (if you prefer) call the delete from SynclistNamesContainer

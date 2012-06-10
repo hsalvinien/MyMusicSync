@@ -2,7 +2,7 @@ package com.salvinien.synclists;
 
 import java.io.File;
 
-/*
+/**
  * @class: DeviceSyncList
  * 
  * This class manages a DeviceSyncList

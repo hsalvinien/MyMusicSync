@@ -8,7 +8,7 @@ import com.salvinien.discography.ArtistContainer;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 
-/*
+/**
  * @class: MusicNode
  * 
  * This class manages a node corresponding to a MusicNode
@@ -59,7 +59,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 	
 	
 	//METHODS
-	/*@method : Object getValueAt(int column)
+	/**
+	 * @method : Object getValueAt(int column)
 	 * 
 	 *
 	 *returns the infos which has to displayed at this specifc column 
@@ -80,7 +81,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 	}
 	
 
-	/*@method : AlbumNode getAlbum( Song aSong)
+	/**
+	 * @method : AlbumNode getAlbum( Song aSong)
 	 * 
 	 *
 	 *	returns an AlbumNode from the MusicNode depending on a Song
@@ -96,7 +98,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 		return anAlbumNode;
 	}
 
-	/*@method : ArtistNode getArtist( String artistName)
+	/**
+	 * @method : ArtistNode getArtist( String artistName)
 	 * 
 	 *
 	 *	returns an ArtistNode from the MusicNode depending the artist name
@@ -111,7 +114,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 		return getArtist( artistId);
 	}
 	
-	/*@method : ArtistNode getArtist( int artistId)
+	/**
+	 * @method : ArtistNode getArtist( int artistId)
 	 * 
 	 *
 	 *	returns an ArtistNode from the MusicNode depending the int artistId
@@ -138,7 +142,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 	
 	
 
-	/*@method : void removeMe()
+	/**
+	 * @method : void removeMe()
 	 * 
 	 *
 	 *	remove a MusicNode,  however ...that's not possible 
@@ -149,7 +154,8 @@ public class MusicNode extends ADefaultMutableTreeNode
 		System.out.println( "MusicNode");		
 	}
 
-	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	/**
+	 * @method : removeNode(ADefaultMutableTreeNode aNode)
 	 * 
 	 *
 	 *	remove a node form the node list, however as we are in a MusicNode,...that's not possible 

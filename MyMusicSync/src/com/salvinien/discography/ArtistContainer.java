@@ -4,7 +4,7 @@ import com.salvinien.mymusicsync.LibelleContainer;
 
 
 
-/*
+/**
  * @class: ArtistContainer
  * 
  * This class manages Artists

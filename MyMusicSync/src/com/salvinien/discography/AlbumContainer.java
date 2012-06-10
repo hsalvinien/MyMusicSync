@@ -2,7 +2,7 @@ package com.salvinien.discography;
 
 import com.salvinien.mymusicsync.LibelleContainer;
 
-/*
+/**
  * @class: AlbumContainer
  * 
  * This class manages Albums

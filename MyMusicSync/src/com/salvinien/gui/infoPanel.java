@@ -15,7 +15,7 @@ import com.salvinien.gui.tableTree.SongContainerModel;
 import com.salvinien.gui.tableTree.TableTree;
 
 
-/*
+/**
  * @class: infoPanel  
  * 
  * This class manages the panel (left side of the main frame), which is the root library tree

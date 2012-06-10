@@ -7,7 +7,7 @@ import java.util.Vector;
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 
-/*
+/**
  * @class: Synclist
  * 
  * This class manages a synclist
@@ -36,7 +36,8 @@ public class Synclist
 	public Iterator<Integer> iterator()	{ return theContainer.values().iterator();}
 	public void removeSong( int anId)	{ theContainer.remove(anId); }
 
-	/*@method : boolean hasSong( int aSongId)
+	/**
+	 * @method : boolean hasSong( int aSongId)
 	 * check if a song is in the Synclist
 	 */
 	public boolean hasSong( int aSongId)
@@ -47,7 +48,8 @@ public class Synclist
 		return true;
 	}
 	
-	/*@method : boolean hasSong( Song aSong)
+	/**
+	 * @method : boolean hasSong( Song aSong)
 	 * check if a song is in the Synclist
 	 */
 	public boolean hasSong( Song aSong)	
@@ -60,7 +62,8 @@ public class Synclist
 
 	
 	
-	/*@method : Vector<Song> getSongNotInDevice( HashMap<String, Song> SongsInTheDevice)
+	/**
+	 * @method : Vector<Song> getSongNotInDevice( HashMap<String, Song> SongsInTheDevice)
 	 * 
 	 * SongsInTheDevice contains the song in the device
 	 * we are looking for the songs that should be synchronized (so in the synclist) which are not in the device
@@ -99,7 +102,8 @@ public class Synclist
 	}
 	
 	
-	/*@method : void addAlbum( int albumId)
+	/**
+	 * @method : void addAlbum( int albumId)
 	 * add all songs of an album to the synclist
 	 */
 	public void addAlbum( int albumId)
@@ -113,7 +117,8 @@ public class Synclist
 
 
 
-	/*@method : void addArtist( int artistId)
+	/**
+	 * @method : void addArtist( int artistId)
 	 * add all songs of an artist to the synclist
 	 */
 	public void addArtist( int artistId)
@@ -125,7 +130,8 @@ public class Synclist
 	}
 
 
-	/*@method : addSongs( Vector<Integer> v)
+	/**
+	 * @method : addSongs( Vector<Integer> v)
 	 * add all songs of vector to the synclist
 	 */
 	public void addSongs( Vector<Integer> v)

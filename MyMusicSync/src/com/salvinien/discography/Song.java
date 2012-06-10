@@ -19,7 +19,7 @@ import static java.nio.file.StandardCopyOption.*;
 
 
 
-/*
+/**
  * @class: FileSongContainer
  * 
  * This class manages a song 
@@ -88,7 +88,8 @@ public class Song
 	//METHODS
 	
 	//Methods
-	/*@method : print()
+	/**
+	 * @method : print()
 	 * display a song in the console (debug purpose)
 	 */
 	public void print()
@@ -100,7 +101,8 @@ public class Song
 	
 
 	
-	/*@method : void copy( String sFrom, String sTo) throws IOException
+	/**
+	 * @method : void copy( String sFrom, String sTo) throws IOException
 	 * copy a song from a location (sFrom) to another location (sTo) 
 	 */
 	public void copy( String sFrom, String sTo) throws IOException
@@ -126,7 +128,8 @@ public class Song
 
 
 	
-	/*@method : updateInfos( int lib, HashMap<String, String> h)
+	/**
+	 * @method : updateInfos( int lib, HashMap<String, String> h)
 	 * uses the tag information in h, previously filled, to update the song information 
 	 */
 	private void updateInfos( int lib, HashMap<String, String> h)
@@ -173,7 +176,8 @@ public class Song
 
 	
 	
-	/*@method : updateInformationFromFile(String aMountPoint) throws IOException
+	/**
+	 * @method : updateInformationFromFile(String aMountPoint) throws IOException
 	 * retrieve information about songs directly from the file. it uses the right tag reading method depending on the file type   
 	 */
 
@@ -267,7 +271,8 @@ public class Song
 
 
 	
-	/*@method : updateInformationFromID3v1File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	/**
+	 * @method : updateInformationFromID3v1File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
 	 * retrieve  the song information from the file, case of a mp3 file (ID3v1)
 	 * 
 	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
@@ -313,7 +318,8 @@ public class Song
 	}
 
 	
-	/*@method : updateInformationFromID3v2File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	/**
+	 * @method : updateInformationFromID3v2File( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
 	 * retrieve  the song information from the file, case of a mp3 file (ID3v2)
 	 * 
 	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
@@ -377,7 +383,8 @@ public class Song
 	
 
 	
-	/*@method : updateInformationFromFlacFile( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
+	/**
+	 * @method : updateInformationFromFlacFile( RandomAccessFile is, HashMap<String, String> h, int lib) throws IOException
 	 * retrieve  the song information from the file, case of flac file 
 	 * 
 	 * HashMap<String, String> h  will contain the tags (key) with their values (value)
@@ -425,7 +432,8 @@ public class Song
 	
 	
 	
-	/*@method : boolean updateInformationFromSong( Song aSongFromFile)
+	/**
+	 * @method : boolean updateInformationFromSong( Song aSongFromFile)
 	 * check if the file is older or newer. If aSongFile is newer than this, then we upadte infos.
 	 * 
 	 * @todo : check that there isn't a bias due to the Math.abs ..

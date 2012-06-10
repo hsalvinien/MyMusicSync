@@ -9,7 +9,7 @@ import java.util.Iterator;
 import com.salvinien.database.MyDatabase;
 
 
-/*
+/**
  * @class: LibelleContainer
  * 
  * This class manages a container of  Libelle,  
@@ -79,7 +79,8 @@ public class LibelleContainer
 
 	
 	//Methods
-	/*@method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
+	/**
+	 * @method : void init( int aDeviceID, String aDeviceName, int aDeviceType)
 	 * 
 	 *   just init the container 
 	 */
@@ -97,7 +98,8 @@ public class LibelleContainer
 	}
 	
 
-	/*@method : void loadFromDB()
+	/**
+	 * @method : void loadFromDB()
 	 * 
 	 *   loads data from database to the container 
 	 */
@@ -132,7 +134,8 @@ public class LibelleContainer
 	}
 	
 	
-	/*@method : Libelle create( String aName)
+	/**
+	 * @method : Libelle create( String aName)
 	 * 
 	 *   create a Libelle from the name (actully create it in database, gives an id etc etc 
 	 */
@@ -179,7 +182,8 @@ public class LibelleContainer
 	}
 
 	
-	/*@method : void update( Libelle anObj)
+	/**
+	 * @method : void update( Libelle anObj)
 	 * update a libelle in database 
 	 */
 	public void update( Libelle anObj)
@@ -207,7 +211,8 @@ public class LibelleContainer
 	}
 
 	
-	/*@method : void delete( int anID)
+	/**
+	 * @method : void delete( int anID)
 	 * delete a libelle from the container, from database 
 	 */
 	public void delete( int anID)

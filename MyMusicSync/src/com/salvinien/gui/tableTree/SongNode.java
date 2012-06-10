@@ -11,7 +11,7 @@ import com.salvinien.utils.Converter;
 
 
 
-/*
+/**
  * @class: SongNode
  * 
  * This class manages a node corresponding to a SongNode
@@ -51,7 +51,8 @@ public class SongNode extends ADefaultMutableTreeNode
 	
 
 	//METHODS
-	/*@method : Object getValueAt(int column)
+	/**
+	 * @method : Object getValueAt(int column)
 	 * 
 	 *
 	 *returns the infos which has to displayed at this specifc column 
@@ -77,7 +78,8 @@ public class SongNode extends ADefaultMutableTreeNode
 	}
 
 
-	/*@method : void removeMe()
+	/**
+	 * @method : void removeMe()
 	 * 
 	 *
 	 *	remove a song from a synclist 
@@ -97,7 +99,8 @@ public class SongNode extends ADefaultMutableTreeNode
 		mum.removeNode( this);
 	}
 
-	/*@method : removeNode(ADefaultMutableTreeNode aNode)
+	/**
+	 * @method : removeNode(ADefaultMutableTreeNode aNode)
 	 * 
 	 *
 	 *	remove a node form the node list, as it is a leaf...there is no children so we do nothing

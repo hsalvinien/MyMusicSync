@@ -14,7 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.salvinien.database.MyDatabase;
 
 
-/*
+/**
  * @class: myApp
  * 
  * This class manages the main window of the App, it is called from the main (after some iniitalization) 
@@ -49,7 +49,8 @@ public class myApp extends JFrame
 	
 
 	//Methods
-	/*@method : void addWindowCallbacks()
+	/**
+	 * @method : void addWindowCallbacks()
 	 * 
 	 *   sets some callback which are called depending on the actions 
 	 *   read the method names, it is self explainatory
@@ -95,7 +96,8 @@ public class myApp extends JFrame
 	
 	
 	
-	/*@method : Container createContentPane()
+	/**
+	 * @method : Container createContentPane()
 	 * 
 	 *   creates the window
 	 *   
@@ -124,7 +126,8 @@ public class myApp extends JFrame
 	
 	
 	
-	/*@method : void createAndShowGUI()
+	/**
+	 * @method : void createAndShowGUI()
 	 * 
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -149,7 +152,8 @@ public class myApp extends JFrame
 
 
     
-	/*@method : void CLEANEXIT()
+	/**
+	 * @method : void CLEANEXIT()
 	 *
 	 * method called when the  user closes the app
 	 * 

@@ -1,7 +1,7 @@
 package com.salvinien.mymusicsync;
 
 
-/*
+/**
  * @class: Libelle
  * 
  * This class manages a Libelle, which is a Name and an Id 

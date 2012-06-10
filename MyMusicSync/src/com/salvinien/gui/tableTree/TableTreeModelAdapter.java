@@ -6,7 +6,7 @@ import javax.swing.event.TreeExpansionListener;
 import javax.swing.table.AbstractTableModel;
 
 
-/*
+/**
  * @class: TableTreeModelAdapter  
  * 
  * this is the tableTreeModel for the root library (left size of the screen)
@@ -15,9 +15,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableTreeModelAdapter extends AbstractTableModel
 {
-    /**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 966602946992519024L;
 	JTree theTree;
     TableTreeModel theTableTreeModel;

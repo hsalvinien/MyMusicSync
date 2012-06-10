@@ -8,7 +8,7 @@ import javax.swing.table.TableColumnModel;
 
 
 
-/*
+/**
  * @class: ColumnListener
  * 
  * This class manages the click on the column header on a TableSync
@@ -25,7 +25,8 @@ public class ColumnListener implements MouseListener
 
     
 	//METHODS
-	/*@method : void mouseClicked(MouseEvent e)
+	/**
+	 * @method : void mouseClicked(MouseEvent e)
 	 * 
 	 * the click event
 	 * 

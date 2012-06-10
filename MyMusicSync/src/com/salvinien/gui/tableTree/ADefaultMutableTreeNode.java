@@ -6,7 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 
-/*
+/**
  * @class: ADefaultMutableTreeNode
  * 
  * This class is the base class to manage a nodes 
@@ -29,7 +29,8 @@ public abstract class ADefaultMutableTreeNode extends DefaultMutableTreeNode
 	
 	
 	
-	/*@method : void getSongIds( Vector<Integer> v)
+	/**
+	 * @method : void getSongIds( Vector<Integer> v)
 	 * 
 	 *
 	 *	returns a vector of all song ids from the children nodes

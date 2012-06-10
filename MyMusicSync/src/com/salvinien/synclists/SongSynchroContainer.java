@@ -87,13 +87,9 @@ public class SongSynchroContainer
 		
 		if( source==null)
 		{
-			//there is no source so it means that we have to delete the file from the librairy, container and database
+			//there is no source so it means that we have to delete the file from the library, container, synclists and database
 			//we can use the target.getId since it is the song which is in the container it is a valid ID
-			SongContainer.getSingleton().removeDeleteSong(target.getId());  
-			
-			//and now we have to remove the file from the synclists
-			SynclistContainer.getSingleton().removeSongFromAllSynclist( target.getId());
-			
+			SongContainer.getSingleton().removeDeleteSong(target.getId());  			
 			
 		}
 		else
@@ -151,8 +147,6 @@ public class SongSynchroContainer
 			//case : copy the song from root to device
 			FileSystemManager.copyFile(Parameters.getSingleton().getRoot(), s.getDeviceSyncList().getDefaultPath());
 		}	
-		
-		
 	}
 	
 	

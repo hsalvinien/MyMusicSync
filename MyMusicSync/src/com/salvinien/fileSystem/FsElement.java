@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.attribute.FileTime;
 
 
-/*
+/**
  * @class: FsElement
  * 
  * This class is the base class to manage the song file in the file system 
@@ -42,7 +42,10 @@ public abstract class FsElement
 	public String getName() 		{ return name;}
 	public String getPath() 		{ return path;}
 	public String getMountPoint() 	{ return mountPoint;}
-	/*@method : String getFullName() 
+	
+	
+	/**
+	 * @method : String getFullName() 
 	 * rebuild the full name with the name, mount point and path 
 	 */
 	public String getFullName() 	
@@ -54,7 +57,8 @@ public abstract class FsElement
 		return fullPath;
 	}
 
-	/*@method : String getRelativeName() 
+	/**
+	 * @method : String getRelativeName() 
 	 * rebuild the name with the name and path (so not the mount point) 
 	 */
 	public String getRelativeName() 	
@@ -84,7 +88,8 @@ public abstract class FsElement
 	public void setMountPoint( String aMountPOint) 	{ mountPoint = new String(aMountPOint);}
 
 	
-	/*@method : void setFullName(String aMountPoint, String aPath)
+	/**
+	 * @method : void setFullName(String aMountPoint, String aPath)
 	 * splits the mount point, path and file name (if it is file) 
 	 */
 	public void setFullName(String aMountPoint, String aPath) 

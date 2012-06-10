@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-/*
+/**
  * @class: MyDatabase
  * 
  * This class manages access to the database, and query-ing
@@ -59,7 +59,8 @@ public class MyDatabase
 	
 	
 	//METHODS
-	/*@method : close
+	/**
+	 * @method : close
 	 * close the connection to the database.
 	 */
 	public void close()
@@ -77,7 +78,8 @@ public class MyDatabase
 
 	
 
-	/*@method : executeSimpleQuery( String aQuery)
+	/**
+	 * @method : executeSimpleQuery( String aQuery)
 	 * execute a Query
 	 * it doesn't commit 
 	 * but if there is an error it rollbacks 
@@ -102,7 +104,8 @@ public class MyDatabase
 
 
 
-	/*@method : commit()
+	/**
+	 * @method : commit()
 	 *  commit 
 	 */
 	public void commit()
@@ -118,7 +121,8 @@ public class MyDatabase
 		}
 	}
 
-	/*@method : rollBack()
+	/**
+	 * @method : rollBack()
 	 *  rollBack 
 	 */
 	public void rollBack()
@@ -137,7 +141,8 @@ public class MyDatabase
 	
 	
 
-	/*@method : ResultSet executeQuery( String aQuery)
+	/**
+	 * @method : ResultSet executeQuery( String aQuery)
 	 *  execute a quey and returns the resulting resultSet
 	 *  in case of error it doesn't rollback becasue normaly it is fora select 
 	 *  it does't commit
@@ -162,7 +167,8 @@ public class MyDatabase
 		return rs;		
 	}	
 	
-	/*@method : ResultSet executeQueryRethroughtException( String aQuery)
+	/**
+	 * @method : ResultSet executeQueryRethroughtException( String aQuery)
 	 *  execute a quey and returns the resulting resultSet
 	 *  in case of error it doesn't rollback becasue normaly it is fora select 
 	 *  it does't commit
