@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.util.Vector;
 
 
-/*
+/**
  * @class: Converter
  * 
  * This class manages conversion between byte[] and int, or  int and strings or byte[] and strings
@@ -14,7 +14,8 @@ import java.util.Vector;
 public class Converter
 {
 	
-	/*@method : Vector<Integer> stringToVector( String aString)
+	/**
+	 * @method : Vector<Integer> stringToVector( String aString)
 	 * split a string in a vector of strings
 	 * the string is supposed to be like   "[ xxx, xxx, xxx ...]"
 	 */
@@ -38,7 +39,8 @@ public class Converter
 	
 	
 	
-	/*@method : int byteArrayToInt( byte[] b)
+	/**
+	 * @method : int byteArrayToInt( byte[] b)
 	 * convert a byte[4] to an int
 	 */
 	public static int byteArrayToInt( byte[] b)
@@ -54,7 +56,8 @@ public class Converter
 		return r;
 	}
 
-	/*@method : int byteArrayToInt( byte[] b)
+	/**
+	 * @method : int byteArrayToInt( byte[] b)
 	 * convert a byte[4]or byte[3] to an int (little indian)
 	 */
 	public static int byteArrayToIntMBS( byte[] b)
@@ -81,7 +84,8 @@ public class Converter
 		return r;
 	}
 	
-	/*@method : String int2StringKB( long a)
+	/**
+	 * @method : String int2StringKB( long a)
 	 * convert a long onto s atring using Mb units
 	 */
 	public static String int2StringMB( long a)
@@ -95,7 +99,8 @@ public class Converter
 		return s;
 	}
 
-	/*@method : String byteToString( byte[] b)
+	/**
+	 * @method : String byteToString( byte[] b)
 	 * convert a byte[] into string using UTF  
 	 * it is a generic methods able to find which charset to use
 	 */

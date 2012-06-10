@@ -1,21 +1,15 @@
 package com.salvinien.synclists;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Vector;
 
 import com.salvinien.discography.Song;
 import com.salvinien.discography.SongContainer;
 import com.salvinien.mymusicsync.Parameters;
-
-import static java.nio.file.StandardCopyOption.*;
-
+import com.salvinien.utils.FileSystemManager;
 
 
-/*
+/**
  * @class: SongSynchroContainer
  * 
  * This class manages a container of SongSynchro
@@ -44,7 +38,8 @@ public class SongSynchroContainer
 	
 	
 	//Methods
-	/*@method : void synchronize()
+	/**
+	 * @method : void synchronize()
 	 *  apply all the decisions taken by the user in term of synchonization
 	 *  
 	 *   if isTo is true then it is a synchro from the device to the root
@@ -64,8 +59,7 @@ public class SongSynchroContainer
 			if(s.isTo())  
 			{
 				//case : the action goes from the device to the root
-				try 						{ DeviceToRoot(s);}
-				catch (IOException e)		{e.printStackTrace();}
+				DeviceToRoot(s);
 			}
 			else
 			{
@@ -80,12 +74,13 @@ public class SongSynchroContainer
 	
 	
 	
-	/*@method : void DeviceToRoot(SongSynchro s) throws IOException
+	/**
+	 * @method : void DeviceToRoot(SongSynchro s) 
 	 *  
 	 *  synchro from Device to Root
 	 *   
 	 */
-	private void DeviceToRoot(SongSynchro s) throws IOException
+	private void DeviceToRoot(SongSynchro s)
 	{
 		Song target = s.getSongRoot();
 		Song source = s.getSongDevice();
@@ -98,6 +93,8 @@ public class SongSynchroContainer
 			
 			//and now we have to remove the file from the synclists
 			SynclistContainer.getSingleton().removeSongFromAllSynclist( target.getId());
+			
+			
 		}
 		else
 		{
@@ -114,18 +111,17 @@ public class SongSynchroContainer
 				//the target doesn't exist, so we have to recreate the complete filename from the source
 				//1) get the file name
 				targetFileName = source.getFileName();
-				//2) remove the root of the librairy to keep the relative name
+				//2) remove the root of the library to keep the relative name
 				targetFileName = targetFileName.substring(Parameters.getSingleton().getRoot().length());
 				
-				//3) add the the root of the device to create an absolute name
+				//3) add the the mount point path of the device to create an absolute name
 				targetFileName = s.getDeviceSyncList().getDefaultPath() + targetFileName; 
 				
 			}
 			
 			//////////may be should use song.copy
-			File f= new File( source.getFileName());
-			Files.copy(  Paths.get(source.getFileName()), Paths.get(targetFileName), REPLACE_EXISTING, COPY_ATTRIBUTES);
-
+			FileSystemManager.copyFile(source.getFileName(), targetFileName);
+			
 			//ajouter dans la base et dans les synclists
 			
 		}
@@ -133,7 +129,8 @@ public class SongSynchroContainer
 	}
 	
 
-	/*@method : void RootToDevice(SongSynchro s) 
+	/**
+	 * @method : void RootToDevice(SongSynchro s) 
 	 *  
 	 *  synchro from root to Device 
 	 *   
@@ -146,14 +143,13 @@ public class SongSynchroContainer
 		if( source==null)
 		{	//there is no source so we have to delete the target
 			//his time, it is a file on a device that we have to delete, so nothing to remove from database/librairy or synclist
-			File f = new File( s.getDeviceSyncList().getDefaultPath()+target.getFileName());
-			f.delete(); 
+			String fileName = s.getDeviceSyncList().getDefaultPath()+target.getFileName();
+			FileSystemManager.delteFileAndCleanDirectory(fileName); 
 		}
 		else
 		{
 			//case : copy the song from root to device
-			try						{ source.copy( Parameters.getSingleton().getRoot(), s.getDeviceSyncList().getDefaultPath());}
-			catch (IOException e)	{ e.printStackTrace();}			
+			FileSystemManager.copyFile(Parameters.getSingleton().getRoot(), s.getDeviceSyncList().getDefaultPath());
 		}	
 		
 		
