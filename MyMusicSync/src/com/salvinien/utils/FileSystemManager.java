@@ -6,6 +6,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
@@ -28,6 +29,19 @@ public class FileSystemManager
 	{
 		try
 		{
+			//1) we create the target dir
+			String S = fileNameTarget;
+			S = S.substring(0, S.lastIndexOf(File.separatorChar));
+			Path targetDir = new File( S).toPath();
+			Files.createDirectories(targetDir);
+					
+			//2) we create a target file if there isn't
+			File fTo = new File( fileNameTarget);
+			if( !fTo.exists())
+			{//if target file doesn't exist, we create an empty one
+				fTo.createNewFile();
+			}
+
 			Files.copy(  Paths.get(fileNameSource), Paths.get(fileNameTarget), REPLACE_EXISTING, COPY_ATTRIBUTES);
 		}
 		catch (IOException e) { e.printStackTrace();}

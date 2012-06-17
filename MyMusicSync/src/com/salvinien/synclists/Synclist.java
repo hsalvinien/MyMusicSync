@@ -32,9 +32,37 @@ public class Synclist
 	public int getSize() 				{ return theContainer.size();}
 	public int getId() 					{ return id;}
 	public String getName() 			{ return SynclistNamesContainer.getSingleton().getName(id);}
-	public void addSong( int anId)		{ theContainer.put( anId, anId);}
 	public Iterator<Integer> iterator()	{ return theContainer.values().iterator();}
-	public void removeSong( int anId)	{ theContainer.remove(anId); }
+
+	
+	
+	/** method: void removeSong( int anId) 
+	 * remove a song from the synclist and save it in db
+	 */
+	public void removeSong( int anId)	{ theContainer.remove(anId); save();}			
+
+
+	
+	/** method: void addSong( int anId)
+	 *  adds a song to the synclist and saves it in db
+	 */
+	public void addSong( int anId)		{ theContainer.put( anId, anId); save();}		
+	
+	
+	/** method: void addSongWihtouDbSaving( int anId) 
+	 * adds a song to the synclist and DOESN'T save it in db, this should be called only when loading from database 
+	 */
+	public void addSongWihtouDbSaving( int anId)	{ theContainer.put( anId, anId);}		
+
+	
+	/**
+	 * @method : void save()
+	 * save Synclist in db
+	 */
+	public void save()
+	{
+		SynclistContainer.getSingleton().save(this);
+	}
 
 	/**
 	 * @method : boolean hasSong( int aSongId)
@@ -112,7 +140,6 @@ public class Synclist
 		Vector<Integer> v = SongContainer.getSingleton().getSongByAlbum(albumId);
 		
 		addSongs( v);
-		
 	}
 
 
@@ -132,7 +159,7 @@ public class Synclist
 
 	/**
 	 * @method : addSongs( Vector<Integer> v)
-	 * add all songs of vector to the synclist
+	 * add all songs of vector to the synclist and save the synclist in db
 	 */
 	public void addSongs( Vector<Integer> v)
 	{
@@ -142,10 +169,13 @@ public class Synclist
 			
 			if( !this.hasSong(songId))
 			{
-				this.addSong(songId);
+				//this.addSong(songId);
+				theContainer.put( songId, songId); //this better to avoid the save in database for each added song  
 			}
 		}
 		
+		//save 
+		save();
 	}
 	
 }

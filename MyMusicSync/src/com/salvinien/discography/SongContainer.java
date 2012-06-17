@@ -1,8 +1,8 @@
 package com.salvinien.discography;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.Date;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -351,6 +351,38 @@ public class SongContainer
 
 	
 	
+	/**
+	 * @method : Song addNewSong( Song aSong)
+	 * add a new song in the container (and the database)
+	 * 
+	 * returns a Song with the modified  id if the song has been added to the song container else null
+	 * 
+	 */
+	public Song addNewSong( Song aSong)
+	{
+		Song aSong1 = containerFileName.get( aSong.getFileName()); //is the song already in the container (if yes we do nothing)
+		if(aSong1 ==null)
+		{
+			//so the song is not yet in database
+			try
+			{ // we retrieve information from the file directly
+				aSong.updateInformationFromFile(Parameters.getSingleton().getRoot());
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			aSong = this.create(aSong); //we create the song in Database and add it to both container (id, filename)			
+			
+			return aSong;
+		}
+
+		return null;
+	}
+	
+	
 	
 	/**
 	 * @method : int addNewSongs( HashMap<String, Song>  vSongs)
@@ -369,26 +401,12 @@ public class SongContainer
 		while(it.hasNext())
 		{
 			aSong = it.next(); //get the next song
-			
-			Song aSong1 = containerFileName.get( aSong.getFileName()); //is the song already in the container (if yes we do nothing)
-			if(aSong1 ==null)
+	
+			Song aSong1 = addNewSong( aSong);
+			if( aSong1!=null)
 			{
-				//so the song is not yet in database
-				try
-				{ // we retrieve information from the file directly
-					aSong.updateInformationFromFile(Parameters.getSingleton().getRoot());
-				}
-				catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				this.create(aSong); //we create the song in Database and add it to both container (id, filename)
-				
+				nbOfNewSongs++; //+1 in the number of new songs	
 				it.remove(); // we remove it form vSong
-				
-				nbOfNewSongs++; //+1 in the number of new songs
 			}
 
 		}//end while

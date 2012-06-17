@@ -97,29 +97,39 @@ public class SongSynchroContainer
 			//there is a source SO we have to copy the source into the target
 			//! However the target may not exist
 			String targetFileName=null;
+			String sourceFileName=null;
 			if( target != null)
 			{
 				// the target already exists, so we just get the complete filename
-				targetFileName = target.getFileName();
+				targetFileName = Parameters.getSingleton().getRoot() + target.getFileName();
 			}
 			else
 			{
 				//the target doesn't exist, so we have to recreate the complete filename from the source
-				//1) get the file name
+				//1) get the file name, it's the relative path name (without the mount point)
 				targetFileName = source.getFileName();
-				//2) remove the root of the library to keep the relative name
-				targetFileName = targetFileName.substring(Parameters.getSingleton().getRoot().length());
-				
-				//3) add the the mount point path of the device to create an absolute name
-				targetFileName = s.getDeviceSyncList().getDefaultPath() + targetFileName; 
+				//2)  add the the mount point path of the Root to create an absolute name
+				targetFileName = Parameters.getSingleton().getRoot() + targetFileName; 
 				
 			}
 			
-			//////////may be should use song.copy
-			FileSystemManager.copyFile(source.getFileName(), targetFileName);
+			//create the absolute source filename
+			sourceFileName = s.getDeviceSyncList().getDefaultPath()+source.getFileName();
+
+			//copy the song to root
+			FileSystemManager.copyFile(sourceFileName, targetFileName);
 			
-			//ajouter dans la base et dans les synclists
+			//add the song to the database
+			target = SongContainer.getSingleton().addNewSong(source);
 			
+			//@todo: refresh the left side window of all songs
+
+			//add the song to the synclist
+			int syncListID = s.getDeviceSyncList().getSynclistId();
+			Synclist sl = SynclistContainer.getSingleton().getSynclist(syncListID);
+			sl.addSong(target.getId());
+					
+
 		}
 		
 	}

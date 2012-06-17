@@ -101,7 +101,8 @@ public class SynclistContainer
 			    		containerId.put(SynclistId, p);
 			    	}
 			    
-			    p.addSong(SongId);
+			    //add the song to the synclist without saving this to database (Obviously !)
+			    p.addSongWihtouDbSaving(SongId);
 			}
 		    //Clean-up environment
 		    rs.close();
