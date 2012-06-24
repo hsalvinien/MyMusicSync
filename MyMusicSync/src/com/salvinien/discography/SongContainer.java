@@ -96,7 +96,7 @@ public class SongContainer
 		MyDatabase.getSingleton().commit();
 		
 		//3)from the fs and clean the directories
-		FileSystemManager.delteFileAndCleanDirectory(aSong.getFileName());
+		FileSystemManager.delteFileAndCleanDirectory(Parameters.getSingleton().getRoot()+aSong.getFileName());
 
 	}
 	
