@@ -17,7 +17,7 @@ import com.salvinien.utils.FileSystemManager;
  * normally:
  * 1) this is the result of first try of synchronization. 
  * 2) the app ask the user what to do ( => fills doNothing ans From2To flags)
- * 3) then when thoses flags are filled, we can do a synchronization in applying the synchronize() method 
+ * 3) then when those flags are filled, we can do a synchronization in applying the synchronize() method 
  * 
  */
 
@@ -29,10 +29,10 @@ public class SongSynchroContainer
 	
 	
 	//accessors
-	public void add( SongSynchro aSongSynchro)	{container.add( aSongSynchro);}
-	public Iterator<SongSynchro> iterator()		{return container.iterator();}	
-	public int size() { return container.size();}
-	public SongSynchro getElement( int i) 	{ return container.get(i);}
+	public void add( SongSynchro aSongSynchro)	{container.add( aSongSynchro);}	/** @method: void add( SongSynchro aSongSynchro), add a SongSynchro to the container */ 
+	public Iterator<SongSynchro> iterator()		{return container.iterator();}	/** @method: Iterator<SongSynchro> iterator(), returns an iterator on the container */
+	public int size() 							{ return container.size();}		/** @method: int size(), returns the container size */
+	public SongSynchro getElement( int i) 		{ return container.get(i);}		/** @method: SongSynchro getElement( int i), returns the element i of the container */
 	
 	
 	
@@ -155,7 +155,9 @@ public class SongSynchroContainer
 		else
 		{
 			//case : copy the song from root to device
-			FileSystemManager.copyFile(Parameters.getSingleton().getRoot(), s.getDeviceSyncList().getDefaultPath());
+			String SourceFileName = Parameters.getSingleton().getRoot()+ source.getFileName();
+			String TargetFileName = s.getDeviceSyncList().getDefaultPath()+source.getFileName();
+			FileSystemManager.copyFile(SourceFileName , TargetFileName);
 		}	
 	}
 	

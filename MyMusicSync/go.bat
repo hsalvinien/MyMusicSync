@@ -1,1 +1,1 @@
-..\..\SqlLite\sqlite3.exe myMusic.db
+..\..\..\SqlLite\sqlite3.exe myMusic.db

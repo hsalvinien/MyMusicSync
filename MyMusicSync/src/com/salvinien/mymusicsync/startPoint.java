@@ -57,7 +57,8 @@ public class startPoint
 		
 		
 		
-		//1) connection to database
+		//1) connection to databasee
+		
 		//1.1) open database. If database doesn't exists, create it
 		MyDatabase.getSingleton();
 		

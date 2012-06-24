@@ -95,11 +95,36 @@ public abstract class FsElement
 	public void setFullName(String aMountPoint, String aPath) 
 	{ 
 		int i =0;
+		
+		//1) we take care of the mount point.
 		mountPoint = new String(aMountPoint);
+			//does the mount end with a file separarator , if not we had it ..
+		char aChar =  aPath.charAt(mountPoint.length()-1);
+		if( (aChar != File.separatorChar ) && (aChar != '/' ) ) 
+		{
+			mountPoint = mountPoint.concat(File.separator);
+		}
 				
 		
-		//the name
-		char aChar =  aPath.charAt(aPath.length()-1);
+		
+		//2) we remove the mount point from the path, if necessary
+		if( aPath.startsWith(mountPoint))
+		{
+			aPath = aPath.substring(mountPoint.length());
+		}
+		
+		
+		
+		//3) the name
+			//is aPath valide?
+		if( (aPath==null) || ( aPath.length()==0) )
+		{
+			name ="";
+			path="";
+			return;
+		}
+		
+		aChar =  aPath.charAt(aPath.length()-1);
 		if( (aChar == File.separatorChar ) || (aChar == '/' ) ) 
 		{
 			//then it is a Directory 
@@ -116,16 +141,7 @@ public abstract class FsElement
 			if( i<1) { path = "";}
 			else 	 { path = aPath.substring(0, i+1);}
 		}
-		
-		
-		
-		//the path 
-		i = path.indexOf(aMountPoint);
-		if( i>-1 )
-		{
-			path = path.substring(i+aMountPoint.length());
-		}
-		
+				
 	}
 	
 	

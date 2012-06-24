@@ -189,15 +189,15 @@ public class dataModel
 			
 		aQuery 	= 	"INSERT INTO SynclistNames (Name) VALUES ( 'TestList1') ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO SynclistNames (Name) VALUES ( 'TestList2') ";
-		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
+//		aQuery 	= 	"INSERT INTO SynclistNames (Name) VALUES ( 'TestList2') ";
+//		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		
-		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'deviceTest', 2) ";
+		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'deviceTest', 1) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 1, 'C:\\FileSystemeE\\development\\git-repos\\MyMusicSync\\MyMusicSync\\myMusicTest', 3)";
-		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
+//		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 1, 'C:\\FileSystemeE\\development\\git-repos\\MyMusicSync\\MyMusicSync\\myMusicTest', 3)";
+//		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
-
+/*
 		aQuery 	= 	"INSERT INTO Devices (DeviceName, DeviceType) VALUES ( 'MyWD', 3) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 2, 'G:\\1.Multimedia\\Audio\\1.Audio-flac', 3)";
@@ -216,13 +216,13 @@ public class dataModel
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		aQuery 	= 	"INSERT INTO DeviceSyncList ('DeviceID', 'DefaultPath', 'SynclistId') VALUES ( 4, 'H:\\sd', 4)";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-
+*/
 
 
 
 		//'C:\\FileSystemeE\\development\\workspace-loc\\MyMusicSync\\myMusicTest\\'		
 		
-		aQuery 	= 	"INSERT INTO SynclistValues (SynclistID,SongId) VALUES ( 3,1) ";
+/*		aQuery 	= 	"INSERT INTO SynclistValues (SynclistID,SongId) VALUES ( 3,1) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 		aQuery 	= 	"INSERT INTO SynclistValues (SynclistID,SongId) VALUES ( 3,2) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
@@ -237,9 +237,9 @@ public class dataModel
 
 		aQuery 	= 	"INSERT INTO SynclistValues (SynclistID,SongId) VALUES ( 4,6) ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
-
-		aQuery 	= 	"INSERT INTO Parameters (ParameterName,value) VALUES ( 'root','C:\\FileSystemeE\\work\\multimedia\\Audio\\1.Audio-flac\\') ";
-		//aQuery 	= 	"INSERT INTO Parameters (ParameterName,value) VALUES ( 'root','C:\\FileSystemeE\\work\\multimedia\\Audio\\poub\\') ";
+*/
+		//aQuery 	= 	"INSERT INTO Parameters (ParameterName,value) VALUES ( 'root','C:\\FileSystemeE\\work\\multimedia\\Audio\\1.Audio-flac\\') ";
+		aQuery 	= 	"UPDATE  Parameters SET value = 'C:\\poub\\root\\' WHERE ParameterName ='root' ";
 		MyDatabase.getSingleton().executeSimpleQuery( aQuery);
 
 		
