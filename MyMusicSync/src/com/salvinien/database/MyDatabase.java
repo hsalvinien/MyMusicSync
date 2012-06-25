@@ -46,8 +46,12 @@ public class MyDatabase
 	}
 
 	
-	//ACCESSORS
-	//this accessor returns the only instance of the class
+	//METHODS
+	/**
+	 * @method : MyDatabase getSingleton()
+	 * this accessor returns the only instance of the class
+	 * cf. DESIGN PATTENR singleton   
+	 */
 	public static MyDatabase  getSingleton()
 	{	
 		if(mySingleton==null) mySingleton=new MyDatabase();
@@ -56,9 +60,6 @@ public class MyDatabase
 	}
 
 
-	
-	
-	//METHODS
 	/**
 	 * @method : close
 	 * close the connection to the database.

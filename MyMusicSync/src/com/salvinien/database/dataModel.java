@@ -31,8 +31,12 @@ public class dataModel
 	}
 
 	
-	//ACCESSORS
-	//this accessor returns the only instance of the class
+	//METHODS
+	/**
+	 * @method : dataModel  getSingleton()
+	 * this accessor returns the only instance of the class
+	 * cf. DESIGN PATTENR singleton   
+	 */
 	public static dataModel  getSingleton()
 	{	
 		if(mySingleton==null) mySingleton=new dataModel();
@@ -41,7 +45,6 @@ public class dataModel
 	}
 
 	
-	//METHODS
 	/**
 	 * @method : checkDatabase
 	 * check the database.
