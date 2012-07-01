@@ -22,10 +22,10 @@ import java.sql.Statement;
 
 public class MyDatabase 
 {
-	protected static MyDatabase  mySingleton=null;
-	protected String  databaseFileName="myMusic.db";
-	protected Connection theConnection=null; 
-	protected final String connectionString = "jdbc:sqlite:";
+	protected static MyDatabase  mySingleton=null;				/** contains the only instance of MyDayabase */
+	protected String  databaseFileName="myMusic.db";			/** the actual file name that contains the data*/
+	protected Connection theConnection=null; 					/** connection to the database*/
+	protected final String connectionString = "jdbc:sqlite:";	/** beginning of the connection string, to complete it we just need to add the filename*/
 
 	//CTOR
 	//private to forbid the creation of instances but from getSingleton

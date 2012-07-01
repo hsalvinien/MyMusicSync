@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class dataModel
 {
 	
-	protected static dataModel  mySingleton=null;
-	protected int version = 1;
+	protected static dataModel  mySingleton=null;	/** the only instance of dataModel*/
+	protected int version = 1;						/** version of the dataModel */
 	
 	//CTOR
 	//private to forbid the creation of instances but from getSingleton
